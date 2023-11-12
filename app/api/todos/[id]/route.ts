@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../lib/connect-db";
 import { getTodo, updateTodo, deleteTodo } from "../../../lib/todo-db";
-import { createErrorResponse } from "../../../lib/utils";
+import { createErrorResponse } from "../../../lib/db";
 
 export async function GET(
   _request: Request,

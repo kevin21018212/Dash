@@ -1,7 +1,7 @@
 // todo.ts
 import { Todo, TodoClass } from "../models/todo";
 import connectDB from "./connect-db";
-import { stringToObjectId } from "./utils";
+import { stringToObjectId } from "./db";
 
 interface TodoFilter {
   page?: number;
