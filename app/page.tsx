@@ -1,21 +1,28 @@
-import TodoFormServerComponent from "./components/TodoFormServer";
-import TodoItemServerComponent from "./components/TodoItemServer";
-import { getTodos } from "./lib/todo-db";
+import Link from "next/link";
+import React from "react";
 
-export default async function Home() {
-  const { todos, results } = await getTodos();
-
+const Page = () => {
   return (
-    <div className="container mx-auto max-w-md p-4">
-      <TodoFormServerComponent />
-      <h1 className="text-2xl font-bold mb-4">Todo List</h1>
-      {results === 0 ? (
-        <p className="text-center">No Todos Found</p>
-      ) : (
-        todos?.map((todo) => (
-          <TodoItemServerComponent key={todo.id} todo={todo} />
-        ))
-      )}
+    <div className="flex flex-col items-center gap-2">
+      <header className="flex justify-between items-center mb-4">
+        <h1 className="text-4xl text-[#7c6f5a]">TodoS</h1>
+      </header>
+      <div className="flex flex-row items-center gap-2">
+        <Link
+          href="/dashboard/login"
+          className="border border-slate-300 bg-[#7c6f5a]/80 text-white active:bg-[#7c6f5a] rounded-lg px-2 py-1 outline-none focus-within:border-slate-100"
+        >
+          Login
+        </Link>
+        <Link
+          href="/dashboard/signup"
+          className="border border-slate-300 min-h-[20px] min-w-[40px] bg-[#7c6f5a]/80 text-white active:bg-[#7c6f5a]/80 rounded-lg px-2 py-1 outline-none focus-within:border-slate-100"
+        >
+          Signup
+        </Link>
+      </div>
     </div>
   );
-}
+};
+
+export default Page;
