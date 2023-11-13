@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import connect from "../../../utils/db";
+import connect from "../../../utils/connect";
 import Todo from "../../../models/todo";
 
 export const DELETE = async (request, { params }) => {
@@ -22,6 +22,7 @@ export const PUT = async (request, { params }) => {
   try {
     await connect();
 
+    // Find the Todo by ID
     const todo = await Todo.findById(id);
 
     if (!todo) {

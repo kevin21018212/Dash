@@ -1,6 +1,9 @@
+// Import necessary modules and models
 import { NextResponse } from "next/server";
-import connect from "../../utils/db";
+import connect from "../../utils/connect";
 import Todo from "../../models/todo";
+import Project from "../../models/project";
+
 export const GET = async (request) => {
   const url = new URL(request.url);
 
@@ -9,7 +12,14 @@ export const GET = async (request) => {
   try {
     await connect();
 
-    const todos = await Todo.find(email && { email });
+    let todosQuery = {};
+
+    if (email) {
+      todosQuery = { email };
+    }
+
+    // Populate the 'project' field in the result with project details
+    const todos = await Todo.find(todosQuery).populate("project");
 
     return new NextResponse(JSON.stringify(todos), { status: 200 });
   } catch (err) {
@@ -20,10 +30,17 @@ export const GET = async (request) => {
 export const POST = async (request) => {
   const body = await request.json();
 
-  const newTodo = new Todo({ ...body });
-
   try {
     await connect();
+
+    if (body.project) {
+      const project = await Project.findById(body.project);
+      if (!project) {
+        return new NextResponse("Project not found", { status: 400 });
+      }
+    }
+
+    const newTodo = new Todo({ ...body });
 
     await newTodo.save();
 

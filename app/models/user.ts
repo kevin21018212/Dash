@@ -17,10 +17,15 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    projects: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Project",
+      },
+    ],
   },
   { timestamps: true }
 );
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
-
 export default User;
