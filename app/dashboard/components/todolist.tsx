@@ -39,6 +39,7 @@ const TodoList: FC<TodoListProps> = ({ todos, setTodos }) => {
 
   const handleUpdate = (id: number) => handleAction(id, "PUT", "update");
   const handleDelete = (id: number) => handleAction(id, "DELETE", "delete");
+
   const handleCollapsed = (id: number) =>
     setTodos((prevTodos) =>
       prevTodos.map((todo) => ({
