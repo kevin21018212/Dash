@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+// TodoList.tsx
+import React from "react";
 import styles from "../page.module.css";
 import TodoCard from "./todocard";
 
@@ -12,15 +13,15 @@ interface Todo {
 
 interface TodoListProps {
   todos: Todo[];
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  mutate: () => void;
 }
 
-const TodoList: FC<TodoListProps> = ({ todos, setTodos }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, mutate }) => {
   return (
     <div className={styles.todosContainer}>
       {todos &&
         todos.map((todo) => (
-          <TodoCard key={todo._id} todo={todo} setTodos={setTodos} />
+          <TodoCard key={todo._id} todo={todo} mutate={mutate} />
         ))}
     </div>
   );

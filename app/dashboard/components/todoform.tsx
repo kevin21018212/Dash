@@ -1,24 +1,23 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState } from "react";
 import styles from "../page.module.css";
 
 interface TodoFormProps {
-  onAddTodo: (title: string) => void;
   session: any;
   mutate: () => void;
 }
 
-const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo, session, mutate }) => {
+const TodoForm: React.FC<TodoFormProps> = ({ session, mutate }) => {
   const [title, setTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState<{
     msg: string;
     type: string;
   } | null>(null);
 
-  const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  const handleTodo = async (e: FormEvent) => {
+  const handleTodo = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
@@ -32,7 +31,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo, session, mutate }) => {
       });
 
       setErrorMessage({
-        msg: `Added New Todo`,
+        msg: "Added New Todo",
         type: "success",
       });
 
@@ -41,7 +40,6 @@ const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo, session, mutate }) => {
       }, 3000);
 
       mutate();
-      onAddTodo(title);
       setTitle("");
     } catch (err) {
       console.error(err);
