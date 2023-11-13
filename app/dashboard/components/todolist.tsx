@@ -1,59 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import styles from "../page.module.css";
 
-const TodoList = ({ todos, setTodos }) => {
-  const [errorMessage, setErrorMessage] = useState(null);
+interface Todo {
+  _id: number;
+  title: string;
+  complete: boolean;
+  createdAt: string;
+  isClicked: boolean;
+}
 
-  const handleDelete = async (id) => {
+interface TodoListProps {
+  todos: Todo[];
+  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+}
+
+const TodoList: FC<TodoListProps> = ({ todos, setTodos }) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleAction = async (
+    id: number,
+    method: string,
+    actionType: string
+  ) => {
     try {
-      await fetch(`/api/todos/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(`/api/todos/${id}`, { method });
 
-      setErrorMessage({
-        msg: `Deleted Todo`,
-        type: "success",
-      });
+      setErrorMessage(`${actionType} Todo`);
+      setTimeout(() => setErrorMessage(null), 3000);
 
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 3000);
-
-      // Use setTodos to update the todos state
-      setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
+      if (method === "DELETE") {
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo._id !== id));
+      }
     } catch (err) {
       console.error(err);
-      setErrorMessage({
-        msg: `Failed to delete Todo`,
-        type: "error",
-      });
+      setErrorMessage(`Failed to ${actionType} Todo`);
     }
   };
 
-  const handleUpdate = async (id) => {
-    try {
-      await fetch(`/api/todos/${id}`, {
-        method: "PUT",
-      });
-    } catch (err) {
-      console.error(err);
-      setErrorMessage({
-        msg: `Failed to update Todo`,
-        type: "error",
-      });
-    }
-  };
-
-  const handleCollapsed = (id) => {
-    // Use setTodos to update the todos state
+  const handleUpdate = (id: number) => handleAction(id, "PUT", "update");
+  const handleDelete = (id: number) => handleAction(id, "DELETE", "delete");
+  const handleCollapsed = (id: number) =>
     setTodos((prevTodos) =>
-      prevTodos.map((todo) =>
-        todo._id === id
-          ? { ...todo, isClicked: !todo.isClicked }
-          : { ...todo, isClicked: false }
-      )
+      prevTodos.map((todo) => ({
+        ...todo,
+        isClicked: todo._id === id && !todo.isClicked,
+      }))
     );
-  };
 
   return (
     <div className={styles.todosContainer}>
@@ -94,7 +86,7 @@ const TodoList = ({ todos, setTodos }) => {
         ))}
       {errorMessage && (
         <div className={styles.errorContainer}>
-          <span className={styles.errorMessage}>{errorMessage.msg}</span>
+          <span className={styles.errorMessage}>{errorMessage}</span>
         </div>
       )}
     </div>
