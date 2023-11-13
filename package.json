@@ -14,7 +14,8 @@
     "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18",
-    "mongoose": "^7.3.3"
+    "mongoose": "^7.3.3",
+    "swr": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",
