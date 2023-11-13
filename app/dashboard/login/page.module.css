@@ -1,7 +1,19 @@
-.container {
+/* SigninButton.module.css */
+
+.flexContainer {
   display: flex;
-  gap: 20px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.userName {
+  color: #3182ce;
+}
+
+.signOutButton {
+  color: #e53e3e;
+}
+
+.signInButton {
+  color: #48bb78;
 }
