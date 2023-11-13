@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import Todo from "../../../models/todo";
-import connect from "../../../utils/db";
+import connect from "@/utils/db";
+import Todo from "@/models/todo";
+
 export const DELETE = async (request, { params }) => {
   const { id } = params;
 

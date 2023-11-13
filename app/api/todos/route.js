@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import Todo from "../../models/todo";
 import connect from "../../utils/db";
+import Todo from "@/app/models/todo";
 
 export const GET = async (request) => {
   const url = new URL(request.url);

@@ -2,24 +2,25 @@
 import Link from "next/link";
 import React from "react";
 import { signOut, useSession } from "next-auth/react";
-import { Session } from "next-auth";
+import styles from "./navbar.module.css";
 
 const Navbar = () => {
-  const { data: session } = useSession() as { data: Session };
+  const { data: session } = useSession() as { data: any };
 
   return (
-    <div className="flex justify-between w-100 mx-8">
-      <Link href="/" className="font-extrabold tracking-tight text-gray-900">
-        TodoS
-      </Link>
-      <div className="flex gap-4">
-        <Link href="/">Home</Link>
-        <Link href="/dashboard">Dashboard</Link>
+    <div className={styles.container}>
+      <div className={styles.navLinks}>
+        <Link href="/" className={styles.navLink}>
+          Home
+        </Link>
+        <Link href="/dashboard" className={styles.navLink}>
+          Dashboard
+        </Link>
+        <Link href="/dashboard/login" passHref>
+          Login
+        </Link>
         {session && (
-          <button
-            onClick={() => signOut()}
-            className="border border-slate-300 w-[100px] bg-[#7c6f5a]/80 active:bg-[#7c6f5a] rounded-lg text-white outline-none focus-within:border-slate-100"
-          >
+          <button onClick={() => signOut()} className={styles.logoutButton}>
             Logout
           </button>
         )}
