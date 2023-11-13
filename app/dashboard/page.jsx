@@ -1,3 +1,5 @@
+// Dashboard.js
+
 "use client";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -8,12 +10,14 @@ import TodoList from "./components/todolist";
 import styles from "./page.module.css";
 
 const Dashboard = () => {
-  const { data, mutate, error, isLoading } = useSWR(
-    `/api/todos?email=${useSession()?.data?.user.email}`,
-    (...args) => fetch(...args).then((res) => res.json())
-  );
   const session = useSession();
   const router = useRouter();
+
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data, mutate, error, isLoading } = useSWR(
+    `/api/todos?email=${session?.data?.user.email}`,
+    fetcher
+  );
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [todos, setTodos] = useState(data);
@@ -48,10 +52,12 @@ const Dashboard = () => {
     }
   };
 
-  if (error || !data)
-    return <div>{error ? "Failed to load" : "Loading..."}</div>;
+  if (error) return <div>Failed to load</div>;
+  if (!data) return <div>Loading...</div>;
 
-  if (session.status === "loading") return <p>Loading...</p>;
+  if (session.status === "loading") {
+    return <p>Loading...</p>;
+  }
 
   if (session.status === "unauthenticated") {
     router?.push("/dashboard/login");

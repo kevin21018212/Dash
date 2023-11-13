@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import styles from "./SigninButton.module.css";
+import styles from "./page.module.css";
 
 const SigninButton = () => {
   const { data: session } = useSession();
