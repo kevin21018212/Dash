@@ -6,8 +6,6 @@ export const GET = async (request) => {
 
   const email = url.searchParams.get("email");
 
-  console.log("AAA", email);
-
   try {
     await connect();
 
