@@ -1,5 +1,3 @@
-// Dashboard.js
-
 "use client";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
@@ -22,36 +20,6 @@ const Dashboard = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [todos, setTodos] = useState(data);
 
-  const handleAddTodo = async (title) => {
-    try {
-      await fetch("/api/todos", {
-        method: "POST",
-        body: JSON.stringify({
-          email: session?.data?.user?.email,
-          title,
-          complete: false,
-        }),
-      });
-
-      setErrorMessage({
-        msg: `Added New Todo`,
-        type: "success",
-      });
-
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 3000);
-
-      mutate();
-      setTodos((prevTodos) => [
-        ...prevTodos,
-        { title, complete: false, _id: Date.now(), isClicked: false },
-      ]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
@@ -72,8 +40,8 @@ const Dashboard = () => {
           <span>{errorMessage.msg}</span>
         </div>
       )}
-      <TodoForm onAddTodo={handleAddTodo} />
-      <TodoList todos={todos} setTodos={setTodos} />
+      <TodoForm session={session} mutate={mutate} />
+      <TodoList todos={data} setTodos={setTodos} />
     </div>
   );
 };
