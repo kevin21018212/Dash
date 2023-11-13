@@ -8,6 +8,7 @@ interface TodoFormProps {
 
 const TodoForm: React.FC<TodoFormProps> = ({ session, mutate }) => {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState(""); // Add description state
   const [errorMessage, setErrorMessage] = useState<{
     msg: string;
     type: string;
@@ -15,6 +16,10 @@ const TodoForm: React.FC<TodoFormProps> = ({ session, mutate }) => {
 
   const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
+  };
+
+  const handleDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
   };
 
   const handleTodo = async (e: React.FormEvent) => {
@@ -26,6 +31,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ session, mutate }) => {
         body: JSON.stringify({
           email: session?.data?.user?.email,
           title,
+          description,
           complete: false,
         }),
       });
@@ -41,6 +47,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ session, mutate }) => {
 
       mutate();
       setTitle("");
+      setDescription("");
     } catch (err) {
       console.error(err);
     }
@@ -55,6 +62,12 @@ const TodoForm: React.FC<TodoFormProps> = ({ session, mutate }) => {
             placeholder="Add New Task"
             value={title}
             onChange={handleTitle}
+          />
+          <input
+            type="text"
+            placeholder="Add Description"
+            value={description}
+            onChange={handleDescription}
           />
           <button type="submit">Add Todo</button>
         </div>

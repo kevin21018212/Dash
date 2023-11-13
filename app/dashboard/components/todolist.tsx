@@ -1,4 +1,3 @@
-// TodoList.tsx
 import React from "react";
 import styles from "../page.module.css";
 import TodoCard from "./todocard";
@@ -6,6 +5,7 @@ import TodoCard from "./todocard";
 interface Todo {
   _id: number;
   title: string;
+  description: string;
   complete: boolean;
   createdAt: string;
   isClicked: boolean;

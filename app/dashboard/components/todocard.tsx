@@ -4,6 +4,7 @@ import styles from "../page.module.css";
 interface Todo {
   _id: number;
   title: string;
+  description: string;
   complete: boolean;
   createdAt: string;
   isClicked: boolean;
@@ -49,6 +50,9 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, mutate }) => {
         Update
       </div>
       <h1>{todo.title}</h1>
+      <p>
+        <strong>Description:</strong> {todo.description}
+      </p>
       <div onClick={handleToggleDetails} className={styles.toggleDetailsButton}>
         Toggle Details
       </div>
