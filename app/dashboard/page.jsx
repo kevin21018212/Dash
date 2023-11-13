@@ -27,7 +27,7 @@ const Dashboard = () => {
   }
 
   if (session.status === "unauthenticated") {
-    router?.push("/dashboard/login");
+    router?.push("/");
     return null;
   }
 

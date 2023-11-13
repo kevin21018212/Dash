@@ -1,11 +1,19 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./navbar.module.css";
 
 const Navbar = () => {
   const { data: session } = useSession() as { data: any };
+
+  const handleSignClick = async () => {
+    if (session && session.user) {
+      await signOut();
+    } else {
+      await signIn("email", { callbackUrl: "/dashboard" });
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -16,14 +24,9 @@ const Navbar = () => {
         <Link href="/dashboard" className={styles.navLink}>
           Dashboard
         </Link>
-        <Link href="/dashboard/login" passHref>
-          Login
-        </Link>
-        {session && (
-          <button onClick={() => signOut()} className={styles.logoutButton}>
-            Logout
-          </button>
-        )}
+        <button onClick={handleSignClick} className={styles.signButton}>
+          {session && session.user ? "Sign Out" : "Sign In"}
+        </button>
       </div>
     </div>
   );
