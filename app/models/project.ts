@@ -8,6 +8,16 @@ const projectSchema = new Schema(
       type: String,
       required: true,
     },
+
+    link: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    image: {
+      type: Schema.Types.String,
+    },
   },
   { timestamps: true }
 );

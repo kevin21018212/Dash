@@ -5,7 +5,8 @@ const { Schema } = mongoose;
 const todoSchema = new Schema(
   {
     email: {
-      type: String,
+      type: Schema.Types.String,
+      ref: "User",
       required: true,
     },
     title: {
@@ -15,16 +16,19 @@ const todoSchema = new Schema(
     description: {
       type: String, // Add a description field
     },
-    complete: {
-      type: Boolean,
+    size: {
+      type: TaskSize, // Add a description field
     },
-    project: {
+    type: {
+      type: TaskType, // Add a description field
+    },
+    feature: {
       type: Schema.Types.ObjectId,
-      ref: "Project", // Reference to the Project model
+      ref: "Feature", // Reference to the Project model
     },
   },
   { timestamps: true }
 );
 
-const Todo = mongoose.models.Todo || mongoose.model("Todo", todoSchema);
+const Todo = mongoose.models.Todo || mongoose.model("Task", todoSchema);
 export default Todo;

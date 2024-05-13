@@ -26,9 +26,7 @@ const Dashboard = () => {
     return <p>Loading...</p>;
   }
 
-  if (session.status === "unauthenticated") {
-    router?.push("/");
-    return null;
+
   }
 
   return (
