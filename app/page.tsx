@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './homepage.module.css';
 
 const Page = () => {
+  console.log('page file');
   return (
     <div className={styles.container}>
       <header className={styles.header}>

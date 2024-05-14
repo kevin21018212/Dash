@@ -1,10 +1,9 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {prisma} from '@/prisma/prisma';
-import {getUserFromSession} from '../get/getUserFromSession';
-export default async function createTask(req: NextApiRequest, res: NextApiResponse) {
+import {getUserFromSession} from '../../api/get/getUserFromSession';
+export default async function createTask(title, description, type, size, feature_id) {
   try {
-    const {title, description, type, size, feature_id} = req.body;
-    const user_id = await getUserFromSession(req);
+    const user_id = await getUserFromSession();
 
     const newTask = await prisma.task.create({
       data: {
@@ -17,8 +16,8 @@ export default async function createTask(req: NextApiRequest, res: NextApiRespon
       },
     });
 
-    res.status(200).json(newTask);
+    return newTask;
   } catch (error) {
-    console.log(res, error);
+    console.log(error);
   }
 }
