@@ -1,7 +1,5 @@
-"use cilent";
-
-import React from "react";
-import styles from "./homepage.module.css";
+import React from 'react';
+import styles from './homepage.module.css';
 
 const Page = () => {
   return (

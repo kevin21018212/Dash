@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+// Define the user model
+model User {
+  user_id      Int      @id @default(autoincrement())
+  username     String   @unique
+  google_id    String
+  projects     Project[]
+  features     Feature[]
+  tasks        Task[]
+}
+
+// Define the project model
+model Project {
+  project_id  Int      @id @default(autoincrement())
+  link         String?
+  description  String?
+  image_url    String?
+  features     Feature[]
+  user        User      @relation(fields: [user_id], references: [user_id]) // Links project to user
+  user_id      Int
+}
+
+// Define the feature model
+model Feature {
+  feature_id  Int      @id @default(autoincrement())
+  title        String?
+  description  String?
+  size         TaskSize
+  type         TaskType
+  image_url    String?
+  tasks        Task[]
+  project      Project  @relation(fields: [project_id], references: [project_id]) // Links feature to project
+  project_id   Int
+  user        User      @relation(fields: [user_id], references: [user_id]) // Links feature to user
+  user_id      Int
+  
+}
+
+// Define the task model
+model Task {
+  task_id    Int      @id @default(autoincrement())
+  title        String?
+  description  String?
+  type         TaskType
+  size         TaskSize
+  user        User      @relation(fields: [user_id], references: [user_id]) // Links task to user
+  user_id      Int
+  feature     Feature?  @relation(fields: [feature_id], references: [feature_id]) // Links task to feature (optional)
+  feature_id  Int?
+}
+
+// Define enum types for task size and type
+enum TaskSize {
+  Easy
+  Medium
+  Hard
+}
+
+enum TaskType {
+  UIDesign
+  CodeRefactor
+  Animation
+  PageLayout
+  Styling
+  Componenet
+  APIRoute
+  DatabaseManagement
+  Testing
+  Deployment
+}

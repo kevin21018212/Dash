@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar';
-import Provider from './components/Provider';
+import Providers from './components/Provider';
 import './globals.css';
 import {Inter} from 'next/font/google';
 
@@ -13,12 +13,13 @@ export const metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang='en'>
-      <Provider>
-        <body className={'layout'}>
+      <body className={inter.className}>
+        <Providers>
           <Navbar />
+
           {children}
-        </body>
-      </Provider>
+        </Providers>
+      </body>
     </html>
   );
 }
