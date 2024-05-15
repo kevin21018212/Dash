@@ -1,17 +1,24 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {prisma} from '@/prisma/prisma';
-import {getUserFromSession} from '../../api/get/getUserFromSession';
 
-export default async function createUser(username, google_id) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({error: 'Method not allowed'});
+  }
+
   try {
-    const user_id = 1;
+    const {username, google_id} = req.body; // Access user data from request body
 
     const newUser = await prisma.user.create({
-      data: {username, google_id, user_id}, // Add user_id to data
+      data: {
+        username,
+        google_id,
+      },
     });
 
-    return newUser;
+    res.status(201).json(newUser); // Created (201) status with new user data
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({error: 'Internal Server Error'});
   }
 }

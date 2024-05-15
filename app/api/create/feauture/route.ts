@@ -1,9 +1,20 @@
-import {prisma} from '@/prisma/prisma'; // Adjust path as needed
-import {getUserFromSession} from '../../api/get/getUserFromSession';
+import {NextApiRequest, NextApiResponse} from 'next';
+import {prisma} from '@/prisma/prisma';
+import {getUserFromSession} from '@/app/components/get/getUserFromSession';
 
-export default async function createFeature(title, description, size, type, image_url, project_id) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({error: 'Method not allowed'});
+  }
+
   try {
-    const user_id = await getUserFromSession();
+    const user_id = await getUserFromSession(req);
+
+    if (!user_id) {
+      return res.status(401).json({error: 'Unauthorized'});
+    }
+
+    const {title, description, size, type, image_url, project_id} = req.body; // Access feature data
 
     const newFeature = await prisma.feature.create({
       data: {
@@ -12,13 +23,14 @@ export default async function createFeature(title, description, size, type, imag
         size,
         type,
         image_url,
-        project: project_id?.connect({project_id}),
+        project: {connect: {project_id}},
         user: {connect: {user_id}},
       },
     });
 
-    return newFeature;
+    res.status(201).json(newFeature);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({error: 'Internal Server Error'});
   }
 }
