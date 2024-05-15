@@ -1,9 +1,9 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {prisma} from '@/prisma/prisma';
-import {getSession} from 'next-auth/react';
+import {getServerSession} from 'next-auth';
 
-export async function getUserFromSession(req: NextApiRequest) {
-  const session = await getSession();
+export async function getUserFromSession() {
+  const session = await getServerSession();
 
   if (!session) {
     throw new Error('Unauthorized: Please sign in');

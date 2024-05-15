@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const user_id = await getUserFromSession(req); // Call getUserFromSession
+    const user_id = await getUserFromSession(); // Call getUserFromSession
 
     if (!user_id) {
       return res.status(401).json({error: 'Unauthorized'});
