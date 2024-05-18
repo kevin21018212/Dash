@@ -1,0 +1,53 @@
+.container {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.link {
+  display: inline-block;
+  font-size: 16px;
+  color: #6200ea;
+  margin-bottom: 16px;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.link:hover {
+  border-color: #6200ea;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.featuresTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 32px 0 16px;
+}
+
+.featuresList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+}

@@ -1,9 +1,11 @@
+// components/FeatureCard.tsx
 "use client";
 import { useState } from "react";
-import styles from "./featureCard.module.css";
+import FormField from "./formField";
 import { TaskSize, TaskType } from "@/app/utils/enums";
+import styles from "./create.module.css";
 
-const FeatureCard = ({ projectId }) => {
+const CreateFeature = ({ projectId }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -42,75 +44,51 @@ const FeatureCard = ({ projectId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.formGroup}>
-        <label htmlFor="title">Title</label>
-        <input
+    <div className={styles.card}>
+      <h2 className={styles.title}>Create Feature</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FormField
+          label="Title"
           type="text"
-          id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-      </div>
-
-      <div className={styles.formGroup}>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
+        <FormField
+          label="Description"
+          type="textarea"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
-      </div>
-
-      <div className={styles.formGroup}>
-        <label htmlFor="imageUrl">Image URL</label>
-        <input
+        <FormField
+          label="Image URL"
           type="url"
-          id="imageUrl"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
         />
-      </div>
-
-      <div className={styles.formGroup}>
-        <label htmlFor="taskType">Task Type</label>
-        <select
-          id="taskType"
+        <FormField
+          label="Task Type"
+          type="select"
           value={taskType}
           onChange={(e) => setTaskType(e.target.value)}
+          options={Object.values(TaskType)}
           required
-        >
-          {Object.values(TaskType).map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className={styles.formGroup}>
-        <label htmlFor="taskSize">Task Size</label>
-        <select
-          id="taskSize"
+        />
+        <FormField
+          label="Task Size"
+          type="select"
           value={taskSize}
           onChange={(e) => setTaskSize(e.target.value)}
+          options={Object.values(TaskSize)}
           required
-        >
-          {Object.values(TaskSize).map((size) => (
-            <option key={size} value={size}>
-              {size}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <button type="submit" className={styles.submitButton}>
-        Create Feature
-      </button>
-    </form>
+        />
+        <button type="submit" className={styles.submitButton}>
+          Create Feature
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default FeatureCard;
+export default CreateFeature;

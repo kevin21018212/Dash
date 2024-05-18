@@ -1,0 +1,22 @@
+/* components/FormField.module.css */
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.formGroup textarea {
+  resize: vertical;
+}

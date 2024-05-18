@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import styles from "./navbar.module.css";
 
 type Project = {
@@ -29,13 +29,9 @@ const Navbar = () => {
     fetchProjects();
   }, [session]);
 
-  const handleSignClick = async () => {
-    if (session && session.user) {
-      await signOut();
-    } else {
-      await signIn();
-    }
-  };
+  if (!session || !session.user) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>
@@ -46,20 +42,15 @@ const Navbar = () => {
         <Link href="/dashboard" className={styles.navLink}>
           Dashboard
         </Link>
-        {session &&
-          session.user &&
-          projects.map((project) => (
-            <Link
-              key={project.project_id}
-              href={`/projects/${project.project_id}`}
-              className={styles.navLink}
-            >
-              {project.title}
-            </Link>
-          ))}
-        <button onClick={handleSignClick} className={styles.signButton}>
-          {session && session.user ? "Sign Out" : "Sign In"}
-        </button>
+        {projects.map((project) => (
+          <Link
+            key={project.project_id}
+            href={`/projects/${project.project_id}`}
+            className={styles.navLink}
+          >
+            {project.title}
+          </Link>
+        ))}
       </div>
     </div>
   );
