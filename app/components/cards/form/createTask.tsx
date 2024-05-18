@@ -1,15 +1,13 @@
-// components/TaskCard.tsx
 "use client";
 import { useState } from "react";
 import FormField from "./formField";
 import styles from "./create.module.css";
 
-export default function CreateTask() {
+export default function CreateTask({ featureId }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
   const [size, setSize] = useState("");
-  const [featureId, setFeatureId] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
@@ -34,7 +32,7 @@ export default function CreateTask() {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.taskCard}>
       <h2 className={styles.title}>Create Task</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <FormField
@@ -63,12 +61,6 @@ export default function CreateTask() {
           value={size}
           onChange={(e) => setSize(e.target.value)}
           required
-        />
-        <FormField
-          label="Feature ID"
-          type="text"
-          value={featureId}
-          onChange={(e) => setFeatureId(e.target.value)}
         />
         <button type="submit" className={styles.submitButton}>
           Create Task
