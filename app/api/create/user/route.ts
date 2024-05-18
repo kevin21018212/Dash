@@ -1,24 +1,46 @@
-import {NextApiRequest, NextApiResponse} from 'next';
-import {prisma} from '@/prisma/prisma';
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({error: 'Method not allowed'});
+import prisma from "@/prisma/prisma";
+import { authOptions } from "../../auth/[...nextauth]/route";
+
+export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const google_id = session.user?.email;
+
+  // Parse the request body to get the username
+  const body = await req.json();
+  const { username } = body;
+
+  if (!username) {
+    return NextResponse.json(
+      { error: "Username is required" },
+      { status: 400 }
+    );
   }
 
   try {
-    const {username, google_id} = req.body; // Access user data from request body
-
+    // Create a new user
     const newUser = await prisma.user.create({
       data: {
-        username,
-        google_id,
+        google_id: google_id,
+        username: username,
       },
     });
 
-    res.status(201).json(newUser); // Created (201) status with new user data
+    return NextResponse.json(
+      { message: "User created", user: newUser },
+      { status: 201 }
+    );
   } catch (error) {
-    console.error(error);
-    res.status(500).json({error: 'Internal Server Error'});
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }

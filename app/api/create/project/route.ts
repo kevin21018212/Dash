@@ -1,33 +1,36 @@
-import {NextApiRequest, NextApiResponse} from 'next';
-import {prisma} from '@/prisma/prisma';
-import {getUserFromSession} from '@/app/components/get/getUserFromSession';
+import prisma from "@/prisma/prisma";
+import { getSession } from "next-auth/react";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({error: 'Method not allowed'});
+export async function POST(request) {
+  const session = await getSession({ req: request });
+
+  if (!session) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+    });
   }
 
+  const google_id = session?.user?.email; // using email as google_id
+  const user = await prisma.user.findUnique({ where: { google_id } });
+  const { link, description, image_url } = await request.json();
+
   try {
-    const user_id = await getUserFromSession(); // Call getUserFromSession
-
-    if (!user_id) {
-      return res.status(401).json({error: 'Unauthorized'});
-    }
-
-    const {link, description, image_url} = req.body; // Access project data
-
-    const newProject = await prisma.project.create({
+    const project = await prisma.project.create({
       data: {
         link,
         description,
         image_url,
-        user: {connect: {user_id}}, // Use user.id for connection
+        user: {
+          connect: { user_id: user.user_id },
+        },
       },
     });
-
-    res.status(201).json(newProject);
+    return new Response(JSON.stringify(project), {
+      status: 201,
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({error: 'Internal Server Error'});
+    return new Response(JSON.stringify({ error }), {
+      status: 500,
+    });
   }
 }
