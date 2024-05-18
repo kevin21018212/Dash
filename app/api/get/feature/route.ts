@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-
 import prisma from "@/prisma/prisma";
 
 import { findUserByGoogleId } from "@/app/utils/userHelper";
+import { authOptions } from "@/app/utils/authOptions";
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const session = await getServerSession();
 
   if (!session) {
@@ -14,16 +14,6 @@ export async function POST(req: NextRequest) {
 
   const google_id = session.user?.email as string;
 
-  const body = await req.json();
-  const { title, description, type, size, feature_id } = body;
-
-  if (!title || !type || !size) {
-    return NextResponse.json(
-      { error: "Title, type, and size are required" },
-      { status: 400 }
-    );
-  }
-
   try {
     const user = await findUserByGoogleId(google_id);
 
@@ -31,21 +21,20 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const newTask = await prisma.task.create({
-      data: {
-        title,
-        description,
-        type,
-        size,
+    const { searchParams } = new URL(req.url);
+    const projectId = searchParams.get("project_id") as string;
+
+    const features = await prisma.feature.findMany({
+      where: {
         user_id: user.user_id,
-        feature_id: feature_id ? feature_id : null,
+        project_id: parseInt(projectId),
+      },
+      include: {
+        project: true,
       },
     });
 
-    return NextResponse.json(
-      { message: "Task created", task: newTask },
-      { status: 201 }
-    );
+    return NextResponse.json({ features }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong" },

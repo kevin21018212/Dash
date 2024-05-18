@@ -12,7 +12,6 @@ const Page = () => {
       <div className="cards-container">
         <ProjectCard />
         <TaskCard />
-        <FeatureCard />
       </div>
     </div>
   );

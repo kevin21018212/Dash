@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -16,15 +17,15 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [projects, setProjects] = useState<Project[]>([]);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      if (session) {
-        const response = await fetch("/api/get/project");
-        const data = await response.json();
-        setProjects(data.projects);
-      }
-    };
+  const fetchProjects = async () => {
+    if (session) {
+      const response = await fetch("/api/get/project");
+      const data = await response.json();
+      setProjects(data.projects);
+    }
+  };
 
+  useEffect(() => {
     fetchProjects();
   }, [session]);
 
