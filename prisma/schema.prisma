@@ -25,16 +25,17 @@ model User {
   tasks        Task[]
 }
 
-// Define the project model
 model Project {
-  project_id  Int      @id @default(autoincrement())
+  project_id   Int       @id @default(autoincrement())
+  title        String    // Title of the project
   link         String?
   description  String?
   image_url    String?
   features     Feature[]
-  user        User      @relation(fields: [user_id], references: [user_id]) // Links project to user
+  user         User      @relation(fields: [user_id], references: [user_id]) // Links project to user
   user_id      Int
 }
+
 
 // Define the feature model
 model Feature {

@@ -4,7 +4,7 @@ import prisma from "@/prisma/prisma";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { findUserByGoogleId } from "@/app/utils/userHelper";
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -13,16 +13,6 @@ export async function POST(req: NextRequest) {
 
   const google_id = session.user?.email as string;
 
-  const body = await req.json();
-  const { title, link, description, image_url } = body;
-
-  if (!description) {
-    return NextResponse.json(
-      { error: "Description is required" },
-      { status: 400 }
-    );
-  }
-
   try {
     const user = await findUserByGoogleId(google_id);
 
@@ -30,20 +20,16 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const newProject = await prisma.project.create({
-      data: {
-        title,
-        link,
-        description,
-        image_url,
+    const projects = await prisma.project.findMany({
+      where: {
         user_id: user.user_id,
+      },
+      include: {
+        features: true,
       },
     });
 
-    return NextResponse.json(
-      { message: "Project created", project: newProject },
-      { status: 201 }
-    );
+    return NextResponse.json({ projects }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong" },
