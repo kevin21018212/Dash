@@ -1,8 +1,6 @@
-// @ts-ignore: NextAuth type error
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-// @ts-ignore: NextAuth type error
 const handler = NextAuth({
   secret: process.env.AUTH_SECRET,
   providers: [
@@ -13,5 +11,4 @@ const handler = NextAuth({
   ],
 });
 
-// @ts-ignore: NextAuth type error
 export { handler as GET, handler as POST };
