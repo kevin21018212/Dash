@@ -19,7 +19,7 @@ datasource db {
 model User {
   user_id      Int      @id @default(autoincrement())
   username     String   @unique
-  google_id    String
+  google_id    String   @unique
   projects     Project[]
   features     Feature[]
   tasks        Task[]

@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const google_id = session.user?.email;
+  const google_id = session.user?.email as string;
 
   // Parse the request body to get the username
   const body = await req.json();

@@ -1,36 +1,52 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import prisma from "@/prisma/prisma";
-import { getSession } from "next-auth/react";
+import { authOptions } from "../../auth/[...nextauth]/route";
+import { findUserByGoogleId } from "@/app/utils/userHelper";
 
-export async function POST(request) {
-  const session = await getSession({ req: request });
+export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
 
   if (!session) {
-    return new Response(JSON.stringify({ error: "Unauthorized" }), {
-      status: 401,
-    });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const google_id = session?.user?.email; // using email as google_id
-  const user = await prisma.user.findUnique({ where: { google_id } });
-  const { link, description, image_url } = await request.json();
+  const google_id = session.user?.email as string;
+
+  const body = await req.json();
+  const { link, description, image_url } = body;
+
+  if (!description) {
+    return NextResponse.json(
+      { error: "Description is required" },
+      { status: 400 }
+    );
+  }
 
   try {
-    const project = await prisma.project.create({
+    const user = await findUserByGoogleId(google_id);
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    const newProject = await prisma.project.create({
       data: {
         link,
         description,
         image_url,
-        user: {
-          connect: { user_id: user.user_id },
-        },
+        user_id: user.user_id,
       },
     });
-    return new Response(JSON.stringify(project), {
-      status: 201,
-    });
+
+    return NextResponse.json(
+      { message: "Project created", project: newProject },
+      { status: 201 }
+    );
   } catch (error) {
-    return new Response(JSON.stringify({ error }), {
-      status: 500,
-    });
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }
