@@ -1,34 +1,46 @@
 "use client";
 import { useState } from "react";
-import FormField from "./formField";
+
 import styles from "./create.module.css";
+import { TaskSize, TaskType } from "@/app/utils/enums";
+import FormField from "./formField";
 
 export default function CreateTask({ featureId }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("");
-  const [size, setSize] = useState("");
+  const [taskType, setTaskType] = useState(TaskType.UIDesign);
+  const [taskSize, setTaskSize] = useState(TaskSize.Hard);
+
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const TaskData = {
+      title,
+      description,
+      size: taskSize,
+      type: taskType,
+      feature_id: featureId,
+    };
 
     const response = await fetch("/api/create/task", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        title,
-        description,
-        type,
-        size,
-        feature_id: featureId,
-      }),
+      body: JSON.stringify(TaskData),
     });
 
-    const data = await response.json();
-    setMessage(data.message || data.error);
+    if (response.ok) {
+      setTitle("");
+      setDescription("");
+      setTaskType(TaskType.UIDesign);
+      setTaskSize(TaskSize.Easy);
+      setMessage("Task created successfully!");
+    } else {
+      setMessage("Failed to create task");
+    }
   };
 
   return (
@@ -49,24 +61,26 @@ export default function CreateTask({ featureId }) {
           onChange={(e) => setDescription(e.target.value)}
         />
         <FormField
-          label="Type"
-          type="text"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
+          label="Task Type"
+          type="select"
+          value={taskType}
+          onChange={(e) => setTaskType(e.target.value)}
+          options={Object.values(TaskType)}
           required
         />
         <FormField
-          label="Size"
-          type="text"
-          value={size}
-          onChange={(e) => setSize(e.target.value)}
+          label="Task Size"
+          type="select"
+          value={taskSize}
+          onChange={(e) => setTaskSize(e.target.value)}
+          options={Object.values(TaskSize)}
           required
         />
         <button type="submit" className={styles.submitButton}>
           Create Task
         </button>
-        {message && <p>{message}</p>}
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 }

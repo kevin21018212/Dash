@@ -1,9 +1,7 @@
-// components/FeatureCard.js
 "use client";
 import { useState } from "react";
 import styles from "./featureCard.module.css";
-import Modal from "./Modal";
-import CreateTask from "./CreateTask"; // Import the CreateTask component
+import { TaskSize, TaskType } from "@/app/utils/enums";
 
 const FeatureCard = ({ projectId }) => {
   const [title, setTitle] = useState("");
@@ -11,7 +9,6 @@ const FeatureCard = ({ projectId }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [taskType, setTaskType] = useState(TaskType.UIDesign);
   const [taskSize, setTaskSize] = useState(TaskSize.Hard);
-  const [showModal, setShowModal] = useState(false); // State for modal visibility
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,25 +42,74 @@ const FeatureCard = ({ projectId }) => {
   };
 
   return (
-    <div className={styles.featureCard}>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {/* Form Fields */}
-        {/* Other Form Fields */}
-        <button type="submit" className={styles.submitButton}>
-          Create Feature
-        </button>
-      </form>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.formGroup}>
+        <label htmlFor="title">Title</label>
+        <input
+          type="text"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
 
-      {/* Button to Open Modal */}
-      <button onClick={() => setShowModal(true)} className={styles.addButton}>
-        Add Task
+      <div className={styles.formGroup}>
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </div>
+
+      <div className={styles.formGroup}>
+        <label htmlFor="imageUrl">Image URL</label>
+        <input
+          type="url"
+          id="imageUrl"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        />
+      </div>
+
+      <div className={styles.formGroup}>
+        <label htmlFor="taskType">Task Type</label>
+        <select
+          id="taskType"
+          value={taskType}
+          onChange={(e) => setTaskType(e.target.value)}
+          required
+        >
+          {Object.values(TaskType).map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className={styles.formGroup}>
+        <label htmlFor="taskSize">Task Size</label>
+        <select
+          id="taskSize"
+          value={taskSize}
+          onChange={(e) => setTaskSize(e.target.value)}
+          required
+        >
+          {Object.values(TaskSize).map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <button type="submit" className={styles.submitButton}>
+        Create Feature
       </button>
-
-      {/* Modal for Creating Task */}
-      <Modal show={showModal} onClose={() => setShowModal(false)}>
-        <CreateTask featureId={featureId} />
-      </Modal>
-    </div>
+    </form>
   );
 };
 

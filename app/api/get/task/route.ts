@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import prisma from "@/prisma/prisma";
-
 import { findUserByGoogleId } from "@/app/utils/userHelper";
 import { authOptions } from "@/app/utils/authOptions";
 
@@ -21,20 +20,24 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const { searchParams } = new URL(req.url);
-    const projectId = searchParams.get("project_id") as string;
+    const featureId = req.nextUrl.searchParams.get("feature_id") as string;
 
-    const features = await prisma.feature.findMany({
+    console.log(featureId);
+    if (!featureId) {
+      return NextResponse.json(
+        { error: "Feature ID is required" },
+        { status: 400 }
+      );
+    }
+
+    const tasks = await prisma.task.findMany({
       where: {
+        feature_id: parseInt(featureId, 10),
         user_id: user.user_id,
-        project_id: parseInt(projectId),
-      },
-      include: {
-        tasks: true,
       },
     });
 
-    return NextResponse.json({ features }, { status: 200 });
+    return NextResponse.json({ tasks }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Something went wrong" },
