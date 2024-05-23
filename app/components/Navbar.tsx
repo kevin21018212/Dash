@@ -16,12 +16,14 @@ type Project = {
 const Navbar = () => {
   const { data: session } = useSession();
   const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchProjects = async () => {
     if (session) {
       const response = await fetch("/api/get/project");
       const data = await response.json();
       setProjects(data.projects);
+      setLoading(false);
     }
   };
 
@@ -42,15 +44,21 @@ const Navbar = () => {
         <Link href="/dashboard" className={styles.navLink}>
           Dashboard
         </Link>
-        {projects.map((project) => (
-          <Link
-            key={project.project_id}
-            href={`/projects/${project.project_id}`}
-            className={styles.navLink}
-          >
-            {project.title}
-          </Link>
-        ))}
+        <div className={styles.projectsContainer}>
+          {loading ? (
+            <div className={styles.loading}>Loading...</div>
+          ) : (
+            projects.map((project) => (
+              <Link
+                key={project.project_id}
+                href={`/projects/${project.project_id}`}
+                className={styles.navLink}
+              >
+                {project.title}
+              </Link>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

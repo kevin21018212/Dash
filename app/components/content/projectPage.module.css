@@ -37,13 +37,8 @@
 }
 
 .featuresList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-}
-
-.featuresList > div {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 16px;
 }

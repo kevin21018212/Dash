@@ -1,39 +1,67 @@
+/* homepage.module.css */
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f5f5f5;
 }
 
-.header {
+.landing {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.favoritesSection,
+.loginSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.favoritesSection h2,
+.loginSection h2 {
+  font-size: 1.75rem;
+  color: #333;
   margin-bottom: 1rem;
 }
 
-.title {
-  font-size: 2.25rem;
-  color: #7c6f5a;
-}
-
-.link-container {
+.createProjectSection {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  width: 100%;
+  background-color: #fff;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.custom-link {
-  border: 1px solid;
+.createProjectSection h2 {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.signButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid #333;
   background-color: #7c6f5a;
-  color: #fff;
-  border-radius: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  outline: none;
+  color: white;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.custom-link:focus-within {
-  border-color: #cbd5e0;
+.signButton:hover {
+  background-color: #634e3e;
 }
