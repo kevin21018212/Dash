@@ -1,0 +1,38 @@
+/* sidebar.module.css */
+
+.sidebar {
+  width: 50%;
+  background-color: #f5f5f5;
+  border-radius: 0 8px 8px 0;
+  padding: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: none;
+  position: relative;
+}
+
+.expanded {
+  display: block;
+}
+
+.collapseButton {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapseButton:hover {
+  background-color: #c9302c;
+}

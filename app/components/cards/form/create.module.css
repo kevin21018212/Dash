@@ -1,4 +1,6 @@
-/* components/SharedCardStyles.module.css */
+/* SharedCardStyles.module.css */
+
+@import "../../../common.module.css";
 
 .card {
   display: flex;
@@ -10,6 +12,7 @@
   width: calc(33.333% - 32px);
   box-sizing: border-box;
 }
+
 .taskCard {
   display: flex;
   flex-direction: column;

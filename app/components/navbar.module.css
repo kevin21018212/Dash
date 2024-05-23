@@ -1,3 +1,5 @@
+/* navbar.module.css */
+
 .container {
   display: flex;
   align-items: center;
@@ -21,32 +23,22 @@
   color: white;
 }
 
-.signButton {
+.signButton,
+.signOutButton {
+  padding: 0.5rem 1rem;
   border: 1px solid #777;
   background-color: #7c6f5a;
   color: white;
   border-radius: 0.25rem;
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
 }
 
-.signButton:hover {
+.signButton:hover,
+.signOutButton:hover {
   background-color: #634e3e;
 }
 
 .userName {
   margin-right: 1rem;
-}
-
-.signOutButton {
-  border: 1px solid #777;
-  background-color: #7c6f5a;
-  color: white;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-}
-
-.signOutButton:hover {
-  background-color: #634e3e;
 }

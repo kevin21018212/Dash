@@ -1,22 +1,38 @@
-/* components/FormField.module.css */
-.formGroup {
+/* formField.module.css */
+
+@import "../../../common.module.css";
+
+.formFieldGroup {
   margin-bottom: 15px;
 }
 
-.formGroup label {
+.formFieldGroup label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #333;
 }
 
-.formGroup input,
-.formGroup textarea,
-.formGroup select {
+.formFieldInput,
+.formFieldTextarea,
+.formFieldSelect {
   width: 100%;
   padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.formGroup textarea {
+.formFieldInput:focus,
+.formFieldTextarea:focus,
+.formFieldSelect:focus {
+  border-color: #6200ea;
+  box-shadow: 0 0 5px rgba(98, 0, 234, 0.5);
+  outline: none;
+}
+
+.formFieldTextarea {
   resize: vertical;
 }

@@ -1,33 +1,17 @@
+// components/FormField.tsx
 import React from "react";
 import styles from "./formField.module.css";
 
-type FormFieldProps = {
-  label: string;
-  type: string;
-  value: string;
-  onChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => void;
-  options?: string[];
-  required?: boolean;
-};
-
-const FormField: React.FC<FormFieldProps> = ({
-  label,
-  type,
-  value,
-  onChange,
-  options = [],
-  required = false,
-}) => {
+const FormField = ({ label, type, value, onChange, options, required }) => {
   return (
-    <div className={styles.formGroup}>
-      <label htmlFor={label}>{label}</label>
+    <div className={styles.formFieldGroup}>
+      <label className={styles.label}>
+        {label}
+        {required && <span style={{ color: "red" }}>*</span>}
+      </label>
       {type === "select" ? (
         <select
-          id={label}
+          className={styles.formFieldSelect}
           value={value}
           onChange={onChange}
           required={required}
@@ -40,15 +24,15 @@ const FormField: React.FC<FormFieldProps> = ({
         </select>
       ) : type === "textarea" ? (
         <textarea
-          id={label}
+          className={styles.formFieldTextarea}
           value={value}
           onChange={onChange}
           required={required}
         />
       ) : (
         <input
+          className={styles.formFieldInput}
           type={type}
-          id={label}
           value={value}
           onChange={onChange}
           required={required}

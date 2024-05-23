@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
-import { useEffect, useState } from "react";
 
-import FeatureDisplayCard from "../cards/featureDisplayCard";
+import CreateComponent from "../cards/form/create";
 import styles from "./projectPage.module.css";
 import { Feature } from "@prisma/client";
-import CreateFeature from "../cards/form/createFeature";
+import FeatureContent from "./featureContent";
 
 const ProjectContent = ({ project }) => {
   const { data: session, status } = useSession();
@@ -58,9 +57,9 @@ const ProjectContent = ({ project }) => {
 
       <h2 className={styles.featuresTitle}>Features</h2>
       <div className={styles.featuresList}>
-        <CreateFeature projectId={project.project_id} />
+        <CreateComponent type="feature" parentId={project.project_id} />
         {features.map((feature: Feature) => (
-          <FeatureDisplayCard key={feature.feature_id} feature={feature} />
+          <FeatureContent key={feature.feature_id} feature={feature} />
         ))}
       </div>
     </div>

@@ -1,22 +1,23 @@
-// pages/api/getProjectInfo.ts
-import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+
 import prisma from "@/prisma/prisma";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const session = await getSession({ req });
+export async function GET(req: NextRequest) {
+  const session = await getServerSession();
 
   if (!session) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { projectId } = req.query;
+  const { searchParams } = new URL(req.url);
+  const projectId = searchParams.get("projectId");
 
-  if (!projectId || typeof projectId !== "string") {
-    return res.status(400).json({ error: "Project ID is required" });
+  if (!projectId || isNaN(Number(projectId))) {
+    return NextResponse.json(
+      { error: "Project ID is required" },
+      { status: 400 }
+    );
   }
 
   try {
@@ -32,11 +33,15 @@ export default async function handler(
     });
 
     if (!project) {
-      return res.status(404).json({ error: "Project not found" });
+      return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
 
-    return res.status(200).json({ project });
+    return NextResponse.json({ project }, { status: 200 });
   } catch (error) {
-    return res.status(500).json({ error: "Something went wrong" });
+    console.error(error);
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
   }
 }
