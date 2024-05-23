@@ -6,7 +6,8 @@
   margin-bottom: 16px;
 }
 
-.input {
+.input,
+.dropdown {
   display: block;
   width: 100%;
   padding: 8px;

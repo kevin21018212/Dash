@@ -89,3 +89,16 @@
   color: #666;
   margin-top: 8px;
 }
+.deleteFeatureButton {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 16px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.deleteFeatureButton:hover {
+  opacity: 0.8;
+}

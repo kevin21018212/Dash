@@ -16,13 +16,16 @@ const TaskContent = ({ task, onTaskUpdate }) => {
 
   const handleSaveClick = async () => {
     try {
-      const response = await fetch(`/api/edit/task?taskId=${task.task_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editedTask),
-      });
+      const response = await fetch(
+        `/api/tasks/${task.task_id}?taskId=${task.task_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editedTask),
+        }
+      );
 
       if (response.ok) {
         const updatedTask = await response.json();
@@ -63,13 +66,26 @@ const TaskContent = ({ task, onTaskUpdate }) => {
             onChange={handleInputChange}
             className={styles.input}
           />
-          <input
-            type="text"
+          <select
             name="size"
             value={editedTask.size}
             onChange={handleInputChange}
-            className={styles.input}
-          />
+            className={styles.dropdown}
+          >
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+          <select
+            name="content"
+            value={editedTask.content}
+            onChange={handleInputChange}
+            className={styles.dropdown}
+          >
+            <option value="feature">Feature</option>
+            <option value="bug">Bug</option>
+            <option value="improvement">Improvement</option>
+          </select>
           <textarea
             name="description"
             value={editedTask.description}
@@ -83,7 +99,8 @@ const TaskContent = ({ task, onTaskUpdate }) => {
       ) : (
         <>
           <h4>{task.title}</h4>
-          <p>{task.size}</p>
+          <p>Size: {task.size}</p>
+          <p>Content: {task.content}</p>
           <p>{task.description}</p>
           <button onClick={handleEditClick} className={styles.editButton}>
             Edit

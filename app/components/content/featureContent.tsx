@@ -46,6 +46,24 @@ const FeatureContent = ({ feature }) => {
     }
   };
 
+  const handleDeleteFeature = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this feature?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(
+        `/api/delete/feature?featureId=${feature.feature_id}`,
+        {
+          method: "DELETE",
+        }
+      );
+    } catch (error) {
+      console.error("Error deleting feature:", error);
+    }
+  };
+
   return (
     <div className={`${styles.card} ${isExpanded ? styles.expandedCard : ""}`}>
       <div className={styles.content}>
@@ -82,6 +100,12 @@ const FeatureContent = ({ feature }) => {
             onClick={handleCreateTaskClick}
           >
             Create Task
+          </button>
+          <button
+            className={styles.deleteFeatureButton}
+            onClick={handleDeleteFeature}
+          >
+            Delete Feature
           </button>
         </div>
       </div>
