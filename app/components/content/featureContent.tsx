@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Task } from "@prisma/client";
-
 import styles from "./featureContent.module.scss";
 import CreateComponent from "../cards/form/create";
 import Sidebar from "../sidebar";
 import TaskContent from "./taskContent";
+import EditableContent from "./modules/editContent";
+import TaskList from "./modules/taskList";
 
 const FeatureContent = ({ feature }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -46,6 +47,24 @@ const FeatureContent = ({ feature }) => {
     }
   };
 
+  const handleSaveFeature = async (editedFeature) => {
+    try {
+      const response = await fetch(`/api/features/${feature.feature_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedFeature),
+      });
+
+      if (!response.ok) {
+        console.error("Error editing feature:", await response.json());
+      }
+    } catch (error) {
+      console.error("Error editing feature:", error);
+    }
+  };
+
   const handleDeleteFeature = async () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this feature?"
@@ -53,12 +72,15 @@ const FeatureContent = ({ feature }) => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(
-        `/api/delete/feature?featureId=${feature.feature_id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`/api/features/${feature.feature_id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        // Handle feature deletion logic here
+      } else {
+        console.error("Error deleting feature:", await response.json());
+      }
     } catch (error) {
       console.error("Error deleting feature:", error);
     }
@@ -67,49 +89,62 @@ const FeatureContent = ({ feature }) => {
   return (
     <div className={`${styles.card} ${isExpanded ? styles.expandedCard : ""}`}>
       <div className={styles.content}>
-        <div className={styles.featureInfo}>
-          <h3 className={styles.title}>{feature.title}</h3>
-          <p className={styles.description}>{feature.description}</p>
-          {feature.image_url && (
-            <img
-              src={feature.image_url}
-              alt={feature.title}
-              className={styles.image}
-            />
+        <EditableContent initialContent={feature} onSave={handleSaveFeature}>
+          {({ editedContent, handleInputChange }) => (
+            <div className={styles.featureInfo}>
+              {handleInputChange ? (
+                <div className={styles.editContainer}>
+                  <input
+                    type="text"
+                    name="title"
+                    value={editedContent.title}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  />
+                  <textarea
+                    name="description"
+                    value={editedContent.description}
+                    onChange={handleInputChange}
+                    className={styles.textarea}
+                  />
+                  <input
+                    type="text"
+                    name="image_url"
+                    value={editedContent.image_url}
+                    onChange={handleInputChange}
+                    className={styles.input}
+                  />
+                </div>
+              ) : (
+                <>
+                  <h3 className={styles.title}>{editedContent.title}</h3>
+                  <p className={styles.description}>
+                    {editedContent.description}
+                  </p>
+                  {editedContent.image_url && (
+                    <img
+                      src={editedContent.image_url}
+                      alt={editedContent.title}
+                      className={styles.image}
+                    />
+                  )}
+                  <button
+                    onClick={handleDeleteFeature}
+                    className={styles.deleteButton}
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
           )}
-        </div>
-        <div className={styles.tasks}>
-          <div className={styles.gridContainer}>
-            {feature.tasks.map((task) => (
-              <div
-                key={task.task_id}
-                className={`${styles.task} ${
-                  selectedTask?.task_id === task.task_id
-                    ? styles.selectedTask
-                    : ""
-                }`}
-                onClick={() => handleTaskClick(task)}
-              >
-                <h4 className={styles.taskTitle}>{task.title}</h4>
-                <p className={styles.taskSize}>{task.size}</p>
-              </div>
-            ))}
-          </div>
-          <div className={styles.buttonContainer}></div>
-
-          <button
-            className={styles.createTaskButton}
-            onClick={handleCreateTaskClick}
-          >
-            Create Task
-          </button>
-          <button
-            className={styles.deleteFeatureButton}
-            onClick={handleDeleteFeature}
-          >
-            Delete Feature
-          </button>
-        </div>
+        </EditableContent>
+        <TaskList
+          tasks={feature.tasks}
+          selectedTask={selectedTask}
+          onTaskClick={handleTaskClick}
+          onCreateTaskClick={handleCreateTaskClick}
+        />
       </div>
       {isExpanded && (
         <Sidebar isExpanded={isExpanded} onCollapse={handleCollapse}>
