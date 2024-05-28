@@ -8,6 +8,10 @@ import { Feature } from "@prisma/client";
 import CreateComponent from "../cards/form/create";
 import FeatureContent from "./featureContent";
 import EditableContent from "./modules/editContent";
+import {
+  handleSaveProject,
+  handleDeleteProject,
+} from "./modules/contentHandlers";
 
 const ProjectContent = ({ project, onProjectUpdate }) => {
   const { data: session, status } = useSession();
@@ -32,43 +36,6 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
     fetchFeatures();
   }, [project.project_id]);
 
-  const handleSaveProject = async (updatedProject) => {
-    try {
-      const response = await fetch(`/api/projects/${project.project_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedProject),
-      });
-
-      if (response.ok) {
-        const updatedProject = await response.json();
-        onProjectUpdate(updatedProject);
-      } else {
-        console.error("Error editing project:", await response.json());
-      }
-    } catch (error) {
-      console.error("Error editing project:", error);
-    }
-  };
-
-  const handleDeleteProject = async () => {
-    try {
-      const response = await fetch(`/api/projects/${project.project_id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        onProjectUpdate(null);
-      } else {
-        console.error("Error deleting project:", await response.json());
-      }
-    } catch (error) {
-      console.error("Error deleting project:", error);
-    }
-  };
-
   if (status === "loading") {
     return <div>Loading...</div>;
   }
@@ -77,8 +44,10 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
     <div className={styles.container}>
       <EditableContent
         initialContent={project}
-        onSave={handleSaveProject}
-        onDelete={handleDeleteProject}
+        onSave={(updatedProject) =>
+          handleSaveProject(project, updatedProject, onProjectUpdate)
+        }
+        onDelete={() => handleDeleteProject(project, onProjectUpdate)}
       >
         {({ editedContent, handleInputChange }) => (
           <section className={styles.projectInfo}>

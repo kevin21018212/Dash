@@ -1,46 +1,17 @@
 import React from "react";
 import styles from "./taskContent.module.scss";
 import EditableContent from "./modules/editContent";
+import { handleSaveTask, handleDeleteTask } from "./modules/contentHandlers";
 
 const TaskContent = ({ task, onTaskUpdate }) => {
-  const handleSaveTask = async (updatedTask) => {
-    const response = await fetch(`/api/tasks/${task.task_id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedTask),
-    });
-
-    if (response.ok) {
-      onTaskUpdate(updatedTask);
-    } else {
-      console.error("Error editing task:", await response.json());
-    }
-  };
-
-  const handleDeleteTask = async () => {
-    try {
-      const response = await fetch(`/api/tasks/${task.task_id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        onTaskUpdate(null);
-      } else {
-        console.error("Error deleting task:", await response.json());
-      }
-    } catch (error) {
-      console.error("Error deleting task:", error);
-    }
-  };
-
   return (
     <div className={styles.taskDetail}>
       <EditableContent
         initialContent={task}
-        onSave={handleSaveTask}
-        onDelete={handleDeleteTask}
+        onSave={(updatedTask) =>
+          handleSaveTask(task, updatedTask, onTaskUpdate)
+        }
+        onDelete={() => handleDeleteTask(task, onTaskUpdate)}
       >
         {({ editedContent, handleInputChange }) => (
           <>

@@ -1,13 +1,13 @@
-import {redirect, notFound} from 'next/navigation';
-import prisma from '@/prisma/prisma';
-import {getSession} from 'next-auth/react';
-import ProjectContent from '@/app/components/content/projectContent';
+import { redirect, notFound } from "next/navigation";
+import prisma from "@/prisma/prisma";
+import { getSession } from "next-auth/react";
+import ProjectContent from "@/app/components/content/projectContent";
 
-const ProjectPage = async ({params}) => {
+const ProjectPage = async ({ params }) => {
   const session = await getSession();
 
   const project = await prisma.project.findUnique({
-    where: {project_id: parseInt(params.id, 10)},
+    where: { project_id: parseInt(params.id, 10) },
     include: {
       features: {
         include: {
@@ -21,7 +21,7 @@ const ProjectPage = async ({params}) => {
     notFound();
   }
 
-  return <ProjectContent project={project} />;
+  return <ProjectContent project={project} onProjectUpdate={undefined} />;
 };
 
 export default ProjectPage;

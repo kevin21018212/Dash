@@ -6,6 +6,11 @@ import Sidebar from "../sidebar";
 import TaskContent from "./taskContent";
 import EditableContent from "./modules/editContent";
 import TaskList from "./modules/taskList";
+import {
+  handleSaveFeature,
+  handleDeleteFeature,
+  handleTaskUpdate,
+} from "./modules/contentHandlers";
 
 const FeatureContent = ({ feature }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -30,64 +35,13 @@ const FeatureContent = ({ feature }) => {
     setShowCreateTask(false);
   };
 
-  const handleTaskUpdate = (updatedTask) => {
-    if (updatedTask) {
-      const updatedTasks = feature.tasks.map((task) =>
-        task.task_id === updatedTask.task_id ? updatedTask : task
-      );
-      feature.tasks = updatedTasks;
-      setSelectedTask(updatedTask);
-    } else {
-      const updatedTasks = feature.tasks.filter(
-        (task) => task.task_id !== selectedTask?.task_id
-      );
-      feature.tasks = updatedTasks;
-      setSelectedTask(null);
-      setIsExpanded(false);
-    }
-  };
-
-  const handleSaveFeature = async (editedFeature) => {
-    try {
-      const response = await fetch(`/api/features/${feature.feature_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editedFeature),
-      });
-
-      if (!response.ok) {
-        console.error("Error editing feature:", await response.json());
-      }
-    } catch (error) {
-      console.error("Error editing feature:", error);
-    }
-  };
-
-  const handleDeleteFeature = async () => {
-    try {
-      const response = await fetch(`/api/features/${feature.feature_id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        // Handle feature deletion logic here, e.g., remove from list
-      } else {
-        console.error("Error deleting feature:", await response.json());
-      }
-    } catch (error) {
-      console.error("Error deleting feature:", error);
-    }
-  };
-
   return (
     <div className={`${styles.card} ${isExpanded ? styles.expandedCard : ""}`}>
       <div className={styles.content}>
         <EditableContent
           initialContent={feature}
-          onSave={handleSaveFeature}
-          onDelete={handleDeleteFeature}
+          onSave={(editedFeature) => handleSaveFeature(feature, editedFeature)}
+          onDelete={() => handleDeleteFeature(feature)}
         >
           {({ editedContent, handleInputChange }) => (
             <div className={styles.featureInfo}>
@@ -147,7 +101,15 @@ const FeatureContent = ({ feature }) => {
             selectedTask && (
               <TaskContent
                 task={selectedTask}
-                onTaskUpdate={handleTaskUpdate}
+                onTaskUpdate={(updatedTask) =>
+                  handleTaskUpdate(
+                    feature,
+                    selectedTask,
+                    updatedTask,
+                    setSelectedTask,
+                    setIsExpanded
+                  )
+                }
               />
             )
           )}
