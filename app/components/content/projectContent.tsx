@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 
 import CreateComponent from "../cards/form/create";
-import styles from "./projectPage.module.css";
+import styles from "./projectContent.module.scss";
 import { Feature } from "@prisma/client";
 import FeatureContent from "./featureContent";
 
@@ -60,7 +60,9 @@ const ProjectContent = ({ project }) => {
       <section className={styles.featuresSection}>
         <h2 className={styles.featuresTitle}>Features</h2>
         <div className={styles.featuresGrid}>
-          <CreateComponent type="feature" parentId={project.project_id} />
+          <div className={styles.createCard}>
+            <CreateComponent type="feature" parentId={project.project_id} />
+          </div>
           {features.map((feature: Feature) => (
             <FeatureContent key={feature.feature_id} feature={feature} />
           ))}

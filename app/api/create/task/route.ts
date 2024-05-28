@@ -31,6 +31,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    console.log(feature_id);
     const newTask = await prisma.task.create({
       data: {
         title,
@@ -38,7 +39,7 @@ export async function POST(req: NextRequest) {
         type,
         size,
         user_id: user.user_id,
-        feature_id: feature_id ? feature_id : null,
+        feature_id: feature_id,
       },
     });
 

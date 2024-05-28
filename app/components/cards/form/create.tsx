@@ -2,8 +2,8 @@
 import { useState } from "react";
 
 import { TaskSize, TaskType } from "@/app/utils/enums";
-import commonStyles from "@/app/common.module.css";
-import styles from "./SharedCardStyles.module.css";
+import commonStyles from "@/app/common.module.scss";
+
 import FormField from "./formField";
 
 const CreateComponent = ({ type, parentId }) => {
@@ -20,7 +20,7 @@ const CreateComponent = ({ type, parentId }) => {
       title,
       description,
       image_url: imageUrl,
-      [`${type}_id`]: parentId,
+      [`${type === "task" ? "feature_id" : `${type}_id`}`]: parentId,
       ...(type === "task" && { type: taskType, size: taskSize }),
     };
 

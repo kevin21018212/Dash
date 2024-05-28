@@ -1,6 +1,6 @@
 // components/FormField.tsx
 import React from "react";
-import styles from "./formField.module.css";
+import styles from "./formField.module.scss";
 
 const FormField = ({ label, type, value, onChange, options, required }) => {
   return (

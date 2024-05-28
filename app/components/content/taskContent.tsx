@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./taskContent.module.css";
+import styles from "./taskContent.module.scss";
 
 const TaskContent = ({ task, onTaskUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);

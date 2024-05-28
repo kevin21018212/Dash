@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Task } from "@prisma/client";
-import { motion } from "framer-motion";
-import styles from "./featureContent.module.css";
+
+import styles from "./featureContent.module.scss";
 import CreateComponent from "../cards/form/create";
 import Sidebar from "../sidebar";
 import TaskContent from "./taskContent";
@@ -65,11 +65,7 @@ const FeatureContent = ({ feature }) => {
   };
 
   return (
-    <motion.div
-      className={styles.card}
-      animate={{ width: isExpanded ? 600 : 300 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className={`${styles.card} ${isExpanded ? styles.expandedCard : ""}`}>
       <div className={styles.content}>
         <div className={styles.featureInfo}>
           <h3 className={styles.title}>{feature.title}</h3>
@@ -99,6 +95,8 @@ const FeatureContent = ({ feature }) => {
               </div>
             ))}
           </div>
+          <div className={styles.buttonContainer}></div>
+
           <button
             className={styles.createTaskButton}
             onClick={handleCreateTaskClick}
@@ -127,7 +125,7 @@ const FeatureContent = ({ feature }) => {
           )}
         </Sidebar>
       )}
-    </motion.div>
+    </div>
   );
 };
 
