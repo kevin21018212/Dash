@@ -1,11 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./homepage.module.css";
 import CreateComponent from "./components/cards/form/create";
+import ProjectCard from "./components/cards/projectCard";
+import { Project } from "@prisma/client";
 
 const Page = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+
   const { data: session } = useSession();
 
   const handleSignClick = async () => {
@@ -15,6 +19,17 @@ const Page = () => {
       await signIn();
     }
   };
+
+  const fetchProjects = async () => {
+    if (session) {
+      const response = await fetch("/api/get/project");
+      const data = await response.json();
+      setProjects(data.projects);
+    }
+  };
+  useEffect(() => {
+    fetchProjects();
+  }, [session]);
 
   return (
     <div className={styles.container}>
@@ -34,9 +49,21 @@ const Page = () => {
           </div>
         )}
       </div>
-      <div className={styles.createProjectSection}>
-        <h2>Create a New Project</h2>
-        <CreateComponent type="project" parentId={null} />
+      <div className={styles.mainContent}>
+        <div className={styles.createProjectSection}>
+          <CreateComponent type="project" parentId={null} />
+        </div>
+        <div className={styles.projectCardsSection}>
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={index}
+              title={project.title}
+              description={project.description}
+              link={project.link}
+              imageUrl={project.image_url}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

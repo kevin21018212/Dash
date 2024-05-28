@@ -35,10 +35,11 @@
   margin-bottom: 1rem;
 }
 
-.createProjectSection {
+.mainContent {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
   width: 100%;
   background-color: #fff;
   padding: 2rem;
@@ -46,7 +47,14 @@
   border-radius: 8px;
 }
 
-.createProjectSection h2 {
+.createProjectSection,
+.projectCardsSection {
+  display: flex;
+  height: 100%;
+}
+
+.createProjectSection h2,
+.projectCardsSection h2 {
   font-size: 1.75rem;
   color: #333;
   margin-bottom: 1rem;

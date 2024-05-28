@@ -45,7 +45,7 @@ const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
     <div className={styles.editableContent}>
       {isEditing ? (
         <>
-          {children({ editedContent, handleInputChange })}
+          {children({ editedContent, handleInputChange, isEditing })}
           <button onClick={handleSaveClick} className={styles.saveButton}>
             Save
           </button>
@@ -55,7 +55,7 @@ const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
         </>
       ) : (
         <>
-          {children({ editedContent })}
+          {children({ editedContent, isEditing })}
           <div>
             <button onClick={handleEditClick} className={styles.editButton}>
               Edit
