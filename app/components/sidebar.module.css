@@ -3,11 +3,6 @@
 .sidebar {
   height: 100%;
   width: 300px;
-  background-color: #f5f5f5;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, width 0.3s ease;
-  position: relative;
-  flex-shrink: 0;
 }
 
 .sidebar.collapsed {

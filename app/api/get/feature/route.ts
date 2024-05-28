@@ -31,6 +31,7 @@ export async function GET(req: NextRequest) {
       },
       include: {
         tasks: true,
+  
       },
     });
 

@@ -1,7 +1,4 @@
 /* SharedCardStyles.module.css */
-
-@import "../../../common.module.css";
-
 .card {
   display: flex;
   flex-direction: column;
@@ -9,19 +6,8 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  width: calc(33.333% - 32px);
-  box-sizing: border-box;
-}
-
-.taskCard {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  box-sizing: border-box;
+  margin-bottom: 16px;
+  position: relative;
 }
 
 .title {

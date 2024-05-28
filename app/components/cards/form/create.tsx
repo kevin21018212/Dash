@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { TaskSize, TaskType } from "@/app/utils/enums";
 import commonStyles from "@/app/common.module.css";
-import styles from "./create.module.css";
+import styles from "./SharedCardStyles.module.css";
 import FormField from "./formField";
 
 const CreateComponent = ({ type, parentId }) => {
@@ -46,11 +46,11 @@ const CreateComponent = ({ type, parentId }) => {
   };
 
   return (
-    <div className={`${commonStyles.card} ${styles.createFeatureCard}`}>
+    <div>
       <h2 className={commonStyles.title}>
         Create {type.charAt(0).toUpperCase() + type.slice(1)}
       </h2>
-      <form onSubmit={handleSubmit} className={commonStyles.form}>
+      <form onSubmit={handleSubmit}>
         <FormField
           label="Title"
           type="text"

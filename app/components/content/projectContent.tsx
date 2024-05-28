@@ -35,33 +35,37 @@ const ProjectContent = ({ project }) => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{project.title}</h1>
-      <p className={styles.description}>{project.description}</p>
-      {project.link && (
-        <a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.link}
-        >
-          Project Link
-        </a>
-      )}
-      {project.image_url && (
-        <img
-          src={project.image_url}
-          alt={project.title}
-          className={styles.image}
-        />
-      )}
+      <section className={styles.projectInfo}>
+        <h1 className={styles.title}>{project.title}</h1>
+        <p className={styles.description}>{project.description}</p>
+        {project.link && (
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+          >
+            Project Link
+          </a>
+        )}
+        {project.image_url && (
+          <img
+            src={project.image_url}
+            alt={project.title}
+            className={styles.image}
+          />
+        )}
+      </section>
 
-      <h2 className={styles.featuresTitle}>Features</h2>
-      <div className={styles.featuresList}>
-        <CreateComponent type="feature" parentId={project.project_id} />
-        {features.map((feature: Feature) => (
-          <FeatureContent key={feature.feature_id} feature={feature} />
-        ))}
-      </div>
+      <section className={styles.featuresSection}>
+        <h2 className={styles.featuresTitle}>Features</h2>
+        <div className={styles.featuresGrid}>
+          <CreateComponent type="feature" parentId={project.project_id} />
+          {features.map((feature: Feature) => (
+            <FeatureContent key={feature.feature_id} feature={feature} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

@@ -1,11 +1,26 @@
-/* projectPage.module.css */
-
 @import "../../common.module.css";
 
 .container {
   padding: 16px;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.projectInfo {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 16px;
 }
 
 .link {
@@ -29,16 +44,19 @@
   margin-bottom: 16px;
 }
 
+.featuresSection {
+  margin-top: 32px;
+}
+
 .featuresTitle {
   font-size: 24px;
   font-weight: 600;
   color: #333;
-  margin: 32px 0 16px;
+  margin: 0 0 16px;
 }
 
-.featuresList {
+.featuresGrid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
   gap: 16px;
 }
