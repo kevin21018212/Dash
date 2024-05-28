@@ -29,33 +29,3 @@
   border-radius: 4px;
   resize: vertical;
 }
-
-.editButton,
-.deleteButton,
-.saveButton {
-  display: inline-block;
-  padding: 8px 16px;
-  margin-right: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &.editButton {
-    background-color: #4caf50;
-    color: #fff;
-  }
-
-  &.deleteButton {
-    background-color: #f44336;
-    color: #fff;
-  }
-
-  &.saveButton {
-    background-color: #2196f3;
-    color: #fff;
-  }
-
-  &:hover {
-    opacity: 0.8;
-  }
-}

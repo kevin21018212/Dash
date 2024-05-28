@@ -37,7 +37,11 @@ const TaskContent = ({ task, onTaskUpdate }) => {
 
   return (
     <div className={styles.taskDetail}>
-      <EditableContent initialContent={task} onSave={handleSaveTask}>
+      <EditableContent
+        initialContent={task}
+        onSave={handleSaveTask}
+        onDelete={handleDeleteTask}
+      >
         {({ editedContent, handleInputChange }) => (
           <>
             <input
@@ -73,9 +77,6 @@ const TaskContent = ({ task, onTaskUpdate }) => {
               onChange={handleInputChange}
               className={styles.textarea}
             />
-            <button onClick={handleDeleteTask} className={styles.deleteButton}>
-              Delete
-            </button>
           </>
         )}
       </EditableContent>

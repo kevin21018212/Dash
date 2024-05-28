@@ -66,18 +66,13 @@ const FeatureContent = ({ feature }) => {
   };
 
   const handleDeleteFeature = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this feature?"
-    );
-    if (!confirmDelete) return;
-
     try {
       const response = await fetch(`/api/features/${feature.feature_id}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
-        // Handle feature deletion logic here
+        // Handle feature deletion logic here, e.g., remove from list
       } else {
         console.error("Error deleting feature:", await response.json());
       }
@@ -89,7 +84,11 @@ const FeatureContent = ({ feature }) => {
   return (
     <div className={`${styles.card} ${isExpanded ? styles.expandedCard : ""}`}>
       <div className={styles.content}>
-        <EditableContent initialContent={feature} onSave={handleSaveFeature}>
+        <EditableContent
+          initialContent={feature}
+          onSave={handleSaveFeature}
+          onDelete={handleDeleteFeature}
+        >
           {({ editedContent, handleInputChange }) => (
             <div className={styles.featureInfo}>
               {handleInputChange ? (
@@ -128,12 +127,6 @@ const FeatureContent = ({ feature }) => {
                       className={styles.image}
                     />
                   )}
-                  <button
-                    onClick={handleDeleteFeature}
-                    className={styles.deleteButton}
-                  >
-                    Delete
-                  </button>
                 </>
               )}
             </div>

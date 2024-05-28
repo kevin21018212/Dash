@@ -75,7 +75,11 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
 
   return (
     <div className={styles.container}>
-      <EditableContent initialContent={project} onSave={handleSaveProject}>
+      <EditableContent
+        initialContent={project}
+        onSave={handleSaveProject}
+        onDelete={handleDeleteProject}
+      >
         {({ editedContent, handleInputChange }) => (
           <section className={styles.projectInfo}>
             {handleInputChange ? (
@@ -133,12 +137,6 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
                 )}
               </>
             )}
-            <button
-              onClick={handleDeleteProject}
-              className={styles.deleteButton}
-            >
-              Delete
-            </button>
           </section>
         )}
       </EditableContent>
@@ -146,7 +144,7 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
         <h2 className={styles.featuresTitle}>Features</h2>
         <div className={styles.featuresGrid}>
           <div className={styles.createCard}>
-            <CreateComponent type="feature" parentId={project.projectId} />
+            <CreateComponent type="feature" parentId={project.project_id} />
           </div>
           {features.map((feature: Feature) => (
             <FeatureContent key={feature.feature_id} feature={feature} />

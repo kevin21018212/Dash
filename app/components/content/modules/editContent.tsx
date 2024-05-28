@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./editContent.module.scss";
 
-const EditableContent = ({ initialContent, onSave, children }) => {
+const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState({ ...initialContent });
 
@@ -28,6 +28,19 @@ const EditableContent = ({ initialContent, onSave, children }) => {
     setIsEditing(false);
   };
 
+  const handleDeleteClick = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await onDelete();
+    } catch (error) {
+      console.error("Error deleting content:", error);
+    }
+  };
+
   return (
     <div className={styles.editableContent}>
       {isEditing ? (
@@ -43,9 +56,14 @@ const EditableContent = ({ initialContent, onSave, children }) => {
       ) : (
         <>
           {children({ editedContent })}
-          <button onClick={handleEditClick} className={styles.editButton}>
-            Edit
-          </button>
+          <div>
+            <button onClick={handleEditClick} className={styles.editButton}>
+              Edit
+            </button>
+            <button onClick={handleDeleteClick} className={styles.deleteButton}>
+              Delete
+            </button>
+          </div>
         </>
       )}
     </div>
