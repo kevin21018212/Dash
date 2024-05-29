@@ -49,9 +49,9 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
         }
         onDelete={() => handleDeleteProject(project, onProjectUpdate)}
       >
-        {({ editedContent, handleInputChange }) => (
+        {({ editedContent, handleInputChange, isEditing }) => (
           <section className={styles.projectInfo}>
-            {handleInputChange ? (
+            {isEditing ? (
               <>
                 <input
                   type="text"

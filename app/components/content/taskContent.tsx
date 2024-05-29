@@ -31,42 +31,44 @@ const TaskContent = ({ task, onTaskUpdate }) => {
             </div>
             <div className={styles.bottomSection}>
               {isEditing ? (
-                <div>
-                  <select
-                    name="type"
-                    value={editedContent.type}
-                    onChange={handleInputChange}
-                    className={`${styles.dropdown} ${
-                      styles[editedContent.type]
-                    }`}
-                  >
-                    {Object.values(TaskType).map((type) => (
-                      <option key={type} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                  <select
-                    name="size"
-                    value={editedContent.size}
-                    onChange={handleInputChange}
-                    className={`${styles.dropdown} ${
-                      styles[editedContent.size]
-                    }`}
-                  >
-                    {Object.values(TaskSize).map((size) => (
-                      <option key={size} value={size}>
-                        {size}
-                      </option>
-                    ))}
-                  </select>
+                <>
+                  <div className={styles.taskBars}>
+                    <select
+                      name="type"
+                      value={editedContent.type}
+                      onChange={handleInputChange}
+                      className={`${styles.dropdown} ${
+                        styles[editedContent.type]
+                      }`}
+                    >
+                      {Object.values(TaskType).map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      name="size"
+                      value={editedContent.size}
+                      onChange={handleInputChange}
+                      className={`${styles.dropdown} ${
+                        styles[editedContent.size]
+                      }`}
+                    >
+                      {Object.values(TaskSize).map((size) => (
+                        <option key={size} value={size}>
+                          {size}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <textarea
                     name="description"
                     value={editedContent.description}
                     onChange={handleInputChange}
                     className={styles.textarea}
                   />
-                </div>
+                </>
               ) : (
                 <>
                   <div className={styles.taskBars}>

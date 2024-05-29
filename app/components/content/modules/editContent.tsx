@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./editContent.module.scss";
 import { FaPencilAlt } from "react-icons/fa";
 
 const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState({ ...initialContent });
+  const ref = useRef<HTMLDivElement>(null); // Explicitly typing the ref
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -42,9 +43,27 @@ const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
     }
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      handleCancelClick();
+    }
+  };
+
+  useEffect(() => {
+    if (isEditing) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isEditing]);
+
   return (
     <div
       className={`${styles.editableContent} ${isEditing ? styles.editing : ""}`}
+      ref={ref}
     >
       {!isEditing && (
         <FaPencilAlt className={styles.editIcon} onClick={handleEditClick} />
@@ -54,9 +73,6 @@ const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
         <div className={styles.buttons}>
           <button onClick={handleSaveClick} className={styles.saveButton}>
             Save
-          </button>
-          <button onClick={handleCancelClick} className={styles.cancelButton}>
-            Cancel
           </button>
           <button onClick={handleDeleteClick} className={styles.deleteButton}>
             Delete

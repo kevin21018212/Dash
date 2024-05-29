@@ -39,7 +39,7 @@ const FeatureContent = ({ feature }) => {
         >
           {({ editedContent, handleInputChange, isEditing }) => (
             <div className={styles.featureInfo}>
-              {handleInputChange ? (
+              {isEditing ? (
                 <div className={styles.editContainer}>
                   <input
                     type="text"

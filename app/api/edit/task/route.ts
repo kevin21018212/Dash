@@ -13,7 +13,7 @@ export async function PUT(req: NextRequest) {
   const google_id = session.user?.email as string;
   const { searchParams } = new URL(req.url);
   const taskId = searchParams.get("taskId") as string;
-  const { title, size, description } = await req.json();
+  const { title, size, description, type } = await req.json();
 
   try {
     const user = await findUserByGoogleId(google_id);
@@ -24,7 +24,7 @@ export async function PUT(req: NextRequest) {
 
     const updatedTask = await prisma.task.update({
       where: { task_id: parseInt(taskId) },
-      data: { title, size, description },
+      data: { title, size, description, type },
     });
 
     return NextResponse.json(updatedTask, { status: 200 });
