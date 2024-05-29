@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./taskContent.module.scss";
 import EditableContent from "./modules/editContent";
 import { handleSaveTask, handleDeleteTask } from "./modules/contentHandlers";
+import { TaskSize, TaskType } from "@/app/utils/enums";
 
 const TaskContent = ({ task, onTaskUpdate }) => {
   return (
@@ -15,8 +16,8 @@ const TaskContent = ({ task, onTaskUpdate }) => {
       >
         {({ editedContent, handleInputChange, isEditing }) => (
           <>
-            {isEditing ? (
-              <>
+            <div className={styles.topSection}>
+              {isEditing ? (
                 <input
                   type="text"
                   name="title"
@@ -24,53 +25,72 @@ const TaskContent = ({ task, onTaskUpdate }) => {
                   onChange={handleInputChange}
                   className={styles.input}
                 />
-                <select
-                  name="size"
-                  value={editedContent.size}
-                  onChange={handleInputChange}
-                  className={styles.dropdown}
-                >
-                  <option value="small">Small</option>
-                  <option value="medium">Medium</option>
-                  <option value="large">Large</option>
-                </select>
-                <select
-                  name="content"
-                  value={editedContent.content}
-                  onChange={handleInputChange}
-                  className={styles.dropdown}
-                >
-                  <option value="feature">Feature</option>
-                  <option value="bug">Bug</option>
-                  <option value="improvement">Improvement</option>
-                </select>
-                <textarea
-                  name="description"
-                  value={editedContent.description}
-                  onChange={handleInputChange}
-                  className={styles.textarea}
-                />
-              </>
-            ) : (
-              <>
-                <div className={styles.textDisplay}>
-                  <strong>Title: </strong>
-                  {editedContent.title}
+              ) : (
+                <p>{editedContent.title}</p>
+              )}
+            </div>
+            <div className={styles.bottomSection}>
+              {isEditing ? (
+                <div>
+                  <select
+                    name="type"
+                    value={editedContent.type}
+                    onChange={handleInputChange}
+                    className={`${styles.dropdown} ${
+                      styles[editedContent.type]
+                    }`}
+                  >
+                    {Object.values(TaskType).map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    name="size"
+                    value={editedContent.size}
+                    onChange={handleInputChange}
+                    className={`${styles.dropdown} ${
+                      styles[editedContent.size]
+                    }`}
+                  >
+                    {Object.values(TaskSize).map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                  <textarea
+                    name="description"
+                    value={editedContent.description}
+                    onChange={handleInputChange}
+                    className={styles.textarea}
+                  />
                 </div>
-                <div className={styles.textDisplay}>
-                  <strong>Size: </strong>
-                  {editedContent.size}
-                </div>
-                <div className={styles.textDisplay}>
-                  <strong>Content: </strong>
-                  {editedContent.content}
-                </div>
-                <div className={styles.textDisplay}>
-                  <strong>Description: </strong>
-                  {editedContent.description}
-                </div>
-              </>
-            )}
+              ) : (
+                <>
+                  <div className={styles.taskBars}>
+                    <div
+                      className={`${styles.taskType} ${
+                        styles[editedContent.type]
+                      }`}
+                    >
+                      {editedContent.type}
+                    </div>
+                    <div
+                      className={`${styles.taskSize} ${
+                        styles[editedContent.size]
+                      }`}
+                    >
+                      {editedContent.size}
+                    </div>
+                  </div>
+                  <div className={styles.description}>
+                    {editedContent.description}
+                  </div>
+                </>
+              )}
+            </div>
           </>
         )}
       </EditableContent>

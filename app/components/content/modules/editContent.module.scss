@@ -1,7 +1,6 @@
 .editableContent {
   display: flex;
   flex-direction: column;
-
   position: relative;
 
   &.editing {
@@ -23,7 +22,6 @@
 
   .saveButton,
   .cancelButton,
-  .editButton,
   .deleteButton {
     display: inline-block;
     padding: 8px 16px;
@@ -38,8 +36,8 @@
     color: #fff;
   }
 
-  .editButton {
-    background-color: #4caf50;
+  .cancelButton {
+    background-color: #9e9e9e;
     color: #fff;
   }
 
@@ -48,15 +46,24 @@
     color: #fff;
   }
 
-  .cancelButton {
-    background-color: #9e9e9e;
-    color: #fff;
+  .saveButton:hover,
+  .cancelButton:hover,
+  .deleteButton:hover {
+    opacity: 0.8;
   }
 
-  .saveButton:hover,
-  .editButton:hover,
-  .deleteButton:hover,
-  .cancelButton:hover {
-    opacity: 0.8;
+  .editIcon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    color: #4caf50;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: auto;
   }
 }

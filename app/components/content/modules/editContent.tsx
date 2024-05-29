@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./editContent.module.scss";
+import { FaPencilAlt } from "react-icons/fa";
 
 const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -45,28 +46,22 @@ const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
     <div
       className={`${styles.editableContent} ${isEditing ? styles.editing : ""}`}
     >
-      {isEditing ? (
-        <>
-          {children({ editedContent, handleInputChange, isEditing })}
+      {!isEditing && (
+        <FaPencilAlt className={styles.editIcon} onClick={handleEditClick} />
+      )}
+      {children({ editedContent, handleInputChange, isEditing })}
+      {isEditing && (
+        <div className={styles.buttons}>
           <button onClick={handleSaveClick} className={styles.saveButton}>
             Save
           </button>
           <button onClick={handleCancelClick} className={styles.cancelButton}>
             Cancel
           </button>
-        </>
-      ) : (
-        <>
-          {children({ editedContent, isEditing })}
-          <div>
-            <button onClick={handleEditClick} className={styles.editButton}>
-              Edit
-            </button>
-            <button onClick={handleDeleteClick} className={styles.deleteButton}>
-              Delete
-            </button>
-          </div>
-        </>
+          <button onClick={handleDeleteClick} className={styles.deleteButton}>
+            Delete
+          </button>
+        </div>
       )}
     </div>
   );

@@ -52,7 +52,11 @@ const Page = () => {
       <div className={styles.mainContent}>
         <div className={styles.createProjectSection}>
           <div className={styles.createCard}>
-            <CreateComponent type="project" parentId={null} />
+            <CreateComponent
+              type="project"
+              parentId={null}
+              onCancel={undefined}
+            />
           </div>
         </div>
         <div className={styles.projectCardsSection}>

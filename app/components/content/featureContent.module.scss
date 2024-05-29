@@ -5,8 +5,9 @@
   transition: width 0.3s ease;
   display: flex;
   flex-direction: row;
-  margin-bottom: 16px;
   position: relative;
+  box-sizing: border-box;
+  width: 300px;
   padding: 25px;
   background-color: #fff;
   border-radius: 8px;
@@ -52,6 +53,7 @@
   &:hover {
     background-color: #e0e0e0;
   }
+  height: 80%;
 }
 
 .taskGrid {
