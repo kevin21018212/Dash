@@ -1,4 +1,13 @@
 .editableContent {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  &.editing {
+    min-height: 200px; // Adjust as necessary to ensure space for form fields
+  }
+
   .input,
   .textarea {
     width: 100%;
@@ -14,19 +23,8 @@
 
   .saveButton,
   .cancelButton,
-  .editButton {
-    display: inline-block;
-    padding: 8px 16px;
-    margin-right: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .saveButton,
   .editButton,
-  .deleteButton,
-  .cancelButton {
+  .deleteButton {
     display: inline-block;
     padding: 8px 16px;
     margin-right: 8px;

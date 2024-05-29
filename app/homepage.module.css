@@ -35,6 +35,15 @@
   margin-bottom: 1rem;
 }
 
+.createCard {
+  width: 300px;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
 .mainContent {
   display: flex;
   flex-direction: row;

@@ -1,12 +1,10 @@
 "use client";
 import { useState } from "react";
-
 import { TaskSize, TaskType } from "@/app/utils/enums";
 import commonStyles from "@/app/common.module.scss";
-
 import FormField from "./formField";
 
-const CreateComponent = ({ type, parentId }) => {
+const CreateComponent = ({ type, parentId, onCancel }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -95,12 +93,25 @@ const CreateComponent = ({ type, parentId }) => {
             />
           </>
         )}
-        <button
-          type="submit"
-          className={`${commonStyles.button} ${commonStyles.buttonPrimary}`}
-        >
-          Create {type.charAt(0).toUpperCase() + type.slice(1)}
-        </button>
+        <div className={commonStyles.buttonGroup}>
+          <button
+            type="submit"
+            className={`${commonStyles.button} ${commonStyles.buttonPrimary}`}
+          >
+            Create {type.charAt(0).toUpperCase() + type.slice(1)}
+          </button>
+          {onCancel != null ? (
+            <button
+              type="button"
+              className={`${commonStyles.button} ${commonStyles.buttonSecondary}`}
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
       </form>
     </div>
   );

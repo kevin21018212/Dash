@@ -51,17 +51,13 @@ const Page = () => {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.createProjectSection}>
-          <CreateComponent type="project" parentId={null} />
+          <div className={styles.createCard}>
+            <CreateComponent type="project" parentId={null} />
+          </div>
         </div>
         <div className={styles.projectCardsSection}>
           {projects.map((project, index) => (
-            <ProjectCard
-              key={index}
-              title={project.title}
-              description={project.description}
-              link={project.link}
-              imageUrl={project.image_url}
-            />
+            <ProjectCard key={index} project={project} />
           ))}
         </div>
       </div>

@@ -113,7 +113,11 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
         <h2 className={styles.featuresTitle}>Features</h2>
         <div className={styles.featuresGrid}>
           <div className={styles.createCard}>
-            <CreateComponent type="feature" parentId={project.project_id} />
+            <CreateComponent
+              type="feature"
+              parentId={project.project_id}
+              onCancel={null}
+            />
           </div>
           {features.map((feature: Feature) => (
             <FeatureContent key={feature.feature_id} feature={feature} />

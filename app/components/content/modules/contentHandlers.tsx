@@ -44,7 +44,7 @@ export const handleDeleteContent = async (url, onSuccess, onError) => {
 
 export const handleSaveTask = async (task, updatedTask, onTaskUpdate) => {
   await handleSaveContent(
-    `/api/tasks/${task.task_id}`,
+    `/api/edit/task?taskId=${task.task_id}`,
     updatedTask,
     onTaskUpdate,
     (error) => console.error(error)
@@ -53,7 +53,7 @@ export const handleSaveTask = async (task, updatedTask, onTaskUpdate) => {
 
 export const handleDeleteTask = async (task, onTaskUpdate) => {
   await handleDeleteContent(
-    `/api/tasks/${task.task_id}`,
+    `/api/delete/task?taskId=${task.task_id}`,
     () => onTaskUpdate(null),
     (error) => console.error(error)
   );
@@ -65,7 +65,7 @@ export const handleSaveProject = async (
   onProjectUpdate
 ) => {
   await handleSaveContent(
-    `/api/projects/${project.project_id}`,
+    `/api/edit/project?projectId=${project.project_id}`,
     updatedProject,
     onProjectUpdate,
     (error) => console.error(error)
@@ -74,7 +74,7 @@ export const handleSaveProject = async (
 
 export const handleDeleteProject = async (project, onProjectUpdate) => {
   await handleDeleteContent(
-    `/api/projects/${project.project_id}`,
+    `/api/delete/project?projectId=${project.project_id}`,
     () => onProjectUpdate(null),
     (error) => console.error(error)
   );
@@ -82,7 +82,7 @@ export const handleDeleteProject = async (project, onProjectUpdate) => {
 
 export const handleSaveFeature = async (feature, editedFeature) => {
   await handleSaveContent(
-    `/api/features/${feature.feature_id}`,
+    `/api/edit/feature?featureId=${feature.feature_id}`,
     editedFeature,
     (updatedFeature) => console.log("Feature saved", updatedFeature),
     (error) => console.error(error)
@@ -91,7 +91,7 @@ export const handleSaveFeature = async (feature, editedFeature) => {
 
 export const handleDeleteFeature = async (feature) => {
   await handleDeleteContent(
-    `/api/features/${feature.feature_id}`,
+    `/api/delete/feature/${feature.feature_id}`,
     () => console.log("Feature deleted"),
     (error) => console.error(error)
   );

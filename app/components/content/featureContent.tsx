@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Task } from "@prisma/client";
 import styles from "./featureContent.module.scss";
 import CreateComponent from "../cards/form/create";
-import Sidebar from "../sidebar";
-import TaskContent from "./taskContent";
+import Modal from "../modal";
 import EditableContent from "./modules/editContent";
-import TaskList from "./modules/taskList";
+import TaskContent from "./taskContent";
 import {
   handleSaveFeature,
   handleDeleteFeature,
@@ -13,37 +12,32 @@ import {
 } from "./modules/contentHandlers";
 
 const FeatureContent = ({ feature }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showCreateTask, setShowCreateTask] = useState(false);
 
-  const handleTaskClick = (task) => {
-    setSelectedTask(task);
+  const handleCardClick = () => {
+    setIsModalOpen(true);
     setShowCreateTask(false);
-    setIsExpanded(true);
   };
 
   const handleCreateTaskClick = () => {
-    setSelectedTask(null);
     setShowCreateTask(true);
-    setIsExpanded(true);
   };
 
-  const handleCollapse = () => {
-    setIsExpanded(false);
-    setSelectedTask(null);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
     setShowCreateTask(false);
   };
 
   return (
-    <div className={`${styles.card} ${isExpanded ? styles.expandedCard : ""}`}>
+    <div className={styles.card}>
       <div className={styles.content}>
         <EditableContent
           initialContent={feature}
           onSave={(editedFeature) => handleSaveFeature(feature, editedFeature)}
           onDelete={() => handleDeleteFeature(feature)}
         >
-          {({ editedContent, handleInputChange }) => (
+          {({ editedContent, handleInputChange, isEditing }) => (
             <div className={styles.featureInfo}>
               {handleInputChange ? (
                 <div className={styles.editContainer}>
@@ -86,34 +80,43 @@ const FeatureContent = ({ feature }) => {
             </div>
           )}
         </EditableContent>
-        <TaskList
-          tasks={feature.tasks}
-          selectedTask={selectedTask}
-          onTaskClick={handleTaskClick}
-          onCreateTaskClick={handleCreateTaskClick}
-        />
+        <div className={styles.clickableArea} onClick={handleCardClick}>
+          <p>Click here to view tasks</p>
+        </div>
       </div>
-      {isExpanded && (
-        <Sidebar isExpanded={isExpanded} onCollapse={handleCollapse}>
-          {showCreateTask ? (
-            <CreateComponent type="task" parentId={feature.feature_id} />
-          ) : (
-            selectedTask && (
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <div className={styles.taskGrid}>
+            <div
+              className={styles.createTaskCard}
+              onClick={handleCreateTaskClick}
+            >
+              + Create Task
+            </div>
+            {feature.tasks.map((task) => (
               <TaskContent
-                task={selectedTask}
+                key={task.id}
+                task={task}
                 onTaskUpdate={(updatedTask) =>
                   handleTaskUpdate(
                     feature,
-                    selectedTask,
+                    task,
                     updatedTask,
-                    setSelectedTask,
-                    setIsExpanded
+                    () => {},
+                    () => {}
                   )
                 }
               />
-            )
+            ))}
+          </div>
+          {showCreateTask && (
+            <CreateComponent
+              type="task"
+              parentId={feature.feature_id}
+              onCancel={handleCloseModal}
+            />
           )}
-        </Sidebar>
+        </Modal>
       )}
     </div>
   );

@@ -42,7 +42,9 @@ const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
   };
 
   return (
-    <div className={styles.editableContent}>
+    <div
+      className={`${styles.editableContent} ${isEditing ? styles.editing : ""}`}
+    >
       {isEditing ? (
         <>
           {children({ editedContent, handleInputChange, isEditing })}
