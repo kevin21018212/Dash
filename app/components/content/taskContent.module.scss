@@ -1,4 +1,4 @@
-@import "../../common.module.scss";
+@import '../../common.module.scss';
 
 .taskDetail {
   display: flex;
@@ -8,7 +8,7 @@
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
-  height: 150px;
+  height: 200px;
 }
 
 .topSection {
@@ -65,45 +65,6 @@
 
 .textarea {
   resize: vertical;
-}
-
-.saveButton,
-.editButton,
-.deleteButton,
-.cancelButton {
-  display: inline-block;
-  padding: 8px 16px;
-  margin-right: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.saveButton {
-  background-color: #2196f3;
-  color: #fff;
-}
-
-.editButton {
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.deleteButton {
-  background-color: #f44336;
-  color: #fff;
-}
-
-.cancelButton {
-  background-color: #9e9e9e;
-  color: #fff;
-}
-
-.saveButton:hover,
-.editButton:hover,
-.deleteButton:hover,
-.cancelButton:hover {
-  opacity: 0.8;
 }
 
 .Easy {
