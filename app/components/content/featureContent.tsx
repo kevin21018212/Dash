@@ -75,14 +75,17 @@ const FeatureContent = ({ feature }) => {
                       className={styles.image}
                     />
                   )}
+                  <div
+                    className={styles.clickableArea}
+                    onClick={handleCardClick}
+                  >
+                    <p>Click here to view tasks</p>
+                  </div>
                 </>
               )}
             </div>
           )}
         </EditableContent>
-        <div className={styles.clickableArea} onClick={handleCardClick}>
-          <p>Click here to view tasks</p>
-        </div>
       </div>
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

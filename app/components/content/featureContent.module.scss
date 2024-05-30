@@ -2,13 +2,13 @@
 
 .card {
   width: 300px;
+  height: 55vh;
   transition: width 0.3s ease;
   display: flex;
   flex-direction: row;
   position: relative;
   box-sizing: border-box;
-  width: 300px;
-  padding: 25px;
+  padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
 }
 
 .editContainer {
-  width: 35%;
+  width: 250px;
 }
 
 .featureInfo {
