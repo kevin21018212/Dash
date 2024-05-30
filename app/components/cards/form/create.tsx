@@ -18,7 +18,7 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
       title,
       description,
       image_url: imageUrl,
-      [`${type === "task" ? "feature_id" : `${type}_id`}`]: parentId,
+      [`${type === "task" ? "feature_id" : "project_id"}`]: parentId,
       ...(type === "task" && { type: taskType, size: taskSize }),
     };
 
@@ -38,6 +38,7 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
         setTaskType(TaskType.UIDesign);
         setTaskSize(TaskSize.Easy);
       }
+      window.location.reload(); // Force page refresh
     } else {
       console.error(`Failed to create ${type}`);
     }

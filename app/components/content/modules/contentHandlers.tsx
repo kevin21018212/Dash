@@ -11,6 +11,7 @@ export const handleSaveContent = async (url, content, onSuccess, onError) => {
     if (response.ok) {
       const updatedContent = await response.json();
       onSuccess(updatedContent);
+      window.location.reload(); // Force page refresh
     } else {
       const errorData = await response.json();
       onError(`Error editing content: ${errorData}`);
@@ -33,6 +34,7 @@ export const handleDeleteContent = async (url, onSuccess, onError) => {
 
     if (response.ok) {
       onSuccess();
+      window.location.reload(); // Force page refresh
     } else {
       const errorData = await response.json();
       onError(`Error deleting content: ${errorData}`);
@@ -84,7 +86,10 @@ export const handleSaveFeature = async (feature, editedFeature) => {
   await handleSaveContent(
     `/api/edit/feature?featureId=${feature.feature_id}`,
     editedFeature,
-    (updatedFeature) => console.log("Feature saved", updatedFeature),
+    (updatedFeature) => {
+      console.log("Feature saved", updatedFeature);
+      window.location.reload(); // Force page refresh
+    },
     (error) => console.error(error)
   );
 };
@@ -92,7 +97,10 @@ export const handleSaveFeature = async (feature, editedFeature) => {
 export const handleDeleteFeature = async (feature) => {
   await handleDeleteContent(
     `/api/delete/feature/${feature.feature_id}`,
-    () => console.log("Feature deleted"),
+    () => {
+      console.log("Feature deleted");
+      window.location.reload(); // Force page refresh
+    },
     (error) => console.error(error)
   );
 };

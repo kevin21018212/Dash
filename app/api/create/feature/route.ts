@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   const google_id = session.user?.email as string;
 
   const body = await req.json();
-  const { title, description, size, type, image_url, project_id } = body;
+  const { title, description, image_url, project_id } = body;
 
   console.log(body);
   try {
@@ -28,8 +28,7 @@ export async function POST(req: NextRequest) {
       data: {
         title,
         description,
-        size,
-        type,
+
         image_url,
         project_id: parseInt(project_id, 10),
         user_id: user.user_id,
