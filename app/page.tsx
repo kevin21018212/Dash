@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import styles from "./homepage.module.css";
-import CreateComponent from "./components/cards/form/create";
-import ProjectCard from "./components/cards/projectCard";
-import { Project } from "@prisma/client";
+import React, {useEffect, useState} from 'react';
+import {signIn, signOut, useSession} from 'next-auth/react';
+import styles from './homepage.module.css';
+import CreateComponent from './components/cards/form/create';
+import ProjectCard from './components/cards/projectCard';
+import {Project} from '@prisma/client';
 
 const Page = () => {
   const [projects, setProjects] = useState<Project[]>([]);
 
-  const { data: session } = useSession();
+  const {data: session} = useSession();
 
   const handleSignClick = async () => {
     if (session && session.user) {
@@ -22,7 +22,7 @@ const Page = () => {
 
   const fetchProjects = async () => {
     if (session) {
-      const response = await fetch("/api/get/project");
+      const response = await fetch('/api/get/project');
       const data = await response.json();
       setProjects(data.projects);
     }
@@ -44,7 +44,7 @@ const Page = () => {
           <div className={styles.loginSection}>
             <h2>Welcome to the Dashboard</h2>
             <button onClick={handleSignClick} className={styles.signButton}>
-              {session && session.user ? "Sign Out" : "Sign In"}
+              {session && session.user ? 'Sign Out' : 'Sign In'}
             </button>
           </div>
         )}
@@ -52,11 +52,7 @@ const Page = () => {
       <div className={styles.mainContent}>
         <div className={styles.createProjectSection}>
           <div className={styles.createCard}>
-            <CreateComponent
-              type="project"
-              parentId={null}
-              onCancel={undefined}
-            />
+            <CreateComponent type='project' parentId={null} onCancel={undefined} />
           </div>
         </div>
         <div className={styles.projectCardsSection}>

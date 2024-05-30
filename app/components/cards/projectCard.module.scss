@@ -1,17 +1,27 @@
 .projectCard {
-  height: 100%;
+  height: 40vh;
+  width: 200px;
 
-  padding: 0 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  margin: 0px 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  text-decoration: none; // Prevent link decorations on the entire card
+}
+
+.topContent {
+  display: flex;
+  align-items: flex-end;
+  height: 40%;
+  border-radius: 8px;
+  padding: 0 10px;
 }
 
 .title {
   font-size: 24px;
   margin-bottom: 8px;
+}
+.bottomContent {
+  padding: 0 20px;
 }
 
 .description {
@@ -28,11 +38,4 @@
 
 .link:hover {
   text-decoration: underline;
-}
-
-.image {
-  max-width: 100%;
-  height: auto;
-  margin-top: 8px;
-  border-radius: 8px;
 }
