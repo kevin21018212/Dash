@@ -8,7 +8,9 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({project}: ProjectCardProps) => {
-  const backgroundImageStyle = project.image_url ? {backgroundImage: `url(${project.image_url})`, backgroundSize: 'cover'} : {}; // Set an empty object if no image URL
+  const backgroundImageStyle = project.image_url
+    ? {backgroundImage: `url(${project.image_url})`, backgroundSize: 'cover'}
+    : {backgroundColor: '#0070f3'};
   const handleClick = () => {
     window.location.href = `/projects/${project.project_id}`;
   };
@@ -19,12 +21,12 @@ const ProjectCard = ({project}: ProjectCardProps) => {
         <h1 className={styles.title}>{project.title}</h1>
       </div>
       <div className={styles.bottomContent}>
-        <p className={styles.description}>{project.description}</p>
         {project.link && (
           <a href={project.link} target='_blank' rel='noopener noreferrer' className={styles.link} onClick={(e) => e.stopPropagation()}>
             Project Link
           </a>
         )}
+        <p className={styles.description}>{project.description}</p>
       </div>
     </div>
   );
