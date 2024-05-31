@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import TaskCard from "../components/cards/TaskCard";
-import ProjectCard from "../components/cards/projectCard";
-import FeatureContent from "../components/content/featureContent";
+import ProjectCard from "../components/project/projectCard";
+import FeatureContent from "../components/feature/featureContent";
 import { Feature, Project, Task } from "@prisma/client";
 
 const Dashboard = () => {

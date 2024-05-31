@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Task } from "@prisma/client";
 import styles from "./featureContent.module.scss";
-import CreateComponent from "../cards/form/create";
+import CreateComponent from "../global/form/create";
 import Modal from "../modal";
-import EditableContent from "./modules/editContent";
-import TaskContent from "./taskContent";
+import EditableContent from "../global/modules/editContent";
+import EditForm from "../global/modules/editForm"; // Import the new EditForm component
+import TaskContent from "../task/taskContent";
 import {
   handleSaveFeature,
   handleDeleteFeature,
   handleTaskUpdate,
-} from "./modules/contentHandlers";
+} from "../global/modules/contentHandlers";
 
 const FeatureContent = ({ feature }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,56 +36,24 @@ const FeatureContent = ({ feature }) => {
           initialContent={feature}
           onSave={(editedFeature) => handleSaveFeature(feature, editedFeature)}
           onDelete={() => handleDeleteFeature(feature)}
-        >
-          {({ editedContent, handleInputChange, isEditing }) => (
+          renderContent={({ editedContent }) => (
             <div className={styles.featureInfo}>
-              {isEditing ? (
-                <div className={styles.editContainer}>
-                  <input
-                    type="text"
-                    name="title"
-                    value={editedContent.title}
-                    onChange={handleInputChange}
-                    className={styles.input}
-                  />
-                  <textarea
-                    name="description"
-                    value={editedContent.description}
-                    onChange={handleInputChange}
-                    className={styles.textarea}
-                  />
-                  <input
-                    type="text"
-                    name="image_url"
-                    value={editedContent.image_url}
-                    onChange={handleInputChange}
-                    className={styles.input}
-                  />
-                </div>
-              ) : (
-                <>
-                  <h3 className={styles.title}>{editedContent.title}</h3>
-                  <p className={styles.description}>
-                    {editedContent.description}
-                  </p>
-                  {editedContent.image_url && (
-                    <img
-                      src={editedContent.image_url}
-                      alt={editedContent.title}
-                      className={styles.image}
-                    />
-                  )}
-                  <div
-                    className={styles.clickableArea}
-                    onClick={handleCardClick}
-                  >
-                    <p>Click here to view tasks</p>
-                  </div>
-                </>
+              <h3 className={styles.title}>{editedContent.title}</h3>
+              <p className={styles.description}>{editedContent.description}</p>
+              {editedContent.image_url && (
+                <img
+                  src={editedContent.image_url}
+                  alt={editedContent.title}
+                  className={styles.image}
+                />
               )}
+              <div className={styles.clickableArea} onClick={handleCardClick}>
+                <p>Click here to view tasks</p>
+              </div>
             </div>
           )}
-        </EditableContent>
+          EditFormComponent={EditForm} // Pass the EditForm component as a prop
+        />
       </div>
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

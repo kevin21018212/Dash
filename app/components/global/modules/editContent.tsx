@@ -2,10 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./editContent.module.scss";
 import { FaPencilAlt } from "react-icons/fa";
 
-const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
+const EditableContent = ({
+  initialContent,
+  onSave,
+  onDelete,
+  renderContent,
+  EditFormComponent,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState({ ...initialContent });
-  const ref = useRef<HTMLDivElement>(null); // Explicitly typing the ref
+  const ref = useRef<HTMLDivElement>(null);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -68,16 +74,15 @@ const EditableContent = ({ initialContent, onSave, onDelete, children }) => {
       {!isEditing && (
         <FaPencilAlt className={styles.editIcon} onClick={handleEditClick} />
       )}
-      {children({ editedContent, handleInputChange, isEditing })}
-      {isEditing && (
-        <div className={styles.buttons}>
-          <button onClick={handleSaveClick} className={styles.saveButton}>
-            Save
-          </button>
-          <button onClick={handleDeleteClick} className={styles.deleteButton}>
-            Delete
-          </button>
-        </div>
+      {isEditing ? (
+        <EditFormComponent
+          editedContent={editedContent}
+          handleInputChange={handleInputChange}
+          handleSaveClick={handleSaveClick}
+          handleDeleteClick={handleDeleteClick}
+        />
+      ) : (
+        renderContent({ editedContent })
       )}
     </div>
   );

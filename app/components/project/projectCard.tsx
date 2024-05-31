@@ -1,16 +1,16 @@
-import React from 'react';
-import Link from 'next/link';
-import styles from './projectCard.module.scss';
-import {Project} from '@prisma/client';
+import React from "react";
+import Link from "next/link";
+import styles from "./projectCard.module.scss";
+import { Project } from "@prisma/client";
 
 interface ProjectCardProps {
   project: Project;
 }
 
-const ProjectCard = ({project}: ProjectCardProps) => {
+const ProjectCard = ({ project }: ProjectCardProps) => {
   const backgroundImageStyle = project.image_url
-    ? {backgroundImage: `url(${project.image_url})`, backgroundSize: 'cover'}
-    : {backgroundColor: '#0070f3'};
+    ? { backgroundImage: `url(${project.image_url})`, backgroundSize: "cover" }
+    : { backgroundColor: "#0070f3" };
   const handleClick = () => {
     window.location.href = `/projects/${project.project_id}`;
   };
@@ -22,7 +22,13 @@ const ProjectCard = ({project}: ProjectCardProps) => {
       </div>
       <div className={styles.bottomContent}>
         {project.link && (
-          <a href={project.link} target='_blank' rel='noopener noreferrer' className={styles.link} onClick={(e) => e.stopPropagation()}>
+          <a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.link}
+            onClick={(e) => e.stopPropagation()}
+          >
             Project Link
           </a>
         )}

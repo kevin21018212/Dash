@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./homepage.module.css";
-import CreateComponent from "./components/cards/form/create";
-import ProjectCard from "./components/cards/projectCard";
+import CreateComponent from "./components/global/form/create";
+import ProjectCard from "./components/project/projectCard";
 import { Project } from "@prisma/client";
 
 const Page = () => {
