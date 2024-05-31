@@ -19,8 +19,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
-
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .closeButton {
@@ -37,7 +36,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   &:hover {
     background-color: #c9302c;
   }
