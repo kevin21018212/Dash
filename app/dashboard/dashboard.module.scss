@@ -1,0 +1,62 @@
+@import "common.module.scss";
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f5f5f5;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .project-section,
+  .task-section,
+  .feature-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: $primary-color;
+      margin-bottom: 16px;
+    }
+
+    .project-list,
+    .task-list,
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+  }
+
+  .project-section {
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+  }
+
+  .task-section {
+    .task-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+  }
+
+  .feature-section {
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+  }
+}

@@ -46,7 +46,7 @@ export const handleDeleteContent = async (url, onSuccess, onError) => {
 
 export const handleSaveTask = async (task, updatedTask, onTaskUpdate) => {
   await handleSaveContent(
-    `/api/edit/task?taskId=${task.task_id}`,
+    `/api/task?taskId=${task.task_id}`,
     updatedTask,
     onTaskUpdate,
     (error) => console.error(error)
@@ -55,7 +55,7 @@ export const handleSaveTask = async (task, updatedTask, onTaskUpdate) => {
 
 export const handleDeleteTask = async (task, onTaskUpdate) => {
   await handleDeleteContent(
-    `/api/delete/task?taskId=${task.task_id}`,
+    `/api/task?taskId=${task.task_id}`,
     () => onTaskUpdate(null),
     (error) => console.error(error)
   );
@@ -67,7 +67,7 @@ export const handleSaveProject = async (
   onProjectUpdate
 ) => {
   await handleSaveContent(
-    `/api/edit/project?projectId=${project.project_id}`,
+    `/api/project?projectId=${project.project_id}`,
     updatedProject,
     onProjectUpdate,
     (error) => console.error(error)
@@ -76,7 +76,7 @@ export const handleSaveProject = async (
 
 export const handleDeleteProject = async (project, onProjectUpdate) => {
   await handleDeleteContent(
-    `/api/delete/project?projectId=${project.project_id}`,
+    `/api/project?projectId=${project.project_id}`,
     () => onProjectUpdate(null),
     (error) => console.error(error)
   );
@@ -84,7 +84,7 @@ export const handleDeleteProject = async (project, onProjectUpdate) => {
 
 export const handleSaveFeature = async (feature, editedFeature) => {
   await handleSaveContent(
-    `/api/edit/feature?featureId=${feature.feature_id}`,
+    `/api/feature?featureId=${feature.feature_id}`,
     editedFeature,
     (updatedFeature) => {
       console.log("Feature saved", updatedFeature);
@@ -96,7 +96,7 @@ export const handleSaveFeature = async (feature, editedFeature) => {
 
 export const handleDeleteFeature = async (feature) => {
   await handleDeleteContent(
-    `/api/delete/feature/${feature.feature_id}`,
+    `/api/feature?featureId=${feature.feature_id}`,
     () => {
       console.log("Feature deleted");
       window.location.reload(); // Force page refresh
