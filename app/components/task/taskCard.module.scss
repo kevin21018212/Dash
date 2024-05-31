@@ -1,25 +1,46 @@
-@import "../../common.module.scss";
+@import "../../../common.module.scss";
 
-.taskCard {
+.card {
   @extend .card;
-  @extend .card-task;
-  background-color: #f5f5f5;
-  cursor: pointer;
-  @extend .flex-column;
-  @extend .flex-center;
-
-  &:hover {
-    background-color: #e0e0e0;
-  }
 }
 
-.taskTitle {
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 8px;
+.title {
+  @extend .title;
 }
 
-.taskDescription {
+.description {
   @extend .description;
-  font-size: 14px;
+}
+
+.image {
+  @extend .image;
+}
+
+.form {
+  @extend .flex-column;
+  gap: 1rem;
+}
+
+.submitButton {
+  @extend .button;
+  @extend .button-primary;
+}
+
+.formGroup {
+  @extend .flex-column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: bold;
+  }
+
+  input,
+  textarea,
+  select {
+    @extend .input;
+  }
+
+  textarea {
+    @extend .textarea;
+  }
 }

@@ -3,6 +3,8 @@ $primary-color: #0070f3;
 $primary-hover-color: #005bb5;
 $secondary-color: #6200ea;
 $secondary-hover-color: #3700b3;
+$danger-color: #d9534f;
+$danger-hover-color: #c9302c;
 $input-border-color: #ccc;
 $input-focus-color: #6200ea;
 $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
@@ -31,6 +33,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 /* Buttons */
 .button {
   padding: 0.5rem 1rem;
+
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -38,23 +41,32 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   transition: background-color 0.3s;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
 
-  &.primary {
-    background-color: $primary-color;
-    color: white;
+.button-primary {
+  background-color: $primary-color;
+  color: white;
 
-    &:hover {
-      background-color: $primary-hover-color;
-    }
+  & {
+    background-color: $primary-hover-color;
   }
+}
 
-  &.secondary {
-    background-color: $secondary-color;
-    color: white;
+.button-secondary {
+  background-color: $secondary-color;
+  color: white;
 
-    &:hover {
-      background-color: $secondary-hover-color;
-    }
+  & {
+    background-color: $secondary-hover-color;
+  }
+}
+
+.button-danger {
+  background-color: $danger-color;
+  color: white;
+
+  & {
+    background-color: $danger-hover-color;
   }
 }
 
@@ -72,7 +84,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   box-sizing: border-box;
   transition: border-color 0.3s, box-shadow 0.3s;
 
-  &:focus {
+  & {
     border-color: $input-focus-color;
     box-shadow: 0px 0px 5px $input-focus-shadow-color;
   }
@@ -119,7 +131,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   transition: background-color 0.3s;
   text-align: center;
 
-  &:hover {
+  & {
     background-color: #e0e0e0;
   }
 }
@@ -196,7 +208,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s;
 
-  &:hover {
+  & {
     border-color: $secondary-color;
   }
 }
@@ -205,4 +217,45 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 .required {
   color: red;
   margin-left: 4px;
+}
+
+/* Overlay and Modal */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  @extend .flex-center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 80vw;
+  height: 80vh;
+  background-color: #fff;
+  padding: 1.5%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow-y: scroll;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: $danger-color;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  @extend .flex-center;
+
+  & {
+    background-color: $danger-hover-color;
+  }
 }

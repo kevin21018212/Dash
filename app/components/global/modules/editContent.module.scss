@@ -1,6 +1,7 @@
+@import "../../../common.module.scss";
+
 .editableContent {
-  display: flex;
-  flex-direction: column;
+  @extend .flex-column;
   position: relative;
 
   &.editing {
@@ -9,47 +10,31 @@
 
   .input,
   .textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    @extend .input;
   }
 
   .textarea {
-    resize: vertical;
+    @extend .textarea;
   }
 
   .saveButton,
   .cancelButton,
   .deleteButton {
-    display: inline-block;
+    @extend .button;
     padding: 8px 16px;
     margin-right: 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
 
-  .saveButton {
-    background-color: #2196f3;
-    color: #fff;
-  }
+    &.save {
+      @extend .button-primary;
+    }
 
-  .cancelButton {
-    background-color: #9e9e9e;
-    color: #fff;
-  }
+    &.cancel {
+      @extend .button-secondary;
+    }
 
-  .deleteButton {
-    background-color: #f44336;
-    color: #fff;
-  }
-
-  .saveButton:hover,
-  .cancelButton:hover,
-  .deleteButton:hover {
-    opacity: 0.8;
+    &.delete {
+      @extend .button-danger;
+    }
   }
 
   .editIcon {
@@ -61,7 +46,7 @@
   }
 
   .buttons {
-    display: flex;
+    @extend .flex-row;
     justify-content: flex-end;
     gap: 8px;
   }

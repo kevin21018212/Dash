@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
 import styles from "./projectContent.module.scss";
@@ -8,11 +7,12 @@ import { Feature } from "@prisma/client";
 import CreateComponent from "../global/form/create";
 import FeatureContent from "../feature/featureContent";
 import EditableContent from "../global/modules/editContent";
-import EditForm from "../global/modules/editForm"; // Import the new EditForm component
+import EditForm from "../global/modules/editForm";
 import {
   handleSaveProject,
   handleDeleteProject,
 } from "../global/modules/contentHandlers";
+import Loading from "../global/function/Loading";
 
 const ProjectContent = ({ project, onProjectUpdate }) => {
   const { data: session, status } = useSession();
@@ -25,7 +25,7 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
   }, [status]);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   const backgroundImageStyle = project.image_url
