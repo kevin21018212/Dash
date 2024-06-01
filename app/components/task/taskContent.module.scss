@@ -2,26 +2,18 @@
 
 .taskDetail {
   @extend .card;
-  padding: 10px;
+  @extend .card-small;
+  padding: 15px;
   position: relative;
-  height: 200px;
 }
 
 .topSection {
-  margin-bottom: 5px;
-  height: 20%;
-
+  height: 45%;
   p {
     margin: 0;
     font-size: 20px;
     font-weight: 600;
   }
-}
-
-.bottomSection {
-  @extend .flex-column;
-  height: 80%;
-  width: 90%;
 }
 
 .taskBars {
@@ -34,8 +26,14 @@
   padding: 8px;
   border-radius: 4px;
   color: #fff;
-  margin-bottom: 8px;
+  margin: 5px 5px 5px 0px;
   font-size: 10px;
+}
+
+.bottomSection {
+  @extend .flex-column;
+  height: 65%;
+  width: 90%;
 }
 
 .description {
@@ -45,6 +43,69 @@
 }
 
 .buttons {
+  width: 100%;
   @extend .flex-row;
   gap: 8px;
+}
+
+.editIcon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/*Lmao*/
+
+.Easy {
+  background-color: #4caf50;
+}
+
+.Medium {
+  background-color: #ff9800;
+}
+
+.Hard {
+  background-color: #f44336;
+}
+
+.UIDesign {
+  background-color: #2196f3;
+}
+
+.CodeRefactor {
+  background-color: #673ab7;
+}
+
+.Animation {
+  background-color: #ff5722;
+}
+
+.PageLayout {
+  background-color: #009688;
+}
+
+.Styling {
+  background-color: #3f51b5;
+}
+
+.Componenet {
+  background-color: #00bcd4;
+}
+
+.APIRoute {
+  background-color: #cddc39;
+}
+
+.DatabaseManagement {
+  background-color: #8bc34a;
+}
+
+.Testing {
+  background-color: #ffc107;
+}
+
+.Deployment {
+  background-color: #795548;
 }

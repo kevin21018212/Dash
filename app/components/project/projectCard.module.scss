@@ -2,13 +2,14 @@
 
 .projectCard {
   @extend .card;
-  @extend .card-small;
+  @extend .card-medium;
+  padding: 0 0px;
 }
 
 .topContent {
   @extend .flex-row;
   align-items: flex-end;
-  height: 40%;
+  height: 45%;
   border-radius: 8px;
   padding: 0 10px;
 }
@@ -16,21 +17,19 @@
 .title {
   font-size: 24px;
   margin-bottom: 8px;
+  color: #fff;
 }
 
 .bottomContent {
-  height: 60%;
-  padding: 0 20px;
-
+  height: 55%;
+  padding: 10px;
+  .link {
+    max-height: 20%;
+  }
   .description {
-    width: 150px;
-    height: 20vh;
+    min-height: 80%;
     overflow: hidden;
     text-overflow: ellipsis;
     @extend .description;
   }
-}
-
-.link {
-  @extend .link;
 }

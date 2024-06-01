@@ -1,49 +1,106 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./taskContent.module.scss";
-import EditableContent from "../global/modules/editContent";
-import EditForm from "../global/modules/editForm"; // Import the new EditForm component
-import {
-  handleSaveTask,
-  handleDeleteTask,
-} from "../global/modules/contentHandlers";
+import { handleSaveTask, handleDeleteTask } from "@/app/utils/contentHandlers";
+import { EditableField, EditableDropdown } from "../global/form/edit";
 import { TaskSize, TaskType } from "@/app/utils/enums";
-
 const TaskContent = ({ task, onTaskUpdate }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTask, setEditedTask] = useState(task);
+  const taskDetailRef = useRef<HTMLInputElement>(null);
+
+  const handleFieldChange = (field, value) => {
+    setEditedTask({ ...editedTask, [field]: value });
+  };
+
+  const handleSave = () => {
+    handleSaveTask(task, editedTask, onTaskUpdate);
+    setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    handleDeleteTask(task, onTaskUpdate);
+  };
+
+  const handleCancel = () => {
+    setEditedTask(task);
+    setIsEditing(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      taskDetailRef.current &&
+      !taskDetailRef.current.contains(event.target)
+    ) {
+      setIsEditing(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isEditing) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isEditing]);
+
   return (
-    <div className={styles.taskDetail}>
-      <EditableContent
-        initialContent={task}
-        onSave={(updatedTask) =>
-          handleSaveTask(task, updatedTask, onTaskUpdate)
-        }
-        onDelete={() => handleDeleteTask(task, onTaskUpdate)}
-        renderContent={({ editedContent }) => (
-          <>
+    <>
+      {isEditing ? (
+        <>
+          <div ref={taskDetailRef} className={styles.taskDetail}>
             <div className={styles.topSection}>
-              <p>{editedContent.title}</p>
+              <EditableField
+                value={editedTask.title}
+                onSave={(value) => handleFieldChange("title", value)}
+              />
+              <div className={styles.buttons}>
+                <EditableDropdown
+                  value={editedTask.type}
+                  options={Object.values(TaskType)}
+                  optionstwo={Object.values(TaskSize)}
+                  onSave={(value) => handleFieldChange("type", value)}
+                />
+              </div>
             </div>
+
             <div className={styles.bottomSection}>
-              <div className={styles.taskBars}>
-                <div
-                  className={`${styles.taskType} ${styles[editedContent.type]}`}
-                >
-                  {editedContent.type}
-                </div>
-                <div
-                  className={`${styles.taskSize} ${styles[editedContent.size]}`}
-                >
-                  {editedContent.size}
-                </div>
+              {/* <EditableField
+                value={editedTask.description}
+                onSave={(value) => handleFieldChange("description", value)}
+                type="textArea"
+              /> */}
+            </div>
+            <div className={styles.actionButtons}>
+              <button onClick={handleSave}>Save</button>
+              <button onClick={handleDelete}>Delete</button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div ref={taskDetailRef} className={styles.taskDetail}>
+          <div className={styles.topSection}>
+            <p>{task.title}</p>
+            <div className={styles.buttons}>
+              <div className={`${styles.taskType} ${styles[task.type]}`}>
+                {task.type}
               </div>
-              <div className={styles.description}>
-                {editedContent.description}
+              <div className={`${styles.taskSize} ${styles[task.size]}`}>
+                {task.size}
               </div>
             </div>
-          </>
-        )}
-        EditFormComponent={EditForm} // Pass the EditForm component as a prop
-      />
-    </div>
+          </div>
+          <div className={styles.bottomSection}>
+            <div className={styles.description}>{task.description}</div>
+          </div>
+          <div className={styles.editIcon} onClick={() => setIsEditing(true)}>
+            ✏️
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

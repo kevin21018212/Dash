@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import styles from "./homepage.module.css";
+import styles from "./homepage.module.scss";
 import CreateComponent from "./components/global/form/create";
 import ProjectCard from "./components/project/projectCard";
 import { Project } from "@prisma/client";
@@ -57,20 +57,16 @@ const Page = () => {
         )}
       </div>
       <div className={styles.mainContent}>
-        <div className={styles.createProjectSection}>
-          <div className={styles.createCard}>
-            <CreateComponent
-              type="project"
-              parentId={null}
-              onCancel={undefined}
-            />
-          </div>
+        <div className={styles.createCard}>
+          <CreateComponent
+            type="project"
+            parentId={null}
+            onCancel={undefined}
+          />
         </div>
-        <div className={styles.projectCardsSection}>
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} />
-          ))}
-        </div>
+        {projects.map((project, index) => (
+          <ProjectCard key={index} project={project} />
+        ))}
       </div>
     </div>
   );

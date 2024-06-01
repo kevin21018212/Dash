@@ -104,7 +104,16 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 .card {
   display: flex;
   flex-direction: column;
-  padding: 16px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 15px;
+  box-sizing: border-box;
+}
+.card-alt {
+  display: flex;
+
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -114,7 +123,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 .card-large {
   width: 300px;
-  height: 55vh;
+  height: 40vh;
 }
 
 .card-medium {
@@ -123,7 +132,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 .card-small {
   width: 200px;
-  height: 40vh;
+  height: 20vh;
 }
 
 .card-clickable {
@@ -173,12 +182,6 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   gap: 8px;
 }
 
-.featuresGrid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
 /* Misc */
 .background-cover {
   background-size: cover;
@@ -203,7 +206,6 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   display: inline-block;
   font-size: 16px;
   color: $secondary-color;
-  margin-bottom: 16px;
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s;
@@ -217,29 +219,6 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 .required {
   color: red;
   margin-left: 4px;
-}
-
-/* Overlay and Modal */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  @extend .flex-center;
-  z-index: 1000;
-}
-
-.modal {
-  width: 80vw;
-  height: 80vh;
-  background-color: #fff;
-  padding: 1.5%;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow-y: scroll;
 }
 
 .closeButton {

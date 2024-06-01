@@ -1,95 +1,136 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./featureContent.module.scss";
-import CreateComponent from "../global/form/create";
-import Modal from "../modal";
-import EditableContent from "../global/modules/editContent";
-import EditForm from "../global/modules/editForm"; // Import the new EditForm component
-import TaskContent from "../task/taskContent";
 import {
   handleSaveFeature,
   handleDeleteFeature,
   handleTaskUpdate,
-} from "../global/modules/contentHandlers";
+} from "@/app/utils/contentHandlers";
+import { EditableField } from "../global/form/edit";
+import Modal from "../modal";
+import TaskContent from "../task/taskContent";
+import CreateComponent from "../form/create";
 
-const FeatureContent = ({ feature }) => {
+const FeatureContent = ({ feature, onFeatureUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedFeature, setEditedFeature] = useState(feature);
   const [showCreateTask, setShowCreateTask] = useState(false);
+  const featureRef = useRef<HTMLInputElement>(null);
 
-  const handleCardClick = () => {
-    setIsModalOpen(true);
-    setShowCreateTask(false);
+  const handleFieldChange = (field, value) => {
+    setEditedFeature({ ...editedFeature, [field]: value });
+  };
+
+  const handleSave = () => {
+    handleSaveFeature(feature, editedFeature);
+    setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    handleDeleteFeature(feature);
   };
 
   const handleCreateTaskClick = () => {
     setShowCreateTask(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setShowCreateTask(false);
+  const handleCardClick = () => {
+    setIsModalOpen(true);
+    setIsEditing(false);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (featureRef.current && !featureRef.current.contains(event.target)) {
+      setIsEditing(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isEditing) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isEditing]);
+
   return (
-    <div className={styles.card}>
-      <div className={styles.content}>
-        <EditableContent
-          initialContent={feature}
-          onSave={(editedFeature) => handleSaveFeature(feature, editedFeature)}
-          onDelete={() => handleDeleteFeature(feature)}
-          renderContent={({ editedContent }) => (
-            <div className={styles.featureInfo}>
-              <h3 className={styles.title}>{editedContent.title}</h3>
-              <p className={styles.description}>{editedContent.description}</p>
-              {editedContent.image_url && (
-                <img
-                  src={editedContent.image_url}
-                  alt={editedContent.title}
-                  className={styles.image}
+    <>
+      {isEditing ? (
+        <div ref={featureRef} className={styles.card}>
+          <div className={styles.featureInfo}>
+            <EditableField
+              value={editedFeature.title}
+              onSave={(value) => handleFieldChange("title", value)}
+            />
+            <EditableField
+              value={editedFeature.description}
+              onSave={(value) => handleFieldChange("description", value)}
+              type="textArea"
+            />
+          </div>
+
+          <div className={styles.actionButtons}>
+            <button onClick={handleSave}>Save</button>
+            <button onClick={handleDelete}>Delete</button>
+          </div>
+        </div>
+      ) : (
+        <div ref={featureRef} className={styles.card}>
+          <div className={styles.featureInfo}>
+            <h3 className={styles.title}>{feature.title}</h3>
+            <p className={styles.description}>{feature.description}</p>
+          </div>
+          <div className={styles.clickableArea} onClick={handleCardClick}>
+            <p>Click here to view tasks</p>
+          </div>
+          <div className={styles.editIcon} onClick={() => setIsEditing(true)}>
+            ✏️
+          </div>
+
+          {isModalOpen && (
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+              <div className={styles.taskGrid}>
+                <div
+                  className={styles.createTaskCard}
+                  onClick={handleCreateTaskClick}
+                >
+                  + Create Task
+                </div>
+                {feature.tasks.map((task) => (
+                  <TaskContent
+                    key={task.id}
+                    task={task}
+                    onTaskUpdate={(updatedTask) =>
+                      handleTaskUpdate(
+                        feature,
+                        task,
+                        updatedTask,
+                        setEditedFeature,
+                        setIsModalOpen
+                      )
+                    }
+                  />
+                ))}
+              </div>
+              {showCreateTask && (
+                <CreateComponent
+                  type="task"
+                  parentId={feature.feature_id}
+                  onCancel={handleCloseModal}
                 />
               )}
-              <div className={styles.clickableArea} onClick={handleCardClick}>
-                <p>Click here to view tasks</p>
-              </div>
-            </div>
+            </Modal>
           )}
-          EditFormComponent={EditForm} // Pass the EditForm component as a prop
-        />
-      </div>
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <div className={styles.taskGrid}>
-            <div
-              className={styles.createTaskCard}
-              onClick={handleCreateTaskClick}
-            >
-              + Create Task
-            </div>
-            {feature.tasks.map((task) => (
-              <TaskContent
-                key={task.id}
-                task={task}
-                onTaskUpdate={(updatedTask) =>
-                  handleTaskUpdate(
-                    feature,
-                    task,
-                    updatedTask,
-                    () => {},
-                    () => {}
-                  )
-                }
-              />
-            ))}
-          </div>
-          {showCreateTask && (
-            <CreateComponent
-              type="task"
-              parentId={feature.feature_id}
-              onCancel={handleCloseModal}
-            />
-          )}
-        </Modal>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

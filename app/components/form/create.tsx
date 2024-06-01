@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { TaskSize, TaskType } from "@/app/utils/enums";
 import commonStyles from "@/app/common.module.scss";
-import FormField from "./formField";
+import FormField from "../global/form/formField";
 
 const CreateComponent = ({ type, parentId, onCancel }) => {
   const [title, setTitle] = useState("");
@@ -22,7 +22,7 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
       ...(type === "task" && { type: taskType, size: taskSize }),
     };
 
-    const response = await fetch(`/api/${type}`, {
+    const response = await fetch(`/api/create/${type}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

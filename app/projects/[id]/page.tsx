@@ -19,7 +19,6 @@ const ProjectPage = async ({ params }) => {
     notFound();
   }
 
-  console.log(project);
   return <ProjectContent project={project} onProjectUpdate={undefined} />;
 };
 
