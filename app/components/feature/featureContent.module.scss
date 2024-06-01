@@ -32,12 +32,12 @@
 
 .taskGrid {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .createTaskCard {
   @extend .card;
   @extend .card-small;
-  height: 20vh;
 
   background-color: #007bff;
   color: white;

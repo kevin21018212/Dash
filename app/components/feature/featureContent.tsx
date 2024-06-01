@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./featureContent.module.scss";
+import common from "../../common.module.scss";
 import {
   handleSaveFeature,
   handleDeleteFeature,
@@ -75,10 +76,13 @@ const FeatureContent = ({ feature, onFeatureUpdate }) => {
               type="textArea"
             />
           </div>
-
           <div className={styles.actionButtons}>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={handleSave} className={common.saveButton}>
+              Save
+            </button>
+            <button onClick={handleDelete} className={common.deleteButton}>
+              Delete
+            </button>
           </div>
         </div>
       ) : (

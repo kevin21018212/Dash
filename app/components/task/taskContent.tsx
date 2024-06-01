@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./taskContent.module.scss";
+import common from "../../common.module.scss";
 import { handleSaveTask, handleDeleteTask } from "@/app/utils/contentHandlers";
 import { EditableField, EditableDropdown } from "../global/form/edit";
 import { TaskSize, TaskType } from "@/app/utils/enums";
@@ -19,11 +20,6 @@ const TaskContent = ({ task, onTaskUpdate }) => {
 
   const handleDelete = () => {
     handleDeleteTask(task, onTaskUpdate);
-  };
-
-  const handleCancel = () => {
-    setEditedTask(task);
-    setIsEditing(false);
   };
 
   const handleClickOutside = (event) => {
@@ -67,15 +63,19 @@ const TaskContent = ({ task, onTaskUpdate }) => {
             </div>
 
             <div className={styles.bottomSection}>
-              {/* <EditableField
+              <EditableField
                 value={editedTask.description}
                 onSave={(value) => handleFieldChange("description", value)}
                 type="textArea"
-              /> */}
+              />
             </div>
             <div className={styles.actionButtons}>
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleDelete}>Delete</button>
+              <button onClick={handleSave} className={common.saveButton}>
+                Save
+              </button>
+              <button onClick={handleDelete} className={common.deleteButton}>
+                Delete
+              </button>
             </div>
           </div>
         </>

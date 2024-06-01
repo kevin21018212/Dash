@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useSession, signIn } from "next-auth/react";
 import styles from "./projectContent.module.scss";
+import common from "../../common.module.scss";
 import {
   handleSaveProject,
   handleDeleteProject,
 } from "@/app/utils/contentHandlers";
 import FeatureContent from "../feature/featureContent";
-("../feature/featureContent");
+
 import { EditableField } from "../global/form/edit";
 import CreateComponent from "../form/create";
 
@@ -88,8 +88,12 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
               />
             </div>
             <div className={styles.actionButtons}>
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleDelete}>Delete</button>
+              <button onClick={handleSave} className={common.saveButton}>
+                Save
+              </button>
+              <button onClick={handleDelete} className={common.deleteButton}>
+                Delete
+              </button>
             </div>
           </section>
         </div>
