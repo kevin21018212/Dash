@@ -2,7 +2,7 @@
 
 .card {
   @extend .card;
-  @extend .card-large;
+  @extend .cardLarge;
   @extend .flex;
   position: relative;
 }

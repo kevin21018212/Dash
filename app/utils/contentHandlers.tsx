@@ -61,23 +61,19 @@ export const handleDeleteTask = async (task, onTaskUpdate) => {
   );
 };
 
-export const handleSaveProject = async (
-  project,
-  updatedProject,
-  onProjectUpdate
-) => {
+export const handleSaveProject = async (project, updatedProject) => {
   await handleSaveContent(
     `/api/project?projectId=${project.project_id}`,
     updatedProject,
-    onProjectUpdate,
+    null,
     (error) => console.error(error)
   );
 };
 
-export const handleDeleteProject = async (project, onProjectUpdate) => {
+export const handleDeleteProject = async (project) => {
   await handleDeleteContent(
     `/api/project?projectId=${project.project_id}`,
-    () => onProjectUpdate(null),
+    null,
     (error) => console.error(error)
   );
 };

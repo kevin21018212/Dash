@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "next/link";
 import styles from "./projectCard.module.scss";
+import common from "../../common.module.scss";
 import { Project } from "@prisma/client";
 
 interface ProjectCardProps {
@@ -18,7 +18,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
     <div className={styles.projectCard} onClick={handleClick}>
       <div className={styles.topContent} style={backgroundImageStyle}>
-        <h1 className={styles.title}>{project.title}</h1>
+        <h1 className={common.littleTitle}>{project.title}</h1>
       </div>
       <div className={styles.bottomContent}>
         {project.link && (

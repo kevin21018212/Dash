@@ -7,11 +7,11 @@ import {
   handleDeleteProject,
 } from "@/app/utils/contentHandlers";
 import FeatureContent from "../feature/featureContent";
-
 import { EditableField } from "../global/form/edit";
 import CreateComponent from "../form/create";
+import { FiEdit } from "react-icons/fi";
 
-const ProjectContent = ({ project, onProjectUpdate }) => {
+const ProjectContent = ({ project }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedProject, setEditedProject] = useState(project);
   const [features, setFeatures] = useState(project.features || []);
@@ -22,17 +22,12 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
   };
 
   const handleSave = () => {
-    handleSaveProject(project, editedProject, onProjectUpdate);
+    handleSaveProject(project, editedProject);
     setIsEditing(false);
   };
 
   const handleDelete = () => {
-    handleDeleteProject(project, onProjectUpdate);
-  };
-
-  const handleCancel = () => {
-    setEditedProject(project);
-    setIsEditing(false);
+    handleDeleteProject(project);
   };
 
   const handleClickOutside = (event) => {
@@ -62,7 +57,7 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
   return (
     <>
       {isEditing ? (
-        <div className={styles.container}>
+        <div className={common.container}>
           <section ref={projectInfoRef} className={styles.projectInfo}>
             <div className={styles.infoLeft} style={backgroundImageStyle}>
               <EditableField
@@ -115,18 +110,19 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
                 </a>
               )}
               <p className={styles.description}>{project.description}</p>
-              <div
-                className={styles.editIcon}
+              <FiEdit
+                className={common.editIcon}
                 onClick={() => setIsEditing(true)}
-              >
-                ✏️
-              </div>
+              />
             </div>
           </section>
           <section className={styles.featuresSection}>
-            <h2 className={styles.featuresTitle}>Features</h2>
-            <div className={styles.featuresGrid}>
-              <div className={styles.createCard}>
+            <div className={common.gridDisplayContainer}>
+              <div className={common.cornerTitle}>
+                <h2 className={styles.featuresTitle}>Features</h2>
+              </div>
+
+              <div className={common.cardLarge}>
                 <CreateComponent
                   type="feature"
                   parentId={project.project_id}
@@ -137,7 +133,7 @@ const ProjectContent = ({ project, onProjectUpdate }) => {
                 <FeatureContent
                   key={feature.feature_id}
                   feature={feature}
-                  onFeatureUpdate={onProjectUpdate}
+                  onFeatureUpdate={null}
                 />
               ))}
             </div>

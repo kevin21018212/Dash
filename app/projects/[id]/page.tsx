@@ -19,7 +19,7 @@ const ProjectPage = async ({ params }) => {
     notFound();
   }
 
-  return <ProjectContent project={project} onProjectUpdate={undefined} />;
+  return <ProjectContent project={project} />;
 };
 
 export default ProjectPage;

@@ -17,6 +17,24 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   margin-bottom: 8px;
 }
 
+.cornerTitle {
+  h2 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  margin: 0;
+
+  width: 100%;
+}
+
+.littleTitle {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
 .subtitle {
   font-size: 24px;
   font-weight: 600;
@@ -103,9 +121,8 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 /* Containers */
 
 .container {
-  padding: 16px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5vw;
   gap: 2rem;
 }
 
@@ -129,6 +146,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   flex-direction: column;
   padding: 15px;
   margin: 15px;
+  margin-top: 0;
   box-sizing: border-box;
 }
 .card-alt {
@@ -138,16 +156,19 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   box-sizing: border-box;
 }
 
-.card-large {
+.cardLarge {
+  @extend .card;
   width: 300px;
   height: 375px;
 }
 
 .card-medium {
+  @extend .card;
   width: 250px;
 }
 
 .card-small {
+  @extend .card;
   width: 250px;
   height: 250px;
 }
@@ -222,6 +243,12 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   height: auto;
   border-radius: 4px;
   margin-top: 16px;
+}
+
+.editIcon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .link {
