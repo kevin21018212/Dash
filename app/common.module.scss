@@ -30,6 +30,12 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   margin-bottom: 16px;
 }
 
+.bg-shadow {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
 /* Buttons */
 .button {
   padding: 0.5rem 1rem;
@@ -95,28 +101,39 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 }
 
 /* Containers */
+
 .container {
   padding: 16px;
-  width: 70vw;
   margin: 0 auto;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.pageContainer {
+  @extend .container;
+  @extend .flex-center-column;
+  width: 90vw;
+}
+
+.gridDisplayContainer {
+  @extend .container;
+  @extend .bg-shadow;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .card {
+  @extend .bg-shadow;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   margin: 15px;
   box-sizing: border-box;
 }
 .card-alt {
+  @extend .bg-shadow;
   display: flex;
-
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
   box-sizing: border-box;
 }
@@ -173,6 +190,11 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 .flex-between {
   justify-content: space-between;
+}
+.flex-center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Grid Utilities */
