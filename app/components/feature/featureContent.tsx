@@ -10,8 +10,9 @@ import { EditableField } from "../global/form/edit";
 import Modal from "../modal";
 import TaskContent from "../task/taskContent";
 import CreateComponent from "../form/create";
+import { FiEdit } from "react-icons/fi";
 
-const FeatureContent = ({ feature, onFeatureUpdate }) => {
+const FeatureContent = ({ feature }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedFeature, setEditedFeature] = useState(feature);
@@ -94,9 +95,10 @@ const FeatureContent = ({ feature, onFeatureUpdate }) => {
           <div className={styles.clickableArea} onClick={handleCardClick}>
             <p>Click here to view tasks</p>
           </div>
-          <div className={styles.editIcon} onClick={() => setIsEditing(true)}>
-            ✏️
-          </div>
+          <FiEdit
+            className={common.editIcon}
+            onClick={() => setIsEditing(true)}
+          />
 
           {isModalOpen && (
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
@@ -108,19 +110,7 @@ const FeatureContent = ({ feature, onFeatureUpdate }) => {
                   + Create Task
                 </div>
                 {feature.tasks.map((task) => (
-                  <TaskContent
-                    key={task.id}
-                    task={task}
-                    onTaskUpdate={(updatedTask) =>
-                      handleTaskUpdate(
-                        feature,
-                        task,
-                        updatedTask,
-                        setEditedFeature,
-                        setIsModalOpen
-                      )
-                    }
-                  />
+                  <TaskContent key={task.id} task={task} />
                 ))}
               </div>
               {showCreateTask && (

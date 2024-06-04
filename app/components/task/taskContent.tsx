@@ -4,7 +4,8 @@ import common from "../../common.module.scss";
 import { handleSaveTask, handleDeleteTask } from "@/app/utils/contentHandlers";
 import { EditableField, EditableDropdown } from "../global/form/edit";
 import { TaskSize, TaskType } from "@/app/utils/enums";
-const TaskContent = ({ task, onTaskUpdate }) => {
+import { FiEdit } from "react-icons/fi";
+const TaskContent = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
   const taskDetailRef = useRef<HTMLInputElement>(null);
@@ -14,12 +15,12 @@ const TaskContent = ({ task, onTaskUpdate }) => {
   };
 
   const handleSave = () => {
-    handleSaveTask(task, editedTask, onTaskUpdate);
+    handleSaveTask(task, editedTask);
     setIsEditing(false);
   };
 
   const handleDelete = () => {
-    handleDeleteTask(task, onTaskUpdate);
+    handleDeleteTask(task);
   };
 
   const handleClickOutside = (event) => {
@@ -95,9 +96,10 @@ const TaskContent = ({ task, onTaskUpdate }) => {
           <div className={styles.bottomSection}>
             <div className={styles.description}>{task.description}</div>
           </div>
-          <div className={styles.editIcon} onClick={() => setIsEditing(true)}>
-            ✏️
-          </div>
+          <FiEdit
+            className={common.editIcon}
+            onClick={() => setIsEditing(true)}
+          />
         </div>
       )}
     </>

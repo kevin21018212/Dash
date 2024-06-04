@@ -22,7 +22,7 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
       ...(type === "task" && { type: taskType, size: taskSize }),
     };
 
-    const response = await fetch(`/api/create/${type}`, {
+    const response = await fetch(`/api/${type}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

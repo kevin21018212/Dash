@@ -130,11 +130,7 @@ const ProjectContent = ({ project }) => {
                 />
               </div>
               {features.map((feature) => (
-                <FeatureContent
-                  key={feature.feature_id}
-                  feature={feature}
-                  onFeatureUpdate={null}
-                />
+                <FeatureContent key={feature.feature_id} feature={feature} />
               ))}
             </div>
           </section>

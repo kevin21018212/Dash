@@ -20,3 +20,51 @@
     @extend .textarea;
   }
 }
+
+/* form.module.scss */
+
+/* Form Elements */
+.input,
+.textarea,
+.dropdown {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  font-size: 16px;
+  border: 1px solid $input-border-color;
+  box-sizing: border-box;
+
+  &.textarea {
+    resize: vertical;
+  }
+}
+
+/* Required Indicator */
+.required {
+  color: red;
+  margin-left: 4px;
+}
+
+/* Form Field Group */
+.formFieldGroup {
+  margin-bottom: 15px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .formFieldInput,
+  .formFieldTextarea,
+  .formFieldSelect {
+    @extend .input;
+  }
+
+  .formFieldTextarea {
+    @extend .textarea;
+  }
+}

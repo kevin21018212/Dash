@@ -4,14 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import styles from "./navbar.module.scss";
-
-type Project = {
-  project_id: number;
-  title: string;
-  description?: string;
-  link?: string;
-  image_url?: string;
-};
+import { Project } from "@prisma/client";
 
 const Navbar = () => {
   const { data: session } = useSession();

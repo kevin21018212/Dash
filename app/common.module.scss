@@ -94,30 +94,6 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   }
 }
 
-/* Form Elements */
-.input,
-.textarea,
-.dropdown {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 8px;
-  border: 1px solid $input-border-color;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s, box-shadow 0.3s;
-
-  & {
-    border-color: $input-focus-color;
-    box-shadow: 0px 0px 5px $input-focus-shadow-color;
-  }
-
-  &.textarea {
-    resize: vertical;
-  }
-}
-
 /* Containers */
 
 .container {

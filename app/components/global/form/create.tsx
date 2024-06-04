@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { TaskSize, TaskType } from "@/app/utils/enums";
-import commonStyles from "@/app/common.module.scss";
+import commonStyles from "./form.module.scss";
 import FormField from "./formField";
 
 const CreateComponent = ({ type, parentId, onCancel }) => {

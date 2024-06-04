@@ -16,10 +16,6 @@
   }
 }
 
-.taskBars {
-  @extend .flex-row;
-}
-
 .taskType,
 .taskSize {
   display: inline-block;
