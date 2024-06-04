@@ -3,8 +3,11 @@
 .projectInfo {
   margin-bottom: 32px;
   height: 30vh;
-  @extend .card-alt;
+  width: 100%;
+  @extend .bgShadowWhite;
   display: flex;
+  margin-bottom: 16px;
+  box-sizing: border-box;
   position: relative;
 }
 

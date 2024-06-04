@@ -5,7 +5,7 @@
 
 .landing {
   @extend .flex-center-column;
-  width: 100vw;
+  width: 100%;
   padding: 2rem;
   @extend .bg-shadow;
 }
@@ -22,7 +22,6 @@
 }
 
 .createCard {
-  @extend .card;
   @extend .card-medium;
 }
 

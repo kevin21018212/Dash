@@ -52,7 +52,7 @@ const ProjectContent = ({project}) => {
   return (
     <>
       {isEditing ? (
-        <div className={common.container}>
+        <div className={common.pageContainer}>
           <section ref={projectInfoRef} className={styles.projectInfo}>
             <div className={styles.infoLeft} style={backgroundImageStyle}>
               <EditableField value={editedProject.title} onSave={(value) => handleFieldChange('title', value)} />
@@ -76,7 +76,7 @@ const ProjectContent = ({project}) => {
           </section>
         </div>
       ) : (
-        <div className={styles.container}>
+        <div className={common.pageContainer}>
           <section className={styles.projectInfo}>
             <div className={styles.infoLeft} style={backgroundImageStyle}>
               <h1 className={styles.title}>{project.title}</h1>

@@ -66,14 +66,15 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 .container {
   margin: 0 auto;
-  padding: 1.5vw;
+  padding: 1rem;
   gap: 2rem;
 }
 
 .pageContainer {
-  @extend .container;
+  border: 1px dotted red;
   @extend .flex-center-column;
-  width: 90vw;
+  width: 100vw;
+  padding: 2.5rem;
 }
 
 .gridDisplayContainer {
@@ -91,12 +92,6 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   padding: 15px;
   margin: 15px;
   margin-top: 0;
-  box-sizing: border-box;
-}
-.card-alt {
-  @extend .bgShadowWhite;
-  display: flex;
-  margin-bottom: 16px;
   box-sizing: border-box;
 }
 

@@ -6,9 +6,8 @@
   @extend .bg-shadow;
   background-color: $primary-color;
   color: white;
-  width: 98vw;
-
-  padding: 0 1rem;
+  width: 100vw;
+  overflow: hidden;
 }
 
 .mainLinksContainer {
