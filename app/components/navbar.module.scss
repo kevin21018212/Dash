@@ -1,48 +1,39 @@
-@import "../common.module.scss";
+@import '../common.module.scss';
 
 .container {
-  @extend .flex-between;
+  height: 8vh;
+  @extend .flex-horizontal;
   background-color: $primary-color;
   color: white;
-  width: 100%;
+  width: 98vw;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 1rem;
   transition: background-color 0.3s ease;
+  padding: 0 1rem;
 }
 
-.navLinks {
-  @extend .flex;
-  align-items: center;
-  margin-left: auto;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.mainLinksContainer {
+  flex-grow: 2;
+  height: 100%;
+  @extend .flex-horizontal;
 }
-
-.navLink {
-  @extend .link;
-  padding: 0.5rem 1rem;
-  color: white;
-
-  transition: background-color 0.3s ease, color 0.3s ease;
-  &:hover {
-    color: $secondary-color;
-  }
-}
-
 .projectsContainer {
   @extend .flex;
   overflow-x: auto;
-  padding: 0.5rem;
-  gap: 0.5rem;
+  height: 100%;
   white-space: nowrap;
 
   @media (max-width: 768px) {
     width: 100%;
     overflow-x: auto;
   }
+}
+.navLink {
+  @extend .flex-horizontal;
+  @extend .link;
+  padding: 0rem 1rem;
+  height: 100%;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .loading {

@@ -1,11 +1,11 @@
 /* homepage.module.scss */
-@import "./common.module.scss";
+@import './common.module.scss';
 
 /* Homepage specific styles */
 
 .landing {
   @extend .flex-center-column;
-  width: 100%;
+  width: 100vw;
   padding: 2rem;
   @extend .bg-shadow;
 }

@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import styles from "./featureContent.module.scss";
-import common from "../../common.module.scss";
-import {
-  handleSaveFeature,
-  handleDeleteFeature,
-  handleTaskUpdate,
-} from "@/app/utils/contentHandlers";
-import { EditableField } from "../global/form/edit";
-import Modal from "../modal";
-import TaskContent from "../task/taskContent";
-import CreateComponent from "../form/create";
-import { FiEdit } from "react-icons/fi";
+import React, {useState, useEffect, useRef} from 'react';
+import styles from './featureContent.module.scss';
+import common from '../../common.module.scss';
+import {handleSaveFeature, handleDeleteFeature} from '@/app/utils/contentHandlers';
+import {EditableField} from '../global/form/edit';
+import Modal from '../modal';
+import TaskContent from '../task/taskContent';
 
-const FeatureContent = ({ feature }) => {
+import {FiEdit} from 'react-icons/fi';
+import CreateComponent from '../global/form/create';
+
+const FeatureContent = ({feature}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedFeature, setEditedFeature] = useState(feature);
@@ -20,7 +17,7 @@ const FeatureContent = ({ feature }) => {
   const featureRef = useRef<HTMLInputElement>(null);
 
   const handleFieldChange = (field, value) => {
-    setEditedFeature({ ...editedFeature, [field]: value });
+    setEditedFeature({...editedFeature, [field]: value});
   };
 
   const handleSave = () => {
@@ -53,12 +50,12 @@ const FeatureContent = ({ feature }) => {
 
   useEffect(() => {
     if (isEditing) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     }
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isEditing]);
 
@@ -67,15 +64,8 @@ const FeatureContent = ({ feature }) => {
       {isEditing ? (
         <div ref={featureRef} className={styles.card}>
           <div className={styles.featureInfo}>
-            <EditableField
-              value={editedFeature.title}
-              onSave={(value) => handleFieldChange("title", value)}
-            />
-            <EditableField
-              value={editedFeature.description}
-              onSave={(value) => handleFieldChange("description", value)}
-              type="textArea"
-            />
+            <EditableField value={editedFeature.title} onSave={(value) => handleFieldChange('title', value)} />
+            <EditableField value={editedFeature.description} onSave={(value) => handleFieldChange('description', value)} type='textArea' />
           </div>
           <div className={styles.actionButtons}>
             <button onClick={handleSave} className={common.saveButton}>
@@ -95,31 +85,19 @@ const FeatureContent = ({ feature }) => {
           <div className={styles.clickableArea} onClick={handleCardClick}>
             <p>Click here to view tasks</p>
           </div>
-          <FiEdit
-            className={common.editIcon}
-            onClick={() => setIsEditing(true)}
-          />
+          <FiEdit className={common.editIcon} onClick={() => setIsEditing(true)} />
 
           {isModalOpen && (
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
               <div className={styles.taskGrid}>
-                <div
-                  className={styles.createTaskCard}
-                  onClick={handleCreateTaskClick}
-                >
+                <div className={styles.createTaskCard} onClick={handleCreateTaskClick}>
                   + Create Task
                 </div>
                 {feature.tasks.map((task) => (
                   <TaskContent key={task.id} task={task} />
                 ))}
               </div>
-              {showCreateTask && (
-                <CreateComponent
-                  type="task"
-                  parentId={feature.feature_id}
-                  onCancel={handleCloseModal}
-                />
-              )}
+              {showCreateTask && <CreateComponent type='task' parentId={feature.feature_id} onCancel={handleCloseModal} />}
             </Modal>
           )}
         </div>
