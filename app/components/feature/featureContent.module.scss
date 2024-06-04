@@ -35,7 +35,7 @@
 
 .createTaskCard {
   @extend .card-small;
-  background-color: #007bff;
+  background-color: $primary-color;
   color: white;
   transition: background-color 0.3s;
   justify-content: center;

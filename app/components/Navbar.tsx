@@ -10,7 +10,6 @@ import Loading from './global/function/Loading';
 const Navbar = () => {
   const {data: session} = useSession();
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
 
   const fetchProjects = async () => {
     if (session) {
@@ -19,7 +18,6 @@ const Navbar = () => {
         const data = await response.json();
         if (response.ok) {
           setProjects(data.projects);
-          setLoading(false);
         } else {
           console.error('Error fetching projects:', data.error);
         }
@@ -48,15 +46,11 @@ const Navbar = () => {
         </Link>
       </div>
       <div className={styles.projectsContainer}>
-        {loading ? (
-          <Loading />
-        ) : (
-          projects.map((project) => (
-            <Link key={project.project_id} href={`/projects/${project.project_id}`} className={styles.navLink}>
-              {project.title}
-            </Link>
-          ))
-        )}
+        {projects.map((project) => (
+          <Link key={project.project_id} href={`/projects/${project.project_id}`} className={styles.navLink}>
+            {project.title}
+          </Link>
+        ))}
       </div>
     </div>
   );

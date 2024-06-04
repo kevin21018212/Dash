@@ -45,9 +45,7 @@ const ProjectContent = ({project}) => {
     };
   }, [isEditing]);
 
-  const backgroundImageStyle = project.image_url
-    ? {backgroundImage: `url(${project.image_url})`, backgroundSize: 'cover'}
-    : {backgroundColor: '#0070f3'};
+  const backgroundImageStyle = project.image_url ? {backgroundImage: `url(${project.image_url})`, backgroundSize: 'cover'} : {};
 
   return (
     <>

@@ -1,5 +1,5 @@
 /* Variables */
-$primary-color: #0070f3;
+$primary-color: #367c2b;
 $primary-hover-color: #005bb5;
 $secondary-color: #6200ea;
 $secondary-hover-color: #3700b3;
@@ -71,10 +71,10 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 }
 
 .pageContainer {
-  border: 1px dotted red;
   @extend .flex-center-column;
-  width: 100vw;
-  padding: 2.5rem;
+  width: 90vw;
+  padding: 5vw;
+  gap: 2rem;
 }
 
 .gridDisplayContainer {

@@ -14,7 +14,7 @@
 .infoLeft {
   width: 30%;
   border-radius: 8px;
-  @extend .background-color-primary;
+  background-color: $primary-color;
   padding: 1%;
   .title {
     font-size: 32px;
