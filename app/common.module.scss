@@ -47,50 +47,19 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   color: #666;
   margin-bottom: 16px;
 }
-
-.bg-shadow {
-  background-color: #fff;
+.bg-shadow-round {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
-/* Buttons */
-.button {
-  padding: 0.5rem 1rem;
-
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+.bg-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.button-primary {
-  background-color: $primary-color;
-  color: white;
-
-  & {
-    background-color: $primary-hover-color;
-  }
-}
-
-.button-secondary {
-  background-color: $secondary-color;
-  color: white;
-
-  & {
-    background-color: $secondary-hover-color;
-  }
-}
-
-.button-danger {
-  background-color: $danger-color;
-  color: white;
-
-  & {
-    background-color: $danger-hover-color;
-  }
+.bgShadowWhite {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 /* Containers */
@@ -109,14 +78,14 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 .gridDisplayContainer {
   @extend .container;
-  @extend .bg-shadow;
+  @extend .bgShadowWhite;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
 
 .card {
-  @extend .bg-shadow;
+  @extend .bgShadowWhite;
   display: flex;
   flex-direction: column;
   padding: 15px;
@@ -125,7 +94,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   box-sizing: border-box;
 }
 .card-alt {
-  @extend .bg-shadow;
+  @extend .bgShadowWhite;
   display: flex;
   margin-bottom: 16px;
   box-sizing: border-box;
@@ -167,19 +136,18 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 }
 
 /* Flex Utilities */
-.flex {
-  display: flex;
-}
 
 .flex-row {
   flex-direction: row;
 }
 
 .flex-column {
+  display: flex;
   flex-direction: column;
 }
 
 .flex-center {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -226,6 +194,13 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   top: 15px;
   right: 15px;
 }
+.actionButtons {
+  position: absolute;
+  bottom: 10px;
+  cursor: pointer;
+  z-index: 10;
+  right: 10px;
+}
 
 .link {
   font-size: 16px;
@@ -236,7 +211,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   }
 }
 
-/* Required Indicator */
+/* Buttons */
 .required {
   color: red;
   margin-left: 4px;

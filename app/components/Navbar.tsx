@@ -5,6 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {useSession} from 'next-auth/react';
 import styles from './navbar.module.scss';
 import {Project} from '@prisma/client';
+import Loading from './global/function/Loading';
 
 const Navbar = () => {
   const {data: session} = useSession();
@@ -39,7 +40,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.mainLinksContainer}>
-        <Link href='/Home' className={styles.navLink}>
+        <Link href='/' className={styles.navLink}>
           Home
         </Link>
         <Link href='/Dashboard' className={styles.navLink}>
@@ -48,7 +49,7 @@ const Navbar = () => {
       </div>
       <div className={styles.projectsContainer}>
         {loading ? (
-          <div className={styles.loading}>Loading...</div>
+          <Loading />
         ) : (
           projects.map((project) => (
             <Link key={project.project_id} href={`/projects/${project.project_id}`} className={styles.navLink}>

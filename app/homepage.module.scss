@@ -32,7 +32,7 @@
 }
 
 .signButton {
-  @extend .button;
+  @extend .saveButton;
   background-color: #7c6f5a;
   color: white;
   border: 1px solid #333;

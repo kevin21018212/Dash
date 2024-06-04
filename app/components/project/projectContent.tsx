@@ -65,7 +65,7 @@ const ProjectContent = ({project}) => {
               )}
               <EditableField value={editedProject.description} onSave={(value) => handleFieldChange('description', value)} type='textArea' />
             </div>
-            <div className={styles.actionButtons}>
+            <div className={common.actionButtons}>
               <button onClick={handleSave} className={common.saveButton}>
                 Save
               </button>

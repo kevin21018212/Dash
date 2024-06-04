@@ -1,9 +1,8 @@
-@import "../../common.module.scss";
+@import '../../common.module.scss';
 
 .card {
-  @extend .card;
   @extend .cardLarge;
-  @extend .flex;
+  display: flex;
   position: relative;
 }
 
@@ -14,7 +13,6 @@
 }
 
 .editContainer {
-  @extend .card;
   @extend .card-medium;
 }
 
@@ -23,7 +21,6 @@
 }
 
 .clickableArea {
-  @extend .card;
   @extend .card-medium;
   padding: 10px;
   background-color: #f0f0f0;
@@ -36,32 +33,13 @@
 }
 
 .createTaskCard {
-  @extend .card;
   @extend .card-small;
-
   background-color: #007bff;
   color: white;
   transition: background-color 0.3s;
   justify-content: center;
   align-items: center;
-
   &:hover {
     background-color: #0056b3;
   }
-}
-
-.editIcon {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-.actionButtons {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  cursor: pointer;
-  z-index: 10;
 }

@@ -3,11 +3,11 @@
 .container {
   height: 8vh;
   @extend .flex-horizontal;
+  @extend .bg-shadow;
   background-color: $primary-color;
   color: white;
   width: 98vw;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+
   padding: 0 1rem;
 }
 
@@ -17,15 +17,10 @@
   @extend .flex-horizontal;
 }
 .projectsContainer {
-  @extend .flex;
+  display: flex;
   overflow-x: auto;
   height: 100%;
   white-space: nowrap;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    overflow-x: auto;
-  }
 }
 .navLink {
   @extend .flex-horizontal;
@@ -33,7 +28,6 @@
   padding: 0rem 1rem;
   height: 100%;
   color: white;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .loading {

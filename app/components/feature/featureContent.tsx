@@ -67,7 +67,7 @@ const FeatureContent = ({feature}) => {
             <EditableField value={editedFeature.title} onSave={(value) => handleFieldChange('title', value)} />
             <EditableField value={editedFeature.description} onSave={(value) => handleFieldChange('description', value)} type='textArea' />
           </div>
-          <div className={styles.actionButtons}>
+          <div className={common.actionButtons}>
             <button onClick={handleSave} className={common.saveButton}>
               Save
             </button>
