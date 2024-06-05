@@ -8,6 +8,7 @@ import TaskContent from '../task/taskContent';
 
 import {FiEdit} from 'react-icons/fi';
 import CreateComponent from '../global/form/create';
+import {motion} from 'framer-motion';
 
 const FeatureContent = ({feature}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,17 +83,17 @@ const FeatureContent = ({feature}) => {
             <h3 className={styles.title}>{feature.title}</h3>
             <p className={styles.description}>{feature.description}</p>
           </div>
-          <div className={styles.clickableArea} onClick={handleCardClick}>
+          <motion.div whileHover={{scale: 1.05}} className={styles.clickableArea} onClick={handleCardClick}>
             <p>Click here to view tasks</p>
-          </div>
+          </motion.div>
           <FiEdit className={common.editIcon} onClick={() => setIsEditing(true)} />
 
           {isModalOpen && (
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
               <div className={styles.taskGrid}>
-                <div className={styles.createTaskCard} onClick={handleCreateTaskClick}>
+                <motion.div whileHover={{scale: 1.1}} className={styles.createTaskCard} onClick={handleCreateTaskClick}>
                   + Create Task
-                </div>
+                </motion.div>
                 {feature.tasks.map((task) => (
                   <TaskContent key={task.id} task={task} />
                 ))}

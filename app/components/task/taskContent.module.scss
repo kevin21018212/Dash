@@ -39,7 +39,7 @@
 
 .buttons {
   width: 100%;
-  @extend .flex-row;
+  flex-direction: row;
   gap: 8px;
 }
 
@@ -77,7 +77,7 @@
   background-color: #3f51b5;
 }
 
-.Componenet {
+.Component {
   background-color: #00bcd4;
 }
 
@@ -85,7 +85,7 @@
   background-color: #cddc39;
 }
 
-.DatabaseManagement {
+.Database {
   background-color: #8bc34a;
 }
 

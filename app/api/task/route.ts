@@ -1,31 +1,28 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import prisma from "@/prisma/prisma";
-import { findUserByGoogleId } from "@/app/utils/userHelper";
+import {NextRequest, NextResponse} from 'next/server';
+import {getServerSession} from 'next-auth';
+import prisma from '@/prisma/prisma';
+import {findUserByGoogleId} from '@/app/utils/userHelper';
 
 export async function POST(req: NextRequest) {
   const session = await getServerSession();
 
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({error: 'Unauthorized'}, {status: 401});
   }
 
   const google_id = session.user?.email as string;
   const body = await req.json();
-  const { title, description, type, size, feature_id } = body;
+  const {title, description, type, size, feature_id} = body;
 
   if (!title || !type || !size) {
-    return NextResponse.json(
-      { error: "Title, type, and size are required" },
-      { status: 400 }
-    );
+    return NextResponse.json({error: 'Title, type, and size are required'}, {status: 400});
   }
 
   try {
     const user = await findUserByGoogleId(google_id);
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({error: 'User not found'}, {status: 404});
     }
 
     const newTask = await prisma.task.create({
@@ -39,15 +36,9 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json(
-      { message: "Task created", task: newTask },
-      { status: 201 }
-    );
+    return NextResponse.json({message: 'Task created', task: newTask}, {status: 201});
   } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({error: 'Something went wrong'}, {status: 500});
   }
 }
 
@@ -55,32 +46,30 @@ export async function PUT(req: NextRequest) {
   const session = await getServerSession();
 
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({error: 'Unauthorized'}, {status: 401});
   }
 
   const google_id = session.user?.email as string;
-  const { searchParams } = new URL(req.url);
-  const taskId = searchParams.get("taskId") as string;
-  const { title, size, description, type } = await req.json();
+  const {searchParams} = new URL(req.url);
+  const taskId = searchParams.get('taskId') as string;
+  const {title, size, description, type} = await req.json();
 
   try {
     const user = await findUserByGoogleId(google_id);
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({error: 'User not found'}, {status: 404});
     }
+    console.log(title, size, description, type, taskId);
 
     const updatedTask = await prisma.task.update({
-      where: { task_id: parseInt(taskId) },
-      data: { title, size, description, type },
+      where: {task_id: parseInt(taskId)},
+      data: {title, size, description, type},
     });
 
-    return NextResponse.json(updatedTask, { status: 200 });
+    return NextResponse.json(updatedTask, {status: 200});
   } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({error: 'Something went wrong'}, {status: 500});
   }
 }
 
@@ -88,33 +77,27 @@ export async function DELETE(req: NextRequest) {
   const session = await getServerSession();
 
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({error: 'Unauthorized'}, {status: 401});
   }
 
   const google_id = session.user?.email as string;
-  const { searchParams } = new URL(req.url);
-  const taskId = searchParams.get("taskId") as string;
+  const {searchParams} = new URL(req.url);
+  const taskId = searchParams.get('taskId') as string;
 
   try {
     const user = await findUserByGoogleId(google_id);
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({error: 'User not found'}, {status: 404});
     }
 
     await prisma.task.delete({
-      where: { task_id: parseInt(taskId) },
+      where: {task_id: parseInt(taskId)},
     });
 
-    return NextResponse.json(
-      { message: "Task deleted successfully" },
-      { status: 200 }
-    );
+    return NextResponse.json({message: 'Task deleted successfully'}, {status: 200});
   } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({error: 'Something went wrong'}, {status: 500});
   }
 }
 
@@ -122,25 +105,22 @@ export async function GET(req: NextRequest) {
   const session = await getServerSession();
 
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({error: 'Unauthorized'}, {status: 401});
   }
 
   const google_id = session.user?.email as string;
-  const { searchParams } = new URL(req.url);
-  const featureId = searchParams.get("feature_id") as string;
+  const {searchParams} = new URL(req.url);
+  const featureId = searchParams.get('feature_id') as string;
 
   if (!featureId) {
-    return NextResponse.json(
-      { error: "Feature ID is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({error: 'Feature ID is required'}, {status: 400});
   }
 
   try {
     const user = await findUserByGoogleId(google_id);
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({error: 'User not found'}, {status: 404});
     }
 
     const tasks = await prisma.task.findMany({
@@ -150,11 +130,8 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ tasks }, { status: 200 });
+    return NextResponse.json({tasks}, {status: 200});
   } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({error: 'Something went wrong'}, {status: 500});
   }
 }

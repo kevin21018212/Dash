@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './projectCard.module.scss';
 import common from '../../common.module.scss';
 import {Project} from '@prisma/client';
+import {motion} from 'framer-motion';
 
 interface ProjectCardProps {
   project: Project;
@@ -14,7 +15,7 @@ const ProjectCard = ({project}: ProjectCardProps) => {
   };
 
   return (
-    <div className={styles.projectCard} onClick={handleClick}>
+    <motion.div whileHover={{scale: 1.1}} className={styles.projectCard} onClick={handleClick}>
       <div className={styles.topContent} style={backgroundImageStyle}>
         <h1 className={common.littleTitle}>{project.title}</h1>
       </div>
@@ -26,7 +27,7 @@ const ProjectCard = ({project}: ProjectCardProps) => {
         )}
         <p className={styles.description}>{project.description}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

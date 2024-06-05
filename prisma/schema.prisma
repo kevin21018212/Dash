@@ -77,9 +77,9 @@ enum TaskType {
   Animation
   PageLayout
   Styling
-  Componenet
+  Component
   APIRoute
-  DatabaseManagement
+  Database
   Testing
   Deployment
 }

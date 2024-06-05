@@ -4,6 +4,7 @@ import {TaskSize, TaskType} from '@/app/utils/enums';
 import form from './form.module.scss';
 import common from '../../../common.module.scss';
 import FormField from './formField';
+import {motion} from 'framer-motion';
 
 const CreateComponent = ({type, parentId, onCancel}) => {
   const [title, setTitle] = useState('');
@@ -87,13 +88,13 @@ const CreateComponent = ({type, parentId, onCancel}) => {
           </>
         )}
         <div className={form.buttonGroup}>
-          <button type='submit' className={common.saveButton}>
+          <motion.button type='submit' whileHover={{scale: 1.05}} className={common.saveButton}>
             Create {type.charAt(0).toUpperCase() + type.slice(1)}
-          </button>
+          </motion.button>
           {onCancel != null ? (
-            <button type='button' className={common.deleteButton} onClick={onCancel}>
+            <motion.button type='button' whileHover={{scale: 1.05}} className={common.deleteButton} onClick={onCancel}>
               Cancel
-            </button>
+            </motion.button>
           ) : (
             <></>
           )}

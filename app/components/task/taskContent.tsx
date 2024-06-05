@@ -5,6 +5,7 @@ import {handleSaveTask, handleDeleteTask} from '@/app/utils/contentHandlers';
 import {EditableField, EditableDropdown} from '../global/form/edit';
 import {TaskSize, TaskType} from '@/app/utils/enums';
 import {FiEdit} from 'react-icons/fi';
+import {motion} from 'framer-motion';
 const TaskContent = ({task}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
@@ -71,7 +72,7 @@ const TaskContent = ({task}) => {
           </div>
         </>
       ) : (
-        <div ref={taskDetailRef} className={styles.taskDetail}>
+        <motion.div whileHover={{scale: 1.1}} ref={taskDetailRef} className={styles.taskDetail}>
           <div className={styles.topSection}>
             <p>{task.title}</p>
             <div className={styles.buttons}>
@@ -83,7 +84,7 @@ const TaskContent = ({task}) => {
             <div className={styles.description}>{task.description}</div>
           </div>
           <FiEdit className={common.editIcon} onClick={() => setIsEditing(true)} />
-        </div>
+        </motion.div>
       )}
     </>
   );

@@ -24,8 +24,9 @@
   @extend .card-medium;
   padding: 10px;
   background-color: #f0f0f0;
-  height: 50%;
+  max-height: 60%;
   user-select: none;
+  cursor: pointer;
 }
 
 .taskGrid {
@@ -41,6 +42,6 @@
   justify-content: center;
   align-items: center;
   &:hover {
-    background-color: #0056b3;
+    background-color: $primary-hover-color;
   }
 }

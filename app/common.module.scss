@@ -1,6 +1,6 @@
 /* Variables */
 $primary-color: #367c2b;
-$primary-hover-color: #005bb5;
+$primary-hover-color: #429635;
 $secondary-color: #6200ea;
 $secondary-hover-color: #3700b3;
 $danger-color: #d9534f;
@@ -132,10 +132,6 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 /* Flex Utilities */
 
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -169,14 +165,6 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   background-size: cover;
 }
 
-.background-color-primary {
-  background-color: $primary-color;
-}
-
-.background-color-secondary {
-  background-color: $secondary-color;
-}
-
 .image {
   width: 100%;
   height: auto;
@@ -186,13 +174,13 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 .editIcon {
   position: absolute;
+  cursor: pointer;
   top: 15px;
   right: 15px;
 }
 .actionButtons {
   position: absolute;
   bottom: 10px;
-  cursor: pointer;
   z-index: 10;
   right: 10px;
 }
@@ -202,7 +190,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   color: $secondary-color;
   text-decoration: none;
   &:hover {
-    background-color: $secondary-color;
+    background-color: $primary-hover-color;
   }
 }
 

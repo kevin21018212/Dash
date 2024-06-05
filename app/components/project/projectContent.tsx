@@ -8,6 +8,7 @@ import {EditableField} from '../global/form/edit';
 
 import {FiEdit} from 'react-icons/fi';
 import CreateComponent from '../global/form/create';
+import {motion} from 'framer-motion';
 
 const ProjectContent = ({project}) => {
   const [isEditing, setIsEditing] = useState(false);
