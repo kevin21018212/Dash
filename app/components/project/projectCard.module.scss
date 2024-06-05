@@ -1,44 +1,29 @@
+@import '../../common.module.scss';
+
 .projectCard {
-  height: 40vh;
-  width: 200px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin: 0px 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  @extend .card-medium;
+  padding: 0 0px;
 }
 
 .topContent {
-  display: flex;
+  @extend .flex-row;
   align-items: flex-end;
-  height: 40%;
+  height: 45%;
   border-radius: 8px;
   padding: 0 10px;
+  background-color: $primary-color;
 }
 
-.title {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
 .bottomContent {
-  height: 60%;
-  padding: 0 20px;
+  height: 55%;
+  padding: 10px;
+  .link {
+    max-height: 20%;
+  }
   .description {
-    width: 150px;
-    height: 20vh;
+    min-height: 80%;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 16px;
-    margin-bottom: 15px;
+    @extend .description;
   }
-}
-
-.link {
-  display: inline-block;
-  margin-top: 8px;
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.link:hover {
-  text-decoration: underline;
 }

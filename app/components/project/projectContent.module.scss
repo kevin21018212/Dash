@@ -1,48 +1,21 @@
 @import '../../common.module.scss';
 
-.container {
-  padding: 16px;
-  width: 70vw;
-  margin: 0 auto;
-}
-
-.createCard {
-  width: 300px;
-  height: 55vh;
-  padding: 25px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-}
-
 .projectInfo {
-  margin-bottom: 32px-;
+  margin-bottom: 32px;
   height: 30vh;
+  width: 100%;
+  @extend .bgShadowWhite;
   display: flex;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
   box-sizing: border-box;
-  .input,
-  .textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .textarea {
-    resize: vertical;
-  }
+  position: relative;
 }
 
-.titleContent {
+.infoLeft {
   width: 30%;
   border-radius: 8px;
+  background-color: $primary-color;
   padding: 1%;
-
   .title {
     font-size: 32px;
     font-weight: 700;
@@ -50,35 +23,18 @@
     margin: 0;
   }
 }
-.descriptionContent {
-  padding: 0.5%;
 
+.infoRight {
+  width: 70%;
+  padding: 15px 60px 15px 15px;
+  .link {
+    @extend .link;
+    font-size: 2vh;
+  }
   .description {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 16px;
+    @extend .description;
+    margin: 0.5% 2.5%;
   }
-}
-
-.link {
-  display: inline-block;
-  font-size: 16px;
-  color: #6200ea;
-  margin-bottom: 16px;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
-
-  &:hover {
-    border-color: #6200ea;
-  }
-}
-
-.image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 16px;
 }
 
 .featuresSection {
@@ -86,16 +42,11 @@
 }
 
 .featuresTitle {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 16px;
+  @extend .subtitle;
 }
 
 .featuresGrid {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-
-  height: auto;
 }

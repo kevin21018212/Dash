@@ -1,79 +1,45 @@
-@import "../../common.module.scss";
+@import '../../common.module.scss';
 
 .card {
-  width: 300px;
-  height: 55vh;
-  transition: width 0.3s ease;
+  @extend .cardLarge;
   display: flex;
-  flex-direction: row;
   position: relative;
-  box-sizing: border-box;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
+  @extend .flex-column;
   flex-shrink: 0;
   margin-right: 2.5%;
 }
 
 .editContainer {
-  width: 250px;
+  @extend .card-medium;
 }
 
 .featureInfo {
-  margin-bottom: 16px;
-
-  .input,
-  .textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  .textarea {
-    resize: vertical;
-  }
+  min-height: 10%;
 }
 
 .clickableArea {
-  cursor: pointer;
+  @extend .card-medium;
   padding: 10px;
   background-color: #f0f0f0;
-  border-radius: 8px;
-  text-align: center;
-  transition: background-color 0.3s;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-  height: 80%;
+  height: 50%;
+  user-select: none;
 }
 
 .taskGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .createTaskCard {
-  padding: 20px;
-  background-color: #007bff;
+  @extend .card-small;
+  background-color: $primary-color;
   color: white;
-  border-radius: 8px;
-  text-align: center;
-  cursor: pointer;
   transition: background-color 0.3s;
-  display: flex;
   justify-content: center;
   align-items: center;
-
   &:hover {
     background-color: #0056b3;
   }

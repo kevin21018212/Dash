@@ -1,10 +1,10 @@
-/* common.module.scss */
-
 /* Variables */
-$primary-color: #0070f3;
+$primary-color: #367c2b;
 $primary-hover-color: #005bb5;
 $secondary-color: #6200ea;
 $secondary-hover-color: #3700b3;
+$danger-color: #d9534f;
+$danger-hover-color: #c9302c;
 $input-border-color: #ccc;
 $input-focus-color: #6200ea;
 $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
@@ -17,109 +17,166 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   margin-bottom: 8px;
 }
 
+.cornerTitle {
+  h2 {
+    font-size: 40px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  margin: 0;
+
+  width: 100%;
+}
+
+.littleTitle {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
 .description {
   font-size: 16px;
   color: #666;
   margin-bottom: 16px;
 }
-
-/* Buttons */
-.button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-
-  &.buttonPrimary {
-    background-color: $primary-color;
-    color: white;
-
-    &:hover {
-      background-color: $primary-hover-color;
-    }
-  }
-
-  &.buttonSecondary {
-    background-color: $secondary-color;
-    color: white;
-
-    &:hover {
-      background-color: $secondary-hover-color;
-    }
-  }
-}
-
-/* Forms */
-.form {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  background-color: #fff;
+.bg-shadow-round {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 16px;
-  box-sizing: border-box;
-
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-
-    label {
-      font-size: 14px;
-      font-weight: 500;
-      color: #333;
-      margin-bottom: 8px;
-    }
-
-    input,
-    textarea,
-    select {
-      font-size: 16px;
-      padding: 10px;
-      border: 1px solid $input-border-color;
-      border-radius: 4px;
-      outline: none;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      width: 100%;
-      box-sizing: border-box;
-
-      &:focus {
-        border-color: $input-focus-color;
-        box-shadow: 0px 0px 5px $input-focus-shadow-color;
-      }
-    }
-
-    textarea {
-      resize: vertical;
-    }
-  }
 }
 
-/* Cards */
+.bg-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bgShadowWhite {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+/* Containers */
+
+.container {
+  margin: 0 auto;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.pageContainer {
+  @extend .flex-center-column;
+  width: 90vw;
+  padding: 5vw;
+  gap: 2rem;
+}
+
+.gridDisplayContainer {
+  @extend .container;
+  @extend .bgShadowWhite;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card {
+  @extend .bgShadowWhite;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
+  padding: 15px;
+  margin: 15px;
+  margin-top: 0;
+  box-sizing: border-box;
 }
 
-/* Grid */
+.cardLarge {
+  @extend .card;
+  width: 300px;
+  height: 375px;
+}
+
+.card-medium {
+  @extend .card;
+  width: 250px;
+}
+
+.card-small {
+  @extend .card;
+  width: 250px;
+  height: 250px;
+}
+
+.card-clickable {
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+
+  & {
+    background-color: #e0e0e0;
+  }
+}
+
+.card-feature {
+  flex-direction: row;
+}
+
+.card-task {
+  height: 200px;
+}
+
+/* Flex Utilities */
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-horizontal {
+  display: flex;
+  align-items: center;
+}
+.flex-center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Grid Utilities */
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 8px;
 }
 
-/* Images */
+/* Misc */
+.background-cover {
+  background-size: cover;
+}
+
+.background-color-primary {
+  background-color: $primary-color;
+}
+
+.background-color-secondary {
+  background-color: $secondary-color;
+}
+
 .image {
   width: 100%;
   height: auto;
@@ -127,32 +184,66 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   margin-top: 16px;
 }
 
-/* Labels */
-.label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  margin-bottom: 8px;
+.editIcon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.actionButtons {
+  position: absolute;
+  bottom: 10px;
+  cursor: pointer;
+  z-index: 10;
+  right: 10px;
 }
 
-/* Required Indicator */
+.link {
+  font-size: 16px;
+  color: $secondary-color;
+  text-decoration: none;
+  &:hover {
+    background-color: $secondary-color;
+  }
+}
+
+/* Buttons */
 .required {
   color: red;
   margin-left: 4px;
 }
 
-/* Inputs */
-.input {
-  padding: 10px;
-  border: 1px solid $input-border-color;
+.saveButton,
+.deleteButton {
+  padding: 8px 16px;
+  margin-right: 8px;
+  border: none;
   border-radius: 4px;
-  font-size: 16px;
-  width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
 
-  &:focus {
-    border-color: $input-focus-color;
-    box-shadow: 0px 0px 5px $input-focus-shadow-color;
+.saveButton {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.deleteButton {
+  background-color: #f44336;
+  color: #fff;
+}
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: $danger-color;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  @extend .flex-center;
+
+  & {
+    background-color: $danger-hover-color;
   }
 }

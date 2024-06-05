@@ -1,0 +1,43 @@
+/* homepage.module.scss */
+@import './common.module.scss';
+
+/* Homepage specific styles */
+
+.landing {
+  @extend .flex-center-column;
+  width: 95%;
+  padding: 2rem;
+  @extend .bg-shadow;
+}
+
+.favoritesSection,
+.loginSection {
+  @extend .flex-center-column;
+  text-align: center;
+}
+
+.favoritesSection h2,
+.loginSection h2 {
+  @extend .subtitle;
+}
+
+.createCard {
+  @extend .card-medium;
+}
+
+.createProjectSection h2,
+.projectCardsSection h2 {
+  @extend .subtitle;
+}
+
+.signButton {
+  @extend .saveButton;
+  background-color: #7c6f5a;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 0.25rem;
+
+  &:hover {
+    background-color: #634e3e;
+  }
+}

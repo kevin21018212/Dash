@@ -1,89 +1,70 @@
-export const handleSaveContent = async (url, content, onSuccess, onError) => {
+const handleRequest = async (url, method, body, onSuccess, onError) => {
   try {
-    const response = await fetch(url, {
-      method: "PUT",
+    const options = {
+      method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(content),
-    });
+      body: body ? JSON.stringify(body) : undefined,
+    };
+
+    const response = await fetch(url, options);
 
     if (response.ok) {
-      const updatedContent = await response.json();
-      onSuccess(updatedContent);
+      const data = await response.json();
+      onSuccess(data);
       window.location.reload(); // Force page refresh
     } else {
       const errorData = await response.json();
-      onError(`Error editing content: ${errorData}`);
+      onError(`Error: ${errorData}`);
     }
   } catch (error) {
-    onError(`Error editing content: ${error}`);
+    onError(`Error: ${error}`);
   }
 };
 
-export const handleDeleteContent = async (url, onSuccess, onError) => {
+export const handleSaveContent = (url, content, onSuccess, onError) =>
+  handleRequest(url, "PUT", content, onSuccess, onError);
+
+export const handleDeleteContent = (url, onSuccess, onError) => {
   const confirmDelete = window.confirm(
     "Are you sure you want to delete this item?"
   );
-  if (!confirmDelete) return;
-
-  try {
-    const response = await fetch(url, {
-      method: "DELETE",
-    });
-
-    if (response.ok) {
-      onSuccess();
-      window.location.reload(); // Force page refresh
-    } else {
-      const errorData = await response.json();
-      onError(`Error deleting content: ${errorData}`);
-    }
-  } catch (error) {
-    onError(`Error deleting content: ${error}`);
+  if (confirmDelete) {
+    handleRequest(url, "DELETE", null, onSuccess, onError);
   }
 };
 
-export const handleSaveTask = async (task, updatedTask, onTaskUpdate) => {
-  await handleSaveContent(
+export const handleSaveTask = (task, updatedTask) =>
+  handleSaveContent(
     `/api/task?taskId=${task.task_id}`,
     updatedTask,
-    onTaskUpdate,
+    null,
     (error) => console.error(error)
   );
-};
 
-export const handleDeleteTask = async (task, onTaskUpdate) => {
-  await handleDeleteContent(
-    `/api/task?taskId=${task.task_id}`,
-    () => onTaskUpdate(null),
-    (error) => console.error(error)
+export const handleDeleteTask = (task) =>
+  handleDeleteContent(`/api/task?taskId=${task.task_id}`, null, (error) =>
+    console.error(error)
   );
-};
 
-export const handleSaveProject = async (
-  project,
-  updatedProject,
-  onProjectUpdate
-) => {
-  await handleSaveContent(
+export const handleSaveProject = (project, updatedProject) =>
+  handleSaveContent(
     `/api/project?projectId=${project.project_id}`,
     updatedProject,
-    onProjectUpdate,
+    null,
     (error) => console.error(error)
   );
-};
 
-export const handleDeleteProject = async (project, onProjectUpdate) => {
-  await handleDeleteContent(
+export const handleDeleteProject = (project) =>
+  handleDeleteContent(
     `/api/project?projectId=${project.project_id}`,
-    () => onProjectUpdate(null),
+    null,
     (error) => console.error(error)
   );
-};
 
-export const handleSaveFeature = async (feature, editedFeature) => {
-  await handleSaveContent(
+export const handleSaveFeature = (feature, editedFeature) =>
+  handleSaveContent(
     `/api/feature?featureId=${feature.feature_id}`,
     editedFeature,
     (updatedFeature) => {
@@ -92,10 +73,9 @@ export const handleSaveFeature = async (feature, editedFeature) => {
     },
     (error) => console.error(error)
   );
-};
 
-export const handleDeleteFeature = async (feature) => {
-  await handleDeleteContent(
+export const handleDeleteFeature = (feature) =>
+  handleDeleteContent(
     `/api/feature?featureId=${feature.feature_id}`,
     () => {
       console.log("Feature deleted");
@@ -103,7 +83,6 @@ export const handleDeleteFeature = async (feature) => {
     },
     (error) => console.error(error)
   );
-};
 
 export const handleTaskUpdate = (
   feature,

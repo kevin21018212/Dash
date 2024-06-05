@@ -1,123 +1,108 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import prisma from "@/prisma/prisma";
-import { findUserByGoogleId } from "@/app/utils/userHelper";
-import { authOptions } from "@/app/utils/authOptions";
+import {NextRequest, NextResponse} from 'next/server';
+import {getServerSession} from 'next-auth';
+import prisma from '@/prisma/prisma';
+import {findUserByGoogleId} from '@/app/utils/userHelper';
+import {User} from '@prisma/client';
 
-export async function handler(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-
+async function getSessionAndUser(req: NextRequest) {
+  const session = await getServerSession();
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return {error: 'Unauthorized', status: 401, user: null};
   }
 
   const google_id = session.user?.email as string;
+  const user = (await findUserByGoogleId(google_id)) as User;
 
-  switch (req.method) {
-    case "POST":
-      return await handlePost(req, google_id);
-    case "PUT":
-      return await handlePut(req, google_id);
-    case "GET":
-      return await handleGet(req, google_id);
-    default:
-      return NextResponse.json(
-        { error: "Method not allowed" },
-        { status: 405 }
-      );
+  if (!user) {
+    return {error: 'User not found', status: 404, user: null};
   }
+
+  return {error: null, status: 200, user};
 }
 
-async function handlePost(req: NextRequest, google_id: string) {
+export async function POST(req: NextRequest) {
+  const {error, status, user} = await getSessionAndUser(req);
+  if (error) {
+    return NextResponse.json({error}, {status});
+  }
+
   const body = await req.json();
-  const { title, link, description, image_url } = body;
+  const {title, link, description, image_url} = body;
 
   if (!description) {
-    return NextResponse.json(
-      { error: "Description is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({error: 'Description is required'}, {status: 400});
   }
 
-  try {
-    const user = await findUserByGoogleId(google_id);
+  if (user?.user_id) {
+    try {
+      const newProject = await prisma.project.create({
+        data: {title, link, description, image_url, user_id: user.user_id},
+      });
 
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({message: 'Project created', project: newProject}, {status: 201});
+    } catch (error) {
+      return NextResponse.json({error: 'Something went wrong'}, {status: 500});
     }
-
-    const newProject = await prisma.project.create({
-      data: {
-        title,
-        link,
-        description,
-        image_url,
-        user_id: user.user_id,
-      },
-    });
-
-    return NextResponse.json(
-      { message: "Project created", project: newProject },
-      { status: 201 }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
   }
 }
 
-async function handlePut(req: NextRequest, google_id: string) {
-  const { searchParams } = new URL(req.url);
-  const projectId = searchParams.get("projectId") as string;
-  const { title, link, description, image_url } = await req.json();
+export async function PUT(req: NextRequest) {
+  const {error, status, user} = await getSessionAndUser(req);
+  if (error) {
+    return NextResponse.json({error}, {status});
+  }
+
+  const {searchParams} = new URL(req.url);
+  const projectId = searchParams.get('projectId') as string;
+  const {title, link, description, image_url} = await req.json();
 
   try {
-    const user = await findUserByGoogleId(google_id);
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
     const updatedProject = await prisma.project.update({
-      where: { project_id: parseInt(projectId) },
-      data: { title, link, description, image_url },
+      where: {project_id: parseInt(projectId)},
+      data: {title, link, description, image_url},
     });
 
-    return NextResponse.json(updatedProject, { status: 200 });
+    return NextResponse.json(updatedProject, {status: 200});
   } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({error: 'Something went wrong'}, {status: 500});
   }
 }
 
-async function handleGet(req: NextRequest, google_id: string) {
+export async function DELETE(req: NextRequest) {
+  const {error, status, user} = await getSessionAndUser(req);
+  if (error) {
+    return NextResponse.json({error}, {status});
+  }
+
+  const {searchParams} = new URL(req.url);
+  const projectId = searchParams.get('projectId') as string;
+
   try {
-    const user = await findUserByGoogleId(google_id);
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
-    const projects = await prisma.project.findMany({
-      where: {
-        user_id: user.user_id,
-      },
-      include: {
-        features: true,
-      },
+    await prisma.project.delete({
+      where: {project_id: parseInt(projectId)},
     });
 
-    return NextResponse.json({ projects }, { status: 200 });
+    return NextResponse.json({message: 'Project deleted successfully'}, {status: 200});
   } catch (error) {
-    return NextResponse.json(
-      { error: "Something went wrong" },
-      { status: 500 }
-    );
+    return NextResponse.json({error: 'Something went wrong'}, {status: 500});
   }
 }
 
-export { handler as GET, handler as POST, handler as PUT };
+export async function GET(req: NextRequest) {
+  const {error, status, user} = await getSessionAndUser(req);
+  if (error) {
+    return NextResponse.json({error}, {status});
+  }
+  if (user?.user_id) {
+    try {
+      const projects = await prisma.project.findMany({
+        where: {user_id: user.user_id},
+        include: {features: true},
+      });
+
+      return NextResponse.json({projects}, {status: 200});
+    } catch (error) {
+      return NextResponse.json({error: 'Something went wrong'}, {status: 500});
+    }
+  }
+}
