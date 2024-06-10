@@ -1,52 +1,23 @@
 import React, { useState } from "react";
+import { useContentHandlers } from "@/app/utils/contentHandlers";
 import styles from "./taskContent.module.scss";
 import common from "../../common.module.scss";
-import { useSaveContent, useDeleteContent } from "@/app/utils/contentHandlers";
 import { EditableField, EditableDropdown } from "../global/form/edit";
 import { TaskSize, TaskType } from "@/app/utils/enums";
 import { FiEdit } from "react-icons/fi";
 import { motion } from "framer-motion";
 import TaskModal from "../global/function/taskmodal";
-
-interface Task {
-  task_id: number;
-  title: string;
-  type: TaskType;
-  size: TaskSize;
-  description: string;
-}
+import { Task } from "@/app/types";
 
 interface TaskContentProps {
   task: Task;
-  refetchProject: () => void;
 }
 
-const TaskContent: React.FC<TaskContentProps> = ({ task, refetchProject }) => {
+const TaskContent: React.FC<TaskContentProps> = ({ task }) => {
+  const { handleFieldChange, saveTask, deleteTask } = useContentHandlers();
   const [isEditing, setIsEditing] = useState(false);
-  const [editedTask, setEditedTask] = useState(task);
+  const [editedTask, setEditedTask] = useState<Task>(task);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
-  const saveTask = useSaveContent(`/api/task?taskId=${task.task_id}`);
-  const deleteTask = useDeleteContent(`/api/task?taskId=${task.task_id}`);
-
-  const handleFieldChange = (field: keyof Task, value: any) => {
-    setEditedTask({ ...editedTask, [field]: value });
-  };
-
-  const handleSave = () => {
-    saveTask.mutate(editedTask, { onSuccess: refetchProject });
-    setIsEditing(false);
-    setIsEditModalOpen(false);
-  };
-
-  const handleDelete = () => {
-    deleteTask.mutate(undefined, { onSuccess: refetchProject });
-  };
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-    setIsEditModalOpen(true);
-  };
 
   return (
     <>
@@ -65,7 +36,10 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, refetchProject }) => {
         <div className={styles.bottomSection}>
           <div className={styles.description}>{task.description}</div>
         </div>
-        <FiEdit className={common.editIcon} onClick={handleEditClick} />
+        <FiEdit
+          className={common.editIcon}
+          onClick={() => setIsEditing(true)}
+        />
       </motion.div>
 
       {isEditModalOpen && (
@@ -77,29 +51,48 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, refetchProject }) => {
             <div className={styles.topSection}>
               <EditableField
                 value={editedTask.title}
-                onSave={(value) => handleFieldChange("title", value)}
+                onSave={(value) =>
+                  handleFieldChange("title", value, editedTask, setEditedTask)
+                }
               />
               <div className={styles.buttons}>
                 <EditableDropdown
                   value={editedTask.type}
                   options={Object.values(TaskType)}
                   optionstwo={Object.values(TaskSize)}
-                  onSave={(value) => handleFieldChange("type", value)}
+                  onSave={(value) =>
+                    handleFieldChange("type", value, editedTask, setEditedTask)
+                  }
                 />
               </div>
             </div>
             <div className={styles.bottomSection}>
               <EditableField
                 value={editedTask.description}
-                onSave={(value) => handleFieldChange("description", value)}
+                onSave={(value) =>
+                  handleFieldChange(
+                    "description",
+                    value,
+                    editedTask,
+                    setEditedTask
+                  )
+                }
                 type="textArea"
               />
             </div>
             <div className={common.actionButtons}>
-              <button onClick={handleSave} className={common.saveButton}>
+              <button
+                onClick={() =>
+                  saveTask(task, editedTask, setIsEditing, setIsEditModalOpen)
+                }
+                className={common.saveButton}
+              >
                 Save
               </button>
-              <button onClick={handleDelete} className={common.deleteButton}>
+              <button
+                onClick={() => deleteTask(task)}
+                className={common.deleteButton}
+              >
                 Delete
               </button>
             </div>

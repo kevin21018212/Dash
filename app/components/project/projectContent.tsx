@@ -1,49 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSaveContent, useDeleteContent } from "@/app/utils/contentHandlers";
+import { useContentHandlers } from "@/app/utils/contentHandlers";
 import styles from "./projectContent.module.scss";
 import common from "../../common.module.scss";
 import FeatureContent from "../feature/featureContent";
 import { EditableField } from "../global/form/edit";
 import { FiEdit } from "react-icons/fi";
 import CreateComponent from "../global/form/create";
-import { motion } from "framer-motion";
+import { Project } from "@/app/types";
+import { useAtom } from "jotai";
+import { projectAtom } from "@/app/utils/projectAtom";
 
-const ProjectContent = ({ project, refetchProject }) => {
+const ProjectContent: React.FC = () => {
+  const { handleFieldChange, saveProject, deleteProject } =
+    useContentHandlers();
+  const [project, setProject] = useAtom(projectAtom);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedProject, setEditedProject] = useState(project);
-  const [features, setFeatures] = useState(project.features || []);
+  const [editedProject, setEditedProject] = useState<Project>(project);
   const projectInfoRef = useRef<HTMLDivElement>(null);
 
-  const saveProject = useSaveContent(
-    `/api/project?projectId=${project.project_id}`
-  );
-  const deleteProject = useDeleteContent(
-    `/api/project?projectId=${project.project_id}`
-  );
-
-  const handleFieldChange = (field: keyof any, value: any) => {
-    setEditedProject({ ...editedProject, [field]: value });
-  };
-
-  const handleSave = () => {
-    saveProject.mutate(editedProject, { onSuccess: refetchProject });
-    setIsEditing(false);
-  };
-
-  const handleDelete = () => {
-    deleteProject.mutate(undefined, { onSuccess: refetchProject });
-  };
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      projectInfoRef.current &&
-      !projectInfoRef.current.contains(event.target as Node)
-    ) {
-      setIsEditing(false);
-    }
-  };
-
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        projectInfoRef.current &&
+        !projectInfoRef.current.contains(event.target as Node)
+      ) {
+        setIsEditing(false);
+      }
+    };
+
     if (isEditing) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -66,7 +50,14 @@ const ProjectContent = ({ project, refetchProject }) => {
             <div className={styles.infoLeft} style={backgroundImageStyle}>
               <EditableField
                 value={editedProject.title}
-                onSave={(value) => handleFieldChange("title", value)}
+                onSave={(value) =>
+                  handleFieldChange(
+                    "title",
+                    value,
+                    editedProject,
+                    setEditedProject
+                  )
+                }
               />
             </div>
             <div className={styles.infoRight}>
@@ -82,15 +73,30 @@ const ProjectContent = ({ project, refetchProject }) => {
               )}
               <EditableField
                 value={editedProject.description}
-                onSave={(value) => handleFieldChange("description", value)}
+                onSave={(value) =>
+                  handleFieldChange(
+                    "description",
+                    value,
+                    editedProject,
+                    setEditedProject
+                  )
+                }
                 type="textArea"
               />
             </div>
             <div className={common.actionButtons}>
-              <button onClick={handleSave} className={common.saveButton}>
+              <button
+                onClick={() =>
+                  saveProject(project, editedProject, setIsEditing)
+                }
+                className={common.saveButton}
+              >
                 Save
               </button>
-              <button onClick={handleDelete} className={common.deleteButton}>
+              <button
+                onClick={() => deleteProject(project)}
+                className={common.deleteButton}
+              >
                 Delete
               </button>
             </div>
@@ -132,12 +138,8 @@ const ProjectContent = ({ project, refetchProject }) => {
                   onCancel={null}
                 />
               </div>
-              {features.map((feature) => (
-                <FeatureContent
-                  key={feature.feature_id}
-                  feature={feature}
-                  refetchProject={refetchProject}
-                />
+              {project.features.map((feature) => (
+                <FeatureContent key={feature.feature_id} feature={feature} />
               ))}
             </div>
           </section>

@@ -1,32 +1,38 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import ProjectContent from "@/app/components/project/projectContent";
 
-const fetchProject = async (projectId: string) => {
+import React, { useEffect } from "react";
+import { useSetAtom } from "jotai";
+
+import ProjectContent from "@/app/components/project/projectContent";
+import { projectAtom } from "@/app/utils/projectAtom";
+
+const fetchProject = async (projectId) => {
   const response = await fetch(`/api/get/info?projectId=${projectId}`);
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
   const data = await response.json();
-  console.log(data); // Log the fetched project data
   return data;
 };
 
-const ProjectPage = ({ params }: { params: { id: string } }) => {
-  const {
-    data: project,
-    refetch,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["project", params.id],
-    queryFn: () => fetchProject(params.id),
-  });
+const ProjectPage = ({ params }) => {
+  const setProject = useSetAtom(projectAtom);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error loading project data</div>;
+  useEffect(() => {
+    const getProjectData = async () => {
+      try {
+        const projectData = await fetchProject(params.id);
+        setProject(projectData.project);
+        console.log("Project data fetched:", projectData);
+      } catch (error) {
+        console.error("Error fetching project data:", error);
+      }
+    };
 
-  return <ProjectContent project={project.project} refetchProject={refetch} />;
+    getProjectData();
+  }, [params.id, setProject]);
+
+  return <ProjectContent />;
 };
 
 export default ProjectPage;
