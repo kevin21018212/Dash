@@ -1,16 +1,18 @@
-import React, {useState, useEffect, useRef} from 'react';
-import styles from './featureContent.module.scss';
-import common from '../../common.module.scss';
-import {handleSaveFeature, handleDeleteFeature} from '@/app/utils/contentHandlers';
-import {EditableField} from '../global/form/edit';
-import Modal from '../modal';
-import TaskContent from '../task/taskContent';
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./featureContent.module.scss";
+import common from "../../common.module.scss";
+import {
+  handleSaveFeature,
+  handleDeleteFeature,
+} from "@/app/utils/contentHandlers";
+import { EditableField } from "../global/form/edit";
+import Modal from "../modal";
+import TaskContent from "../task/taskContent";
+import { FiEdit } from "react-icons/fi";
+import CreateComponent from "../global/form/create";
+import { motion } from "framer-motion";
 
-import {FiEdit} from 'react-icons/fi';
-import CreateComponent from '../global/form/create';
-import {motion} from 'framer-motion';
-
-const FeatureContent = ({feature}) => {
+const FeatureContent = ({ feature }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedFeature, setEditedFeature] = useState(feature);
@@ -18,7 +20,7 @@ const FeatureContent = ({feature}) => {
   const featureRef = useRef<HTMLInputElement>(null);
 
   const handleFieldChange = (field, value) => {
-    setEditedFeature({...editedFeature, [field]: value});
+    setEditedFeature({ ...editedFeature, [field]: value });
   };
 
   const handleSave = () => {
@@ -51,12 +53,12 @@ const FeatureContent = ({feature}) => {
 
   useEffect(() => {
     if (isEditing) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isEditing]);
 
@@ -65,8 +67,19 @@ const FeatureContent = ({feature}) => {
       {isEditing ? (
         <div ref={featureRef} className={styles.card}>
           <div className={styles.featureInfo}>
-            <EditableField value={editedFeature.title} onSave={(value) => handleFieldChange('title', value)} />
-            <EditableField value={editedFeature.description} onSave={(value) => handleFieldChange('description', value)} type='textArea' />
+            <div className={styles.titleContainer}>
+              <EditableField
+                value={editedFeature.title}
+                onSave={(value) => handleFieldChange("title", value)}
+              />
+            </div>
+            <div className={styles.descriptionContainer}>
+              <EditableField
+                value={editedFeature.description}
+                onSave={(value) => handleFieldChange("description", value)}
+                type="textArea"
+              />
+            </div>
           </div>
           <div className={common.actionButtons}>
             <button onClick={handleSave} className={common.saveButton}>
@@ -80,25 +93,46 @@ const FeatureContent = ({feature}) => {
       ) : (
         <div ref={featureRef} className={styles.card}>
           <div className={styles.featureInfo}>
-            <h3 className={styles.title}>{feature.title}</h3>
-            <p className={styles.description}>{feature.description}</p>
+            <div className={styles.titleContainer}>
+              <h3 className={styles.title}>{feature.title}</h3>
+            </div>
+            <div className={styles.descriptionContainer}>
+              <p className={styles.description}>{feature.description}</p>
+            </div>
           </div>
-          <motion.div whileHover={{scale: 1.05}} className={styles.clickableArea} onClick={handleCardClick}>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className={styles.clickableArea}
+            onClick={handleCardClick}
+          >
             <p>Click here to view tasks</p>
           </motion.div>
-          <FiEdit className={common.editIcon} onClick={() => setIsEditing(true)} />
+          <FiEdit
+            className={common.editIcon}
+            onClick={() => setIsEditing(true)}
+          />
 
           {isModalOpen && (
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
               <div className={styles.taskGrid}>
-                <motion.div whileHover={{scale: 1.1}} className={styles.createTaskCard} onClick={handleCreateTaskClick}>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className={styles.createTaskCard}
+                  onClick={handleCreateTaskClick}
+                >
                   + Create Task
                 </motion.div>
                 {feature.tasks.map((task) => (
                   <TaskContent key={task.id} task={task} />
                 ))}
               </div>
-              {showCreateTask && <CreateComponent type='task' parentId={feature.feature_id} onCancel={handleCloseModal} />}
+              {showCreateTask && (
+                <CreateComponent
+                  type="task"
+                  parentId={feature.feature_id}
+                  onCancel={handleCloseModal}
+                />
+              )}
             </Modal>
           )}
         </div>

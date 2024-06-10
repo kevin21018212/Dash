@@ -1,32 +1,51 @@
-@import '../../common.module.scss';
+@import "../../common.module.scss";
 
 .card {
   @extend .cardLarge;
   display: flex;
+  flex-direction: column;
   position: relative;
-}
-
-.content {
-  @extend .flex-column;
-  flex-shrink: 0;
-  margin-right: 2.5%;
-}
-
-.editContainer {
-  @extend .card-medium;
+  overflow: hidden;
 }
 
 .featureInfo {
-  min-height: 10%;
+  display: flex;
+
+  flex-direction: column;
+
+  min-height: 35%;
+  padding-bottom: 5%;
+  overflow: hidden;
+}
+
+.title {
+  flex: 0 0 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 5px 0;
+}
+
+.description {
+  flex: 1 0 40%;
+
+  margin: 0px;
+  justify-content: flex-start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
 }
 
 .clickableArea {
   @extend .card-medium;
   padding: 10px;
   background-color: #f0f0f0;
-  max-height: 60%;
+  flex: 0 0 60%;
   user-select: none;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .taskGrid {
