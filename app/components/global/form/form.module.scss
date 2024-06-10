@@ -7,7 +7,7 @@
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #333;
+    color: $textPrimary;
   }
 
   .formFieldInput,
@@ -28,12 +28,11 @@
 .textarea,
 .dropdown {
   display: block;
-  width: 100%;
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 4px;
   font-size: 16px;
-  border: 1px solid $input-border-color;
+  border: 1px solid $accentcolor;
   box-sizing: border-box;
 
   &.textarea {
@@ -43,7 +42,7 @@
 
 /* Required Indicator */
 .required {
-  color: red;
+  color: $primaryColor;
   margin-left: 4px;
 }
 
@@ -55,7 +54,7 @@
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #333;
+    color: $textPrimary;
   }
 
   .formFieldInput,

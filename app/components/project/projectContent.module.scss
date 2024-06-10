@@ -1,4 +1,4 @@
-@import '../../common.module.scss';
+@import "../../common.module.scss";
 
 .projectInfo {
   margin-bottom: 32px;
@@ -14,7 +14,7 @@
 .infoLeft {
   width: 30%;
   border-radius: 8px;
-  background-color: $primary-color;
+  background-color: $primaryColor;
   padding: 1%;
   .title {
     font-size: 32px;

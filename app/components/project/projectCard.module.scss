@@ -1,4 +1,4 @@
-@import '../../common.module.scss';
+@import "../../common.module.scss";
 
 .projectCard {
   @extend .card-medium;
@@ -11,7 +11,7 @@
   height: 45%;
   border-radius: 8px;
   padding: 0 10px;
-  background-color: $primary-color;
+  background-color: $primaryColor;
 }
 
 .bottomContent {

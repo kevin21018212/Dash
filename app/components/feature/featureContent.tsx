@@ -1,36 +1,40 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./featureContent.module.scss";
 import common from "../../common.module.scss";
-import {
-  handleSaveFeature,
-  handleDeleteFeature,
-} from "@/app/utils/contentHandlers";
+import { useSaveContent, useDeleteContent } from "@/app/utils/contentHandlers"; // Import the hooks
 import { EditableField } from "../global/form/edit";
-
 import TaskContent from "../task/taskContent";
 import { FiEdit } from "react-icons/fi";
 import CreateComponent from "../global/form/create";
 import { motion } from "framer-motion";
 import Modal from "../global/function/modal";
 
-const FeatureContent = ({ feature }) => {
+const FeatureContent = ({ feature, refetchProject }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedFeature, setEditedFeature] = useState(feature);
   const [showCreateTask, setShowCreateTask] = useState(false);
   const featureRef = useRef<HTMLInputElement>(null);
 
+  const saveFeature = useSaveContent(
+    `/api/feature?featureId=${feature.feature_id}`
+  );
+  const deleteFeature = useDeleteContent(
+    `/api/feature?featureId=${feature.feature_id}`
+  );
+
   const handleFieldChange = (field, value) => {
     setEditedFeature({ ...editedFeature, [field]: value });
   };
 
   const handleSave = () => {
-    handleSaveFeature(feature, editedFeature);
+    saveFeature.mutate(editedFeature, { onSuccess: refetchProject });
     setIsEditing(false);
   };
 
   const handleDelete = () => {
-    handleDeleteFeature(feature);
+    deleteFeature.mutate(undefined, { onSuccess: refetchProject });
   };
 
   const handleCreateTaskClick = () => {
@@ -123,8 +127,12 @@ const FeatureContent = ({ feature }) => {
                 >
                   + Create Task
                 </motion.div>
-                {feature.tasks.map((task) => (
-                  <TaskContent key={task.id} task={task} />
+                {feature.tasks.map((task, index) => (
+                  <TaskContent
+                    task={task}
+                    refetchProject={refetchProject}
+                    key={index}
+                  />
                 ))}
               </div>
               {showCreateTask && (

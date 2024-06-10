@@ -1,108 +1,53 @@
-const handleRequest = async (url, method, body, onSuccess, onError) => {
-  try {
-    const options = {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: body ? JSON.stringify(body) : undefined,
-    };
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-    const response = await fetch(url, options);
-
-    if (response.ok) {
-      const data = await response.json();
-      onSuccess(data);
-      window.location.reload(); // Force page refresh
-    } else {
-      const errorData = await response.json();
-      onError(`Error: ${errorData}`);
-    }
-  } catch (error) {
-    onError(`Error: ${error}`);
-  }
-};
-
-export const handleSaveContent = (url, content, onSuccess, onError) =>
-  handleRequest(url, "PUT", content, onSuccess, onError);
-
-export const handleDeleteContent = (url, onSuccess, onError) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this item?"
-  );
-  if (confirmDelete) {
-    handleRequest(url, "DELETE", null, onSuccess, onError);
-  }
-};
-
-export const handleSaveTask = (task, updatedTask) =>
-  handleSaveContent(
-    `/api/task?taskId=${task.task_id}`,
-    updatedTask,
-    null,
-    (error) => console.error(error)
-  );
-
-export const handleDeleteTask = (task) =>
-  handleDeleteContent(`/api/task?taskId=${task.task_id}`, null, (error) =>
-    console.error(error)
-  );
-
-export const handleSaveProject = (project, updatedProject) =>
-  handleSaveContent(
-    `/api/project?projectId=${project.project_id}`,
-    updatedProject,
-    null,
-    (error) => console.error(error)
-  );
-
-export const handleDeleteProject = (project) =>
-  handleDeleteContent(
-    `/api/project?projectId=${project.project_id}`,
-    null,
-    (error) => console.error(error)
-  );
-
-export const handleSaveFeature = (feature, editedFeature) =>
-  handleSaveContent(
-    `/api/feature?featureId=${feature.feature_id}`,
-    editedFeature,
-    (updatedFeature) => {
-      console.log("Feature saved", updatedFeature);
-      window.location.reload(); // Force page refresh
+// Utility function to handle HTTP requests
+const handleRequest = async (
+  url: string,
+  method: string,
+  body?: any
+): Promise<any> => {
+  const options: RequestInit = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
     },
-    (error) => console.error(error)
-  );
+    body: body ? JSON.stringify(body) : undefined,
+  };
 
-export const handleDeleteFeature = (feature) =>
-  handleDeleteContent(
-    `/api/feature?featureId=${feature.feature_id}`,
-    () => {
-      console.log("Feature deleted");
-      window.location.reload(); // Force page refresh
-    },
-    (error) => console.error(error)
-  );
+  const response = await fetch(url, options);
 
-export const handleTaskUpdate = (
-  feature,
-  selectedTask,
-  updatedTask,
-  setSelectedTask,
-  setIsExpanded
-) => {
-  if (updatedTask) {
-    const updatedTasks = feature.tasks.map((task) =>
-      task.task_id === updatedTask.task_id ? updatedTask : task
-    );
-    feature.tasks = updatedTasks;
-    setSelectedTask(updatedTask);
+  if (response.ok) {
+    return await response.json();
   } else {
-    const updatedTasks = feature.tasks.filter(
-      (task) => task.task_id !== selectedTask?.task_id
-    );
-    feature.tasks = updatedTasks;
-    setSelectedTask(null);
-    setIsExpanded(false);
+    const errorData = await response.json();
+    throw new Error(errorData);
   }
+};
+
+// Custom hook to save content using PUT request
+export const useSaveContent = (url: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (content: any) => handleRequest(url, "PUT", content),
+    onSuccess: () => {
+      queryClient.invalidateQueries(); // Refetch all queries
+    },
+    onError: (error: any) => {
+      console.error(`Error: ${error.message}`);
+    },
+  });
+};
+
+// Custom hook to delete content using DELETE request
+export const useDeleteContent = (url: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => handleRequest(url, "DELETE"),
+    onSuccess: () => {
+      queryClient.invalidateQueries(); // Refetch all queries
+    },
+    onError: (error: any) => {
+      console.error(`Error: ${error.message}`);
+    },
+  });
 };

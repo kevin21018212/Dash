@@ -10,9 +10,7 @@
 
 .featureInfo {
   display: flex;
-
   flex-direction: column;
-
   min-height: 35%;
   padding-bottom: 5%;
   overflow: hidden;
@@ -28,7 +26,6 @@
 
 .description {
   flex: 1 0 40%;
-
   margin: 0px;
   justify-content: flex-start;
   overflow: hidden;
@@ -39,7 +36,7 @@
 .clickableArea {
   @extend .card-medium;
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: $boxBackground;
   flex: 0 0 60%;
   user-select: none;
   cursor: pointer;
@@ -55,8 +52,8 @@
 
 .createTaskCard {
   @extend .card-small;
-  background-color: $primary-color;
-  color: white;
+  background-color: $primaryColor;
+  color: $textPrimary;
   transition: background-color 0.3s;
   justify-content: center;
   align-items: center;

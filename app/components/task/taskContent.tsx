@@ -1,30 +1,46 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styles from "./taskContent.module.scss";
 import common from "../../common.module.scss";
-import { handleSaveTask, handleDeleteTask } from "@/app/utils/contentHandlers";
+import { useSaveContent, useDeleteContent } from "@/app/utils/contentHandlers";
 import { EditableField, EditableDropdown } from "../global/form/edit";
 import { TaskSize, TaskType } from "@/app/utils/enums";
 import { FiEdit } from "react-icons/fi";
 import { motion } from "framer-motion";
 import TaskModal from "../global/function/taskmodal";
 
-const TaskContent = ({ task }) => {
+interface Task {
+  task_id: number;
+  title: string;
+  type: TaskType;
+  size: TaskSize;
+  description: string;
+}
+
+interface TaskContentProps {
+  task: Task;
+  refetchProject: () => void;
+}
+
+const TaskContent: React.FC<TaskContentProps> = ({ task, refetchProject }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState(task);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const handleFieldChange = (field, value) => {
+  const saveTask = useSaveContent(`/api/task?taskId=${task.task_id}`);
+  const deleteTask = useDeleteContent(`/api/task?taskId=${task.task_id}`);
+
+  const handleFieldChange = (field: keyof Task, value: any) => {
     setEditedTask({ ...editedTask, [field]: value });
   };
 
   const handleSave = () => {
-    handleSaveTask(task, editedTask);
+    saveTask.mutate(editedTask, { onSuccess: refetchProject });
     setIsEditing(false);
     setIsEditModalOpen(false);
   };
 
   const handleDelete = () => {
-    handleDeleteTask(task);
+    deleteTask.mutate(undefined, { onSuccess: refetchProject });
   };
 
   const handleEditClick = () => {

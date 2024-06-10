@@ -1,11 +1,11 @@
-@import '../common.module.scss';
+@import "../common.module.scss";
 
 .container {
   height: 8vh;
   @extend .flex-horizontal;
   @extend .bg-shadow;
-  background-color: $primary-color;
-  color: white;
+  background-color: $primaryColor;
+  color: $textPrimary;
   width: 98vw;
   padding: 0 1vw;
   margin: 0;
@@ -16,6 +16,7 @@
   @extend .flex-horizontal;
   width: 30%;
 }
+
 .projectsContainer {
   display: flex;
   width: 70%;
@@ -23,16 +24,17 @@
   justify-content: flex-end;
   white-space: nowrap;
 }
+
 .navLink {
   @extend .flex-horizontal;
   @extend .link;
   padding: 0rem 1rem;
   height: 100%;
-  color: white;
+  color: $textPrimary;
 }
 
 .loading {
-  color: $secondary-color;
+  color: $secondaryColor;
   font-size: 1rem;
   padding: 0.5rem 1rem;
 }

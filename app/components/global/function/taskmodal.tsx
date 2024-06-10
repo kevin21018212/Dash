@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./modal.module.scss";
 
 interface TaskModalProps {
@@ -8,19 +8,43 @@ interface TaskModalProps {
 }
 
 const TaskModal = ({ isOpen, onClose, children }: TaskModalProps) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div
-      className={styles.taskModal}
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-    >
-      <button className={styles.closeButton} onClick={onClose}>
-        ✖
-      </button>
-      {children}
+    <div className={styles.clearOverlay}>
+      <div
+        className={styles.taskModal}
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className={styles.closeButton} onClick={onClose}>
+          ✖
+        </button>
+        {children}
+      </div>
     </div>
   );
 };

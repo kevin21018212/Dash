@@ -1,10 +1,12 @@
+@import "../../common.module.scss";
+
 .loadingOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba($textPrimary, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,8 +14,8 @@
 }
 
 .spinner {
-  border: 8px solid #f3f3f3; /* Light grey */
-  border-top: 8px solid #3498db; /* Blue */
+  border: 8px solid $accentSecondaryColor; /* Light grey */
+  border-top: 8px solid $secondaryColor; /* Blue */
   border-radius: 50%;
   width: 60px;
   height: 60px;

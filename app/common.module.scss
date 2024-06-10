@@ -1,19 +1,23 @@
 /* Variables */
-$primary-color: #367c2b;
+$primaryColor: #ff1f00;
 $primary-hover-color: #429635;
-$secondary-color: #6200ea;
-$secondary-hover-color: #3700b3;
-$danger-color: #d9534f;
-$danger-hover-color: #c9302c;
-$input-border-color: #ccc;
-$input-focus-color: #6200ea;
-$input-focus-shadow-color: rgba(98, 0, 234, 0.5);
+$secondaryColor: #ff7a00;
+$secondaryHoverColor: #fe8819;
+$accentcolor: #9b9bff;
+$accentSecondaryColor: #a8cecf;
+$boxBackground: #131313;
+$textPrimary: #f0f0f0;
+$textSecondary: #e4e4e4;
+$boxShadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+$buttonShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+$arrowShadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+$topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
 
 /* Typography */
 .title {
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  color: $textPrimary;
   margin-bottom: 8px;
 }
 
@@ -21,45 +25,45 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   h2 {
     font-size: 40px;
     font-weight: 600;
-    color: #333;
+    color: $textPrimary;
     margin: 0;
   }
   margin: 0;
-
   width: 100%;
 }
 
 .littleTitle {
   font-size: 24px;
   margin-bottom: 8px;
-  color: #fff;
+  color: $textSecondary;
 }
 
 .subtitle {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: $textPrimary;
   margin-bottom: 16px;
 }
 
 .description {
   font-size: 16px;
-  color: #666;
+  color: $textSecondary;
   margin-bottom: 16px;
 }
+
 .bg-shadow-round {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: $boxShadow;
   border-radius: 8px;
 }
 
 .bg-shadow {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: $boxShadow;
 }
 
 .bgShadowWhite {
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  box-shadow: $boxShadow;
+  background-color: $boxBackground;
 }
 
 /* Containers */
@@ -116,10 +120,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   cursor: pointer;
   transition: background-color 0.3s;
   text-align: center;
-
-  & {
-    background-color: #e0e0e0;
-  }
+  background-color: $accentSecondaryColor;
 }
 
 .card-feature {
@@ -147,6 +148,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   display: flex;
   align-items: center;
 }
+
 .flex-center-column {
   display: flex;
   flex-direction: column;
@@ -178,6 +180,7 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
   top: 15px;
   right: 15px;
 }
+
 .actionButtons {
   position: absolute;
   bottom: 10px;
@@ -187,16 +190,16 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 
 .link {
   font-size: 16px;
-  color: $secondary-color;
+  color: $secondaryColor;
   text-decoration: none;
   &:hover {
-    background-color: $primary-hover-color;
+    background-color: $secondaryHoverColor;
   }
 }
 
 /* Buttons */
 .required {
-  color: red;
+  color: $primaryColor;
   margin-left: 4px;
 }
 
@@ -210,28 +213,31 @@ $input-focus-shadow-color: rgba(98, 0, 234, 0.5);
 }
 
 .saveButton {
-  background-color: #2196f3;
-  color: #fff;
+  background-color: $primaryColor;
+  color: $textPrimary;
+  box-shadow: $buttonShadow;
 }
 
 .deleteButton {
-  background-color: #f44336;
-  color: #fff;
+  background-color: $secondaryColor;
+  color: $textPrimary;
+  box-shadow: $buttonShadow;
 }
+
 .closeButton {
   position: absolute;
   top: 10px;
   right: 10px;
   width: 30px;
   height: 30px;
-  background-color: $danger-color;
-  color: white;
+  background-color: $primaryColor;
+  color: $textPrimary;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   @extend .flex-center;
 
-  & {
-    background-color: $danger-hover-color;
+  &:hover {
+    background-color: $primary-hover-color;
   }
 }
