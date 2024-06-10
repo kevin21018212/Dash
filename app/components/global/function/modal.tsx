@@ -19,7 +19,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         }}
       >
         <button className={styles.closeButton} onClick={onClose}>
-          ✖
+          ✖S
         </button>
         {children}
       </div>

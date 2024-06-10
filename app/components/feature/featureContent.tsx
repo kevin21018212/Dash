@@ -6,11 +6,12 @@ import {
   handleDeleteFeature,
 } from "@/app/utils/contentHandlers";
 import { EditableField } from "../global/form/edit";
-import Modal from "../modal";
+
 import TaskContent from "../task/taskContent";
 import { FiEdit } from "react-icons/fi";
 import CreateComponent from "../global/form/create";
 import { motion } from "framer-motion";
+import Modal from "../global/function/modal";
 
 const FeatureContent = ({ feature }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
