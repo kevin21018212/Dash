@@ -1,6 +1,13 @@
 import { useAtom } from "jotai";
 import { projectAtom } from "@/app/utils/projectAtom";
-import { Project, Feature, Task } from "@/app/types";
+import {
+  Project,
+  Feature,
+  Task,
+  dbTask,
+  dbFeature,
+  dbProject,
+} from "@/app/types";
 export const handleRequest = async (url, method, body) => {
   const options = {
     method,
@@ -39,7 +46,6 @@ export const useContentHandlers = () => {
       console.error("Error saving data:", error);
     }
   };
-
   const handleDelete = async (
     url: string,
     updateStateCallback: (prev: Project) => Project,
@@ -53,6 +59,23 @@ export const useContentHandlers = () => {
       }
     } catch (error) {
       console.error("Error deleting data:", error);
+    }
+  };
+
+  const handleCreate = async (
+    url: string,
+    data: any,
+    updateStateCallback: (prev: Project, createdData: any) => Project,
+    afterCreateCallback?: () => void
+  ) => {
+    try {
+      const createdData = await handleRequest(url, "POST", data);
+      setProject((prev) => updateStateCallback(prev, createdData));
+      if (afterCreateCallback) {
+        afterCreateCallback();
+      }
+    } catch (error) {
+      console.error("Error creating data:", error);
     }
   };
 
@@ -160,6 +183,54 @@ export const useContentHandlers = () => {
     }));
   };
 
+  const createProject = (data: dbProject, afterCreateCallback?: () => void) => {
+    handleCreate(
+      `/api/project`,
+      data,
+      (prev, createdData) => ({
+        ...prev,
+        ...createdData,
+      }),
+      afterCreateCallback
+    );
+  };
+
+  const createFeature = (
+    data: dbFeature,
+    projectId: number,
+    afterCreateCallback?: () => void
+  ) => {
+    handleCreate(
+      `/api/feature`,
+      data,
+      (prev, createdData) => ({
+        ...prev,
+        features: [...prev.features, createdData],
+      }),
+      afterCreateCallback
+    );
+  };
+
+  const createTask = (
+    data: dbTask,
+    featureId: number,
+    afterCreateCallback?: () => void
+  ) => {
+    handleCreate(
+      `/api/task`,
+      data,
+      (prev, createdData) => ({
+        ...prev,
+        features: prev.features.map((feature) =>
+          feature.feature_id === featureId
+            ? { ...feature, tasks: [...feature.tasks, createdData] }
+            : feature
+        ),
+      }),
+      afterCreateCallback
+    );
+  };
+
   return {
     handleSave,
     handleDelete,
@@ -170,5 +241,8 @@ export const useContentHandlers = () => {
     deleteTask,
     saveProject,
     deleteProject,
+    createTask,
+    createFeature,
+    createProject,
   };
 };

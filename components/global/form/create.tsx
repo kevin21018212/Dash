@@ -5,44 +5,47 @@ import form from "./form.module.scss";
 import common from "@/app/common.module.scss";
 import FormField from "./formField";
 import { motion } from "framer-motion";
+import { useContentHandlers } from "@/app/utils/contentHandlers";
+import { dbProject, dbFeature, dbTask } from "@/app/types";
 
 const CreateComponent = ({ type, parentId, onCancel }) => {
+  const { createProject, createFeature, createTask } = useContentHandlers();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [taskType, setTaskType] = useState(TaskType.UIDesign);
   const [taskSize, setTaskSize] = useState(TaskSize.Hard);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const data = {
+    let data: Partial<dbProject & dbFeature & dbTask> = {
       title,
       description,
-      ...(type === "task" && { image_url: imageUrl }),
-      [`${type === "task" ? "feature_id" : "project_id"}`]: parentId,
-      ...(type === "task" && { type: taskType, size: taskSize }),
     };
 
-    const response = await fetch(`/api/${type}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (response.ok) {
-      setTitle("");
-      setDescription("");
-      setImageUrl("");
-      if (type === "task") {
-        setTaskType(TaskType.UIDesign);
-        setTaskSize(TaskSize.Easy);
-      }
-      window.location.reload(); // Force page refresh
-    } else {
-      console.error(`Failed to create ${type}`);
+    if (type === "project") {
+      data = {
+        ...data,
+        image_url: imageUrl,
+        link: "",
+      };
+      createProject(data as dbProject, onCancel);
+    } else if (type === "feature") {
+      data = {
+        ...data,
+        project_id: parentId,
+      };
+      createFeature(data as dbFeature, parentId, onCancel);
+    } else if (type === "task") {
+      data = {
+        ...data,
+        image_url: imageUrl,
+        type: taskType,
+        size: taskSize,
+        feature_id: parentId,
+      };
+      createTask(data as dbTask, parentId, onCancel);
     }
   };
 

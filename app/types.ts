@@ -47,3 +47,29 @@ export interface Project {
   user_id: number;
   features: Feature[];
 }
+
+export interface dbTask {
+  task_id: number;
+  title: string;
+  description: string;
+  type: string;
+  size: string;
+
+  feature_id: number;
+}
+
+export interface dbFeature {
+  feature_id: number;
+  title: string;
+  description: string;
+  image_url: string;
+  project_id: number;
+}
+
+export interface dbProject {
+  project_id: number;
+  title: string;
+  description: string;
+  image_url: string;
+  link: string | null;
+}
