@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useContentHandlers } from "@/app/utils/contentHandlers";
 import styles from "./projectContent.module.scss";
-import common from "../../common.module.scss";
+import common from "@/app/common.module.scss";
 import FeatureContent from "../feature/featureContent";
 import { EditableField } from "../global/form/edit";
 import { FiEdit } from "react-icons/fi";

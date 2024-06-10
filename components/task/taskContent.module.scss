@@ -1,5 +1,4 @@
-@import "../../common.module.scss";
-
+@import "/app/common.module.scss";
 .taskDetail {
   @extend .card-small;
   position: relative;
@@ -12,11 +11,12 @@
   width: 90%;
   p {
     margin: 0;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: $textPrimary;
   }
 }
 

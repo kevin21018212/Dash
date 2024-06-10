@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { TaskSize, TaskType } from "@/app/utils/enums";
 import form from "./form.module.scss";
-import common from "../../../common.module.scss";
+import common from "@/app/common.module.scss";
 import FormField from "./formField";
 import { motion } from "framer-motion";
 

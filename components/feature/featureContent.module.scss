@@ -1,4 +1,4 @@
-@import "../../common.module.scss";
+@import "/app/common.module.scss";
 
 .card {
   @extend .cardLarge;
@@ -36,7 +36,7 @@
 .clickableArea {
   @extend .card-medium;
   padding: 10px;
-  background-color: $boxBackground;
+  background-color: $accentcolor;
   flex: 0 0 60%;
   user-select: none;
   cursor: pointer;

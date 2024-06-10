@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useSetAtom } from "jotai";
 
-import ProjectContent from "@/app/components/project/projectContent";
+import ProjectContent from "@/components/project/projectContent";
 import { projectAtom } from "@/app/utils/projectAtom";
 
 const fetchProject = async (projectId) => {

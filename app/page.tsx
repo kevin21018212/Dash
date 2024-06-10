@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React, {useEffect, useState} from 'react';
-import {signIn, signOut, useSession} from 'next-auth/react';
-import styles from './homepage.module.scss';
-import common from './common.module.scss';
-import CreateComponent from './components/global/form/create';
-import ProjectCard from './components/project/projectCard';
-import {Project} from '@prisma/client';
+import React, { useEffect, useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import styles from "./homepage.module.scss";
+import common from "./common.module.scss";
+import CreateComponent from "../components/global/form/create";
+import ProjectCard from "../components/project/projectCard";
+import { Project } from "@prisma/client";
 
 const Page = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
   const handleSignClick = async () => {
     session && session.user ? await signOut() : await signIn();
@@ -19,15 +19,15 @@ const Page = () => {
   const fetchProjects = async () => {
     if (session) {
       try {
-        const response = await fetch('/api/project');
+        const response = await fetch("/api/project");
         const data = await response.json();
         if (response.ok) {
           setProjects(data.projects);
         } else {
-          console.error('Error fetching projects:', data.error);
+          console.error("Error fetching projects:", data.error);
         }
       } catch (error) {
-        console.error('Fetch projects failed:', error);
+        console.error("Fetch projects failed:", error);
       }
     }
   };
@@ -48,7 +48,11 @@ const Page = () => {
           </div>
           <div className={common.gridDisplayContainer}>
             <div className={styles.createCard}>
-              <CreateComponent type='project' parentId={null} onCancel={undefined} />
+              <CreateComponent
+                type="project"
+                parentId={null}
+                onCancel={undefined}
+              />
             </div>
             {projects.map((project) => (
               <ProjectCard key={project.project_id} project={project} />
