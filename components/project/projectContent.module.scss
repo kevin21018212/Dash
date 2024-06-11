@@ -3,7 +3,7 @@
 .projectInfo {
   margin-bottom: 32px;
   height: 30vh;
-  width: 100%;
+  width: 80%;
   @extend .bgShadowWhite;
   display: flex;
   margin-bottom: 16px;
@@ -17,18 +17,20 @@
   background-size: 100% 100%;
   background-position: 0px 0px;
   background-image: linear-gradient(276deg, #eeff99 5%, #8cdc9e 100%);
-  padding: 1%;
+  padding: 0.5% 1%;
+
   .title {
-    font-size: 32px;
+    font-size: 45px;
+    letter-spacing: 2.5px;
     font-weight: 700;
-    color: #fff;
+    color: $textPrimary;
     margin: 0;
   }
 }
 
 .infoRight {
   width: 70%;
-  padding: 15px 60px 15px 15px;
+  padding: 0px 20px;
   .link {
     @extend .link;
     font-size: 2vh;
@@ -36,7 +38,6 @@
   .description {
     @extend .description;
     color: $textInverse;
-    margin: 0.5% 2.5%;
   }
 }
 

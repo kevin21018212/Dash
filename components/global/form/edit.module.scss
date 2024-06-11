@@ -23,8 +23,7 @@
 .editableFieldInput {
   input {
     width: 90%;
-
-    padding: 8px;
+    padding: 10px 0px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -40,14 +39,14 @@
 }
 
 .editableFieldTextArea {
-  height: 80%;
+  height: 90%;
   textarea {
     width: 100%;
-    height: 90%;
+    height: 95%;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    padding: 15px;
+    padding: 8px;
     resize: vertical;
     max-width: 85%;
     @extend .bgGlass;

@@ -39,16 +39,16 @@ const Navbar = () => {
     <div className={styles.container}>
       <div className={styles.mainLinksContainer}>
         <Link href='/' className={styles.navLink}>
-          Home
+          <h6>Home</h6>
         </Link>
         <Link href='/Dashboard' className={styles.navLink}>
-          Dashboard
+          <h6>Dashboard</h6>
         </Link>
       </div>
       <div className={styles.projectsContainer}>
         {projects.map((project) => (
           <Link key={project.project_id} href={`/projects/${project.project_id}`} className={styles.navLink}>
-            {project.title}
+            <h6> {project.title}</h6>
           </Link>
         ))}
       </div>

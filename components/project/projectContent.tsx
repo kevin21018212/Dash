@@ -79,7 +79,7 @@ const ProjectContent: React.FC = () => {
                 </a>
               )}
               <p className={styles.description}>{project.description}</p>
-              <FiEdit className={common.editIcon} onClick={() => setIsEditing(true)} />
+              <FiEdit className={common.editIcon} color={'black'} onClick={() => setIsEditing(true)} />
             </div>
           </section>
           <section className={styles.featuresSection}>
