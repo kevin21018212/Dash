@@ -1,7 +1,7 @@
 @import '/app/common.module.scss';
 
 .projectCard {
-  @extend .card-medium;
+  @include card(250px);
   padding: 0 0px;
 }
 

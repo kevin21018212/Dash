@@ -1,7 +1,7 @@
 @import '/app/common.module.scss';
 
 .card {
-  @extend .cardLarge;
+  @include card(300px, 375px);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -35,7 +35,7 @@
 }
 
 .clickableArea {
-  @extend .card-medium;
+  @include card(250px);
   background-color: $accentcolor;
   flex: 0 0 60%;
   user-select: none;
@@ -51,7 +51,7 @@
 }
 
 .createTaskCard {
-  @extend .card-small;
+  @include card(250px, 250px);
   background-color: $primaryColor;
   color: $textPrimary;
   transition: background-color 0.3s;
@@ -60,4 +60,17 @@
   &:hover {
     background-color: $primary-hover-color;
   }
+}
+
+.actionButtons {
+  @extend .actionButtons;
+}
+.deleteButton {
+  @extend .deleteButton;
+}
+.saveButton {
+  @extend .saveButton;
+}
+.editIcon {
+  @extend .editIcon;
 }

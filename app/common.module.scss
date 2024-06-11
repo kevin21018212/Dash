@@ -101,7 +101,7 @@ $boxBackground: #134074;
   flex-wrap: wrap;
 }
 
-.card {
+@mixin card($width, $height: auto) {
   @extend .bgShadowWhite;
   display: flex;
   flex-direction: column;
@@ -109,23 +109,8 @@ $boxBackground: #134074;
   margin: 15px;
   box-sizing: border-box;
   background-color: $boxBackground;
-}
-
-.cardLarge {
-  @extend .card;
-  width: 300px;
-  height: 375px;
-}
-
-.card-medium {
-  @extend .card;
-  width: 250px;
-}
-
-.card-small {
-  @extend .card;
-  width: 250px;
-  height: 250px;
+  width: $width;
+  height: $height;
 }
 
 .card-clickable {

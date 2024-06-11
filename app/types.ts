@@ -1,20 +1,20 @@
 enum TaskSize {
-  Easy = "Easy",
-  Medium = "Medium",
-  Hard = "Hard",
+  Easy = 'Easy',
+  Medium = 'Medium',
+  Hard = 'Hard',
 }
 
 enum TaskType {
-  UIDesign = "UI Design",
-  CodeRefactor = "Code Refactor",
-  Animation = "Animation",
-  PageLayout = "Page Layout",
-  Styling = "Styling",
-  Componet = "Component",
-  APIRoute = "API Route",
-  Database = "Database ",
-  Testing = "Testing",
-  Deployment = "Deployment",
+  UIDesign = 'UI Design',
+  CodeRefactor = 'Code Refactor',
+  Animation = 'Animation',
+  PageLayout = 'Page Layout',
+  Styling = 'Styling',
+  Componet = 'Component',
+  APIRoute = 'API Route',
+  Database = 'Database ',
+  Testing = 'Testing',
+  Deployment = 'Deployment',
 }
 
 // types.ts
@@ -32,7 +32,6 @@ export interface Feature {
   feature_id: number;
   title: string;
   description: string;
-  image_url: string;
   project_id: number;
   user_id: number;
   tasks: Task[];

@@ -27,7 +27,7 @@
 }
 
 .createCard {
-  @extend .card-medium;
+  @include card(250px);
 }
 
 .createProjectSection h2,

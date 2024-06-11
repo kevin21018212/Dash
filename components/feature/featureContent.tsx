@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useContentHandlers} from '@/app/utils/contentHandlers';
 import styles from './featureContent.module.scss';
-import common from '@/app/common.module.scss';
+
 import {EditableField} from '../global/form/edit';
 import TaskContent from '../task/taskContent';
 import {FiEdit} from 'react-icons/fi';
@@ -55,11 +55,11 @@ const FeatureContent: React.FC<FeatureContentProps> = ({feature}) => {
               />
             </div>
           </div>
-          <div className={common.actionButtons}>
-            <button onClick={() => saveFeature(feature, editedFeature, setIsEditing)} className={common.saveButton}>
+          <div className={styles.actionButtons}>
+            <button onClick={() => saveFeature(feature, editedFeature, setIsEditing)} className={styles.saveButton}>
               Save
             </button>
-            <button onClick={() => deleteFeature(feature)} className={common.deleteButton}>
+            <button onClick={() => deleteFeature(feature)} className={styles.deleteButton}>
               Delete
             </button>
           </div>
@@ -77,7 +77,7 @@ const FeatureContent: React.FC<FeatureContentProps> = ({feature}) => {
           <motion.div whileHover={{scale: 1.05}} className={styles.clickableArea} onClick={() => setIsModalOpen(true)}>
             <p>Click here to view tasks</p>
           </motion.div>
-          <FiEdit className={common.editIcon} onClick={() => setIsEditing(true)} />
+          <FiEdit className={styles.editIcon} onClick={() => setIsEditing(true)} />
 
           {isModalOpen && (
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
