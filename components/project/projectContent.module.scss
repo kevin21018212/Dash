@@ -1,4 +1,4 @@
-@import "/app/common.module.scss";
+@import '/app/common.module.scss';
 
 .projectInfo {
   margin-bottom: 32px;
@@ -14,7 +14,9 @@
 .infoLeft {
   width: 30%;
   border-radius: 8px;
-  background-color: $primaryColor;
+  background-size: 100% 100%;
+  background-position: 0px 0px;
+  background-image: linear-gradient(276deg, #eeff99 5%, #8cdc9e 100%);
   padding: 1%;
   .title {
     font-size: 32px;
@@ -33,12 +35,17 @@
   }
   .description {
     @extend .description;
+    color: $textInverse;
     margin: 0.5% 2.5%;
   }
 }
 
 .featuresSection {
   margin-top: 32px;
+  background-color: $containerBackground;
+  width: 100%;
+  border-radius: 20px;
+  padding: 0px 15px;
 }
 
 .featuresTitle {
@@ -48,5 +55,4 @@
 .featuresGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
 }

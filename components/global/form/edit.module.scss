@@ -1,4 +1,4 @@
-@import "/app/common.module.scss";
+@import '/app/common.module.scss';
 
 .editableDropdown {
   display: flex;
@@ -9,17 +9,28 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    @extend .bgGlass;
+    color: $textPrimary;
+  }
+  select:focus {
+    box-shadow: none;
+    background-color: inherit;
+    outline: none;
+    color: $textInverse;
   }
 }
 
 .editableFieldInput {
   input {
     width: 90%;
+
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     margin-bottom: 10px;
+    @extend .bgGlass;
+    color: $textPrimary;
   }
   input:focus {
     box-shadow: none;
@@ -39,6 +50,8 @@
     padding: 15px;
     resize: vertical;
     max-width: 85%;
+    @extend .bgGlass;
+    color: $textPrimary;
   }
   textarea:focus {
     box-shadow: none;

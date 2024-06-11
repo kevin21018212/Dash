@@ -1,4 +1,4 @@
-@import "/app/common.module.scss";
+@import '/app/common.module.scss';
 
 /* Overlay and Modal */
 .overlay {
@@ -30,15 +30,14 @@
   @extend .bgShadowWhite;
   background-color: $containerBackground;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 /* Smaller modal without overlay */
 .taskModal {
   width: 20vw;
   height: 40vh;
-  padding: 1.5%;
-  @extend .bgShadowWhite;
+  padding: 1.5% 1.5% 1.5% 1.5%;
   background-color: $boxBackground;
   position: fixed;
   top: 50%;
