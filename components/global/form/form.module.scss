@@ -1,4 +1,4 @@
-@import "/app/common.module.scss";
+@import '/app/common.module.scss';
 
 .formFieldGroup {
   margin-bottom: 15px;
@@ -30,11 +30,17 @@
   display: block;
   padding: 8px;
   margin-bottom: 8px;
-  border-radius: 4px;
   font-size: 16px;
-  border: 1px solid $accentcolor;
+  border: none;
   box-sizing: border-box;
-
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.7px);
+  -webkit-backdrop-filter: blur(3.7px);
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  outline: none;
+  color: $textSecondary;
   &.textarea {
     resize: vertical;
   }
@@ -42,7 +48,7 @@
 
 /* Required Indicator */
 .required {
-  color: $primaryColor;
+  color: $secondaryColor;
   margin-left: 4px;
 }
 

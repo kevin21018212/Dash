@@ -1,13 +1,22 @@
 /* Variables */
+<<<<<<< HEAD
 $primaryColor: #ce4a2d;
 $primary-hover-color: #d9c45b;
 $secondaryColor: #ff7a00;
 $secondaryHoverColor: #fe8819;
 $accentcolor: #7b988c;
+=======
+$primaryColor: #8cdc9e;
+$primary-hover-color: #72b380;
+$secondaryColor: #eeff99;
+$secondaryHoverColor: #d6e68a;
+$accentcolor: #00a9a5;
+>>>>>>> dea2afbfc1d7747d412eb2587970b9169c009282
 $accentSecondaryColor: #a8cecf;
 
 $textPrimary: #f0f0f0;
 $textSecondary: #e4e4e4;
+$textInverse: #0d0d0d;
 $boxShadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 $buttonShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 $arrowShadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -15,33 +24,32 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
 
 /* Typography */
 .title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 25px;
   color: $textPrimary;
   margin-bottom: 8px;
 }
 
 .cornerTitle {
+  width: 50%;
+  margin: 0;
+  margin-right: 50%;
   h2 {
     font-size: 40px;
     font-weight: 600;
     color: $textPrimary;
-    margin: 0;
   }
-  margin: 0;
-  width: 100%;
 }
 
 .littleTitle {
   font-size: 24px;
   margin-bottom: 8px;
-  color: $textSecondary;
+
+  color: $textPrimary;
 }
 
 .subtitle {
   font-size: 24px;
   font-weight: 600;
-  color: $textPrimary;
   margin-bottom: 16px;
 }
 
@@ -49,6 +57,16 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
   font-size: 16px;
   color: $textSecondary;
   margin-bottom: 16px;
+}
+
+/*Background*/
+.bgGlass {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
 }
 
 .bg-shadow-round {
@@ -66,8 +84,8 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
 }
 
 /* Containers */
-$containerBackground: #0d0d0d;
-$boxBackground: #0f282f;
+$containerBackground: #28343b;
+$boxBackground: #134074;
 .container {
   margin: 0 auto;
   padding: 1rem;
@@ -91,32 +109,16 @@ $boxBackground: #0f282f;
   flex-wrap: wrap;
 }
 
-.card {
+@mixin card($width, $height: auto) {
   @extend .bgShadowWhite;
   display: flex;
   flex-direction: column;
   padding: 15px;
   margin: 15px;
-  margin-top: 0;
   box-sizing: border-box;
   background-color: $boxBackground;
-}
-
-.cardLarge {
-  @extend .card;
-  width: 300px;
-  height: 375px;
-}
-
-.card-medium {
-  @extend .card;
-  width: 250px;
-}
-
-.card-small {
-  @extend .card;
-  width: 250px;
-  height: 250px;
+  width: $width;
+  height: $height;
 }
 
 .card-clickable {
@@ -182,6 +184,7 @@ $boxBackground: #0f282f;
   cursor: pointer;
   top: 15px;
   right: 15px;
+  color: $textPrimary;
 }
 
 .actionButtons {
@@ -192,7 +195,7 @@ $boxBackground: #0f282f;
 }
 
 .link {
-  font-size: 16px;
+  font-size: 15px;
   color: $secondaryColor;
   text-decoration: none;
   &:hover {
@@ -222,24 +225,24 @@ $boxBackground: #0f282f;
 }
 
 .deleteButton {
-  background-color: $secondaryColor;
+  background-color: $accentcolor;
   color: $textPrimary;
   box-shadow: $buttonShadow;
 }
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
+  top: 0px;
+  right: 2px;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
   background-color: $primaryColor;
   color: $textPrimary;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   @extend .flex-center;
-
   &:hover {
     background-color: $primary-hover-color;
   }

@@ -1,0 +1,99 @@
+/* styles/fonts.css */
+
+/* GT America Expanded Black */
+@font-face {
+  font-family: "GT America Expanded Black";
+  src: url("../public/fonts/GT America Expanded Black.ttf") format("truetype");
+}
+
+/* GT America Extended Black */
+@font-face {
+  font-family: "GT America Extended Black";
+  src: url("../public/fonts/GT America Extended Black.ttf") format("truetype");
+}
+
+/* Monument Extended Bold */
+@font-face {
+  font-family: "Monument Extended Bold";
+  src: url("../public/fonts/Monument Extended Bold.ttf") format("truetype");
+}
+
+/* Monument Extended Variable */
+@font-face {
+  font-family: "Monument Extended Variable";
+  src: url("../public/fonts/Monument Extended Variable.ttf") format("truetype");
+}
+
+/* Monument Grotesk Black */
+@font-face {
+  font-family: "Monument Grotesk Black";
+  src: url("../public/fonts/Monument Grotesk Black.otf") format("opentype");
+}
+
+/* Monument Grotesk Bold */
+@font-face {
+  font-family: "Monument Grotesk Bold";
+  src: url("../public/fonts/Monument Grotesk Bold.otf") format("opentype");
+}
+
+/* Monument Grotesk ExtBdIta */
+@font-face {
+  font-family: "Monument Grotesk ExtBdIta";
+  src: url("../public/fonts/Monument Grotesk ExtBdIta.otf") format("opentype");
+}
+
+/* Monument Grotesk ExtraBold */
+@font-face {
+  font-family: "Monument Grotesk ExtraBold";
+  src: url("../public/fonts/Monument Grotesk ExtraBold.otf") format("opentype");
+}
+
+/* Monument Grotesk Medium */
+@font-face {
+  font-family: "Monument Grotesk Medium";
+  src: url("../public/fonts/Monument Grotesk Medium.otf") format("opentype");
+}
+
+/* Monument Grotesk Mono Condensed */
+@font-face {
+  font-family: "Monument Grotesk Mono Condensed";
+  src: url("../public/fonts/Monument Grotesk Mono Condensed.otf")
+    format("opentype");
+}
+
+/* Monument Grotesk Mono SemCond */
+@font-face {
+  font-family: "Monument Grotesk Mono SemCond";
+  src: url("../public/fonts/Monument Grotesk Mono SemCond.otf")
+    format("opentype");
+}
+
+/* Monument Grotesk Regular */
+@font-face {
+  font-family: "Monument Grotesk Regular";
+  src: url("../public/fonts/Monument Grotesk Regular.otf") format("opentype");
+}
+
+/* Neue Montreal Bold */
+@font-face {
+  font-family: "Neue Montreal Bold";
+  src: url("../public/fonts/Neue Montreal Bold.ttf") format("truetype");
+}
+
+/* Neue Montreal Book */
+@font-face {
+  font-family: "Neue Montreal Book";
+  src: url("../public/fonts/Neue Montreal Book.ttf") format("truetype");
+}
+
+/* Neue Montreal Semibold */
+@font-face {
+  font-family: "Neue Montreal Semibold";
+  src: url("../public/fonts/Neue Montreal Semibold.ttf") format("truetype");
+}
+
+/* Neue Montreal Variable */
+@font-face {
+  font-family: "Neue Montreal Variable";
+  src: url("../public/fonts/Neue Montreal Variable.ttf") format("truetype");
+}

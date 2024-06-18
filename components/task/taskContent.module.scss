@@ -1,6 +1,8 @@
-@import "/app/common.module.scss";
+@import '/app/common.module.scss';
 .taskDetail {
-  @extend .card-small;
+  @include card(250px, 250px);
+  width: 250px;
+  height: 250px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -30,7 +32,9 @@
 .taskDetailModal {
   height: 100%;
   @extend .flex-column;
-  width: 115%;
+  align-items: center;
+  width: 100%;
+  padding-left: 2.5%;
 }
 
 .taskType,
@@ -45,8 +49,8 @@
 
 .description {
   @extend .description;
-  font-size: 14px;
-  margin-bottom: 16px;
+  font-size: 15px;
+  margin-bottom: 15px;
 }
 
 .buttons {
