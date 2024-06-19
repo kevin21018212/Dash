@@ -8,6 +8,7 @@ import {
   dbFeature,
   dbProject,
 } from "@/app/types";
+
 export const handleRequest = async (url, method, body) => {
   const options = {
     method,
@@ -46,6 +47,7 @@ export const useContentHandlers = () => {
       console.error("Error saving data:", error);
     }
   };
+
   const handleDelete = async (
     url: string,
     updateStateCallback: (prev: Project) => Project,
@@ -231,6 +233,16 @@ export const useContentHandlers = () => {
     );
   };
 
+  const updateTaskStatus = (task: Task, status: string) => {
+    const updatedTask = { ...task, status };
+    saveTask(
+      task,
+      updatedTask,
+      () => {},
+      () => {}
+    );
+  };
+
   return {
     handleSave,
     handleDelete,
@@ -244,5 +256,6 @@ export const useContentHandlers = () => {
     createTask,
     createFeature,
     createProject,
+    updateTaskStatus,
   };
 };

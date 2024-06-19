@@ -1,20 +1,21 @@
-import React, {useState} from 'react';
-import {useContentHandlers} from '@/app/utils/contentHandlers';
-import styles from './taskContent.module.scss';
-import common from '@/app/common.module.scss';
-import {EditableField, EditableDropdown} from '../global/form/edit';
-import {TaskSize, TaskType} from '@/app/utils/enums';
-import {FiEdit} from 'react-icons/fi';
-import {motion} from 'framer-motion';
-import TaskModal from '../global/function/taskmodal';
-import {Task} from '@/app/types';
+import React, { useState } from "react";
+import { useContentHandlers } from "@/app/utils/contentHandlers";
+import styles from "./taskContent.module.scss";
+import common from "@/app/common.module.scss";
+import { EditableField, EditableDropdown } from "../global/form/edit";
+import { TaskSize, TaskType, TaskStatus } from "@/app/utils/enums";
+import { FiEdit } from "react-icons/fi";
+import { motion } from "framer-motion";
+import TaskModal from "../global/function/taskmodal";
+import { Task } from "@/app/types";
 
 interface TaskContentProps {
   task: Task;
 }
 
-const TaskContent: React.FC<TaskContentProps> = ({task}) => {
-  const {handleFieldChange, saveTask, deleteTask} = useContentHandlers();
+const TaskContent: React.FC<TaskContentProps> = ({ task }) => {
+  const { handleFieldChange, saveTask, deleteTask, updateTaskStatus } =
+    useContentHandlers();
   const [isEditing, setIsEditing] = useState(false);
   const [editedTask, setEditedTask] = useState<Task>(task);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -24,14 +25,23 @@ const TaskContent: React.FC<TaskContentProps> = ({task}) => {
     setIsEditModalOpen(true);
   };
 
+  const handleStatusClick = () => {
+    updateTaskStatus(task, TaskStatus.DONE);
+  };
+
   return (
     <>
-      <motion.div whileHover={{scale: 1.1}} className={styles.taskDetail}>
+      <motion.div whileHover={{ scale: 1.1 }} className={styles.taskDetail}>
+        <div className={styles.statusCircle} onClick={handleStatusClick}></div>
         <div className={styles.topSection}>
           <p>{task.title}</p>
           <div className={styles.buttons}>
-            <div className={`${styles.taskType} ${styles[task.type]}`}>{task.type}</div>
-            <div className={`${styles.taskSize} ${styles[task.size]}`}>{task.size}</div>
+            <div className={`${styles.taskType} ${styles[task.type]}`}>
+              {task.type}
+            </div>
+            <div className={`${styles.taskSize} ${styles[task.size]}`}>
+              {task.size}
+            </div>
           </div>
         </div>
         <div className={styles.bottomSection}>
@@ -41,31 +51,56 @@ const TaskContent: React.FC<TaskContentProps> = ({task}) => {
       </motion.div>
 
       {isEditModalOpen && (
-        <TaskModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)}>
+        <TaskModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+        >
           <div className={styles.taskDetailModal}>
             <div className={styles.topSection}>
-              <EditableField value={editedTask.title} onSave={(value) => handleFieldChange('title', value, editedTask, setEditedTask)} />
+              <EditableField
+                value={editedTask.title}
+                onSave={(value) =>
+                  handleFieldChange("title", value, editedTask, setEditedTask)
+                }
+              />
               <div className={styles.buttons}>
                 <EditableDropdown
                   value={editedTask.type}
                   options={Object.values(TaskType)}
                   optionstwo={Object.values(TaskSize)}
-                  onSave={(value) => handleFieldChange('type', value, editedTask, setEditedTask)}
+                  onSave={(value) =>
+                    handleFieldChange("type", value, editedTask, setEditedTask)
+                  }
                 />
               </div>
             </div>
             <div className={styles.bottomSection}>
               <EditableField
                 value={editedTask.description}
-                onSave={(value) => handleFieldChange('description', value, editedTask, setEditedTask)}
-                type='textArea'
+                onSave={(value) =>
+                  handleFieldChange(
+                    "description",
+                    value,
+                    editedTask,
+                    setEditedTask
+                  )
+                }
+                type="textArea"
               />
             </div>
             <div className={common.actionButtons}>
-              <button onClick={() => saveTask(task, editedTask, setIsEditing, setIsEditModalOpen)} className={common.saveButton}>
+              <button
+                onClick={() =>
+                  saveTask(task, editedTask, setIsEditing, setIsEditModalOpen)
+                }
+                className={common.saveButton}
+              >
                 Save
               </button>
-              <button onClick={() => deleteTask(task)} className={common.deleteButton}>
+              <button
+                onClick={() => deleteTask(task)}
+                className={common.deleteButton}
+              >
                 Delete
               </button>
             </div>

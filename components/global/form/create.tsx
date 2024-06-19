@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { TaskSize, TaskType } from "@/app/utils/enums";
+import { TaskSize, TaskType, TaskStatus } from "@/app/utils/enums";
 import form from "./form.module.scss";
 import common from "@/app/common.module.scss";
 import FormField from "./formField";
@@ -13,6 +13,7 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [taskType, setTaskType] = useState(TaskType.UIDesign);
   const [taskSize, setTaskSize] = useState(TaskSize.Hard);
+  const [taskStatus, setTaskStatus] = useState(TaskStatus.TODO);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +23,11 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
       description,
       ...(type === "task" && { image_url: imageUrl }),
       [`${type === "task" ? "feature_id" : "project_id"}`]: parentId,
-      ...(type === "task" && { type: taskType, size: taskSize }),
+      ...(type === "task" && {
+        type: taskType,
+        size: taskSize,
+        status: taskStatus,
+      }),
     };
 
     const response = await fetch(`/api/${type}`, {
@@ -40,6 +45,7 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
       if (type === "task") {
         setTaskType(TaskType.UIDesign);
         setTaskSize(TaskSize.Easy);
+        setTaskStatus(TaskStatus.TODO);
       }
     } else {
       console.error(`Failed to create ${type}`);
@@ -94,6 +100,14 @@ const CreateComponent = ({ type, parentId, onCancel }) => {
               value={taskSize}
               onChange={(e) => setTaskSize(e.target.value)}
               options={Object.values(TaskSize)}
+              required
+            />
+            <FormField
+              label="Task Status"
+              type="select"
+              value={taskStatus}
+              onChange={(e) => setTaskStatus(e.target.value)}
+              options={Object.values(TaskStatus)}
               required
             />
           </>
