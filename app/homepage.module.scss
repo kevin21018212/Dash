@@ -5,9 +5,13 @@
 
 .landing {
   @extend .flex-center-column;
-  width: 95%;
   padding: 2rem;
+  background-color: $boxBackground;
+  border-radius: 8px;
   @extend .bg-shadow;
+  p {
+    color: $textSecondary;
+  }
 }
 
 .favoritesSection,
@@ -19,10 +23,11 @@
 .favoritesSection h2,
 .loginSection h2 {
   @extend .subtitle;
+  color: $textPrimary;
 }
 
 .createCard {
-  @extend .card-medium;
+  @include card(250px);
 }
 
 .createProjectSection h2,

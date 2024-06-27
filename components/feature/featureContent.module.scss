@@ -1,0 +1,76 @@
+@import '/app/common.module.scss';
+
+.card {
+  @include card(300px, 375px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 1.5%;
+}
+
+.featureInfo {
+  display: flex;
+  flex-direction: column;
+  min-height: 35%;
+  padding-bottom: 5%;
+  overflow: hidden;
+}
+
+.title {
+  flex: 0 0 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 5px 0;
+}
+
+.description {
+  flex: 1 0 40%;
+  margin: 0px 10px;
+  justify-content: flex-start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
+}
+
+.clickableArea {
+  @include card(250px);
+  background-color: $accentcolor;
+  flex: 0 0 60%;
+  user-select: none;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.taskGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.createTaskCard {
+  @include card(250px, 250px);
+  background-color: $primaryColor;
+  color: $textPrimary;
+  transition: background-color 0.3s;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background-color: $primary-hover-color;
+  }
+}
+
+.actionButtons {
+  @extend .actionButtons;
+}
+.deleteButton {
+  @extend .deleteButton;
+}
+.saveButton {
+  @extend .saveButton;
+}
+.editIcon {
+  @extend .editIcon;
+}

@@ -1,0 +1,55 @@
+@import '/app/common.module.scss';
+
+/* Overlay and Modal */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  @extend .flex-center;
+  z-index: 100;
+}
+
+.clearOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  @extend .flex-center;
+  z-index: 100;
+}
+
+.modal {
+  width: 80vw;
+  height: 80vh;
+  padding: 1.5%;
+  @extend .bgShadowWhite;
+  background-color: $containerBackground;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Smaller modal without overlay */
+.taskModal {
+  width: 15vw;
+  height: 35vh;
+  padding: 2% 0.5%;
+  background-color: $boxBackground;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: auto;
+  z-index: 1100;
+  overflow: hidden;
+  border-radius: 20px;
+  @extend .bgShadowWhite;
+}
+
+.closeButton {
+  @extend .closeButton;
+}

@@ -1,0 +1,130 @@
+@import "/app/common.module.scss";
+
+.taskDetail {
+  @include card(250px, 250px);
+  width: 275px;
+  height: 250px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.topSection {
+  max-height: 45%;
+  width: 90%;
+
+  position: relative;
+  p {
+    margin: 0;
+    margin-left: 15%;
+    margin-top: -2.5%;
+    font-size: 27.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $textPrimary;
+  }
+}
+
+.statusCircle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: $textPrimary;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
+
+.bottomSection {
+  @extend .flex-column;
+  flex-grow: 1;
+  width: 90%;
+  overflow-y: auto;
+}
+
+.taskDetailModal {
+  height: 100%;
+  @extend .flex-column;
+  align-items: center;
+  width: 100%;
+  padding-left: 2.5%;
+}
+
+.taskType,
+.taskSize {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  margin: 5px 5px 5px 0px;
+  font-size: 10px;
+}
+
+.description {
+  @extend .description;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.buttons {
+  width: 92%;
+  flex-direction: row;
+  gap: 8px;
+}
+
+/* Task size styles */
+.Easy {
+  background-color: #4caf50;
+}
+
+.Medium {
+  background-color: #ff9800;
+}
+
+.Hard {
+  background-color: #f44336;
+}
+
+/* Task type styles */
+.UIDesign {
+  background-color: #2196f3;
+}
+
+.CodeRefactor {
+  background-color: #673ab7;
+}
+
+.Animation {
+  background-color: #ff5722;
+}
+
+.PageLayout {
+  background-color: #009688;
+}
+
+.Styling {
+  background-color: #3f51b5;
+}
+
+.Component {
+  background-color: #00bcd4;
+}
+
+.APIRoute {
+  background-color: #cddc39;
+}
+
+.Database {
+  background-color: #8bc34a;
+}
+
+.Testing {
+  background-color: #ffc107;
+}
+
+.Deployment {
+  background-color: #795548;
+}

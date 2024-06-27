@@ -42,7 +42,6 @@ model Feature {
   feature_id  Int      @id @default(autoincrement())
   title        String?
   description  String?
-  image_url    String?
   tasks        Task[]
   project      Project  @relation(fields: [project_id], references: [project_id]) // Links feature to project
   project_id   Int
@@ -62,6 +61,7 @@ model Task {
   user_id      Int
   feature     Feature?  @relation(fields: [feature_id], references: [feature_id]) // Links task to feature (optional)
   feature_id  Int?
+  status       TaskStatus @default(TODO)
 }
 
 // Define enum types for task size and type
@@ -69,6 +69,12 @@ enum TaskSize {
   Easy
   Medium
   Hard
+}
+
+enum TaskStatus {
+  TODO
+  DOING
+  DONE
 }
 
 enum TaskType {

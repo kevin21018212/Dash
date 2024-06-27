@@ -1,0 +1,75 @@
+@import '/app/common.module.scss';
+
+.formFieldGroup {
+  margin-bottom: 15px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: $textPrimary;
+  }
+
+  .formFieldInput,
+  .formFieldTextarea,
+  .formFieldSelect {
+    @extend .input;
+  }
+
+  .formFieldTextarea {
+    @extend .textarea;
+  }
+}
+
+/* form.module.scss */
+
+/* Form Elements */
+.input,
+.textarea,
+.dropdown {
+  display: block;
+  padding: 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  border: none;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.7px);
+  -webkit-backdrop-filter: blur(3.7px);
+  border: 1px solid rgba(255, 255, 255, 0.19);
+  outline: none;
+  color: $textSecondary;
+  &.textarea {
+    resize: vertical;
+  }
+}
+
+/* Required Indicator */
+.required {
+  color: $secondaryColor;
+  margin-left: 4px;
+}
+
+/* Form Field Group */
+.formFieldGroup {
+  margin-bottom: 15px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: $textPrimary;
+  }
+
+  .formFieldInput,
+  .formFieldTextarea,
+  .formFieldSelect {
+    @extend .input;
+  }
+
+  .formFieldTextarea {
+    @extend .textarea;
+  }
+}

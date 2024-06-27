@@ -1,0 +1,59 @@
+@import '/app/common.module.scss';
+
+.projectInfo {
+  margin-bottom: 32px;
+  height: 30vh;
+  width: 80%;
+  @extend .bgShadowWhite;
+  display: flex;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.infoLeft {
+  width: 30%;
+  border-radius: 8px;
+  background-size: 100% 100%;
+  background-position: 0px 0px;
+  background-image: linear-gradient(276deg, #eeff99 5%, #8cdc9e 100%);
+  padding: 0.5% 1%;
+
+  .title {
+    font-size: 45px;
+    letter-spacing: 2.5px;
+    font-weight: 700;
+    color: $textPrimary;
+    margin: 0;
+  }
+}
+
+.infoRight {
+  width: 70%;
+  padding: 0px 20px;
+  .link {
+    @extend .link;
+    font-size: 2vh;
+  }
+  .description {
+    @extend .description;
+    color: $textInverse;
+  }
+}
+
+.featuresSection {
+  margin-top: 32px;
+  background-color: $containerBackground;
+  width: 100%;
+  border-radius: 20px;
+  padding: 0px 15px;
+}
+
+.featuresTitle {
+  @extend .subtitle;
+}
+
+.featuresGrid {
+  display: flex;
+  flex-wrap: wrap;
+}
