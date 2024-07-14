@@ -1,33 +1,16 @@
-@import '/app/common.module.scss';
-
-.formFieldGroup {
-  margin-bottom: 15px;
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: $textPrimary;
-  }
-
-  .formFieldInput,
-  .formFieldTextarea,
-  .formFieldSelect {
-    @extend .input;
-  }
-
-  .formFieldTextarea {
-    @extend .textarea;
-  }
+@import "/app/common.module.scss";
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
-
-/* form.module.scss */
-
 /* Form Elements */
 .input,
 .textarea,
 .dropdown {
   display: block;
+  width: 100%;
   padding: 8px;
   margin-bottom: 8px;
   font-size: 16px;
@@ -41,9 +24,14 @@
   border: 1px solid rgba(255, 255, 255, 0.19);
   outline: none;
   color: $textSecondary;
+
   &.textarea {
     resize: vertical;
   }
+}
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* Required Indicator */

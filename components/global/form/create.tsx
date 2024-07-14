@@ -42,9 +42,9 @@ const CreateTask = ({ parentId, onCancel }) => {
   };
 
   return (
-    <div>
-      <h3 className={form.title}>Create Task</h3>
+    <div className={form.formContainer}>
       <form onSubmit={handleSubmit}>
+        <h3 className={form.title}>Create Task</h3>
         <FormField
           label="Title"
           type="text"
@@ -85,24 +85,24 @@ const CreateTask = ({ parentId, onCancel }) => {
           options={Object.values(TaskStatus)}
           required
         />
-        <div className={form.buttonGroup}>
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.05 }}
-            className={common.saveButton}
-          >
-            Create Task
-          </motion.button>
-          <motion.button
-            type="button"
-            whileHover={{ scale: 1.05 }}
-            className={common.deleteButton}
-            onClick={onCancel}
-          >
-            Cancel
-          </motion.button>
-        </div>
       </form>
+      <div className={form.buttonGroup}>
+        <motion.button
+          type="submit"
+          whileHover={{ scale: 1.05 }}
+          className={common.saveButton}
+        >
+          Create Task
+        </motion.button>
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.05 }}
+          className={common.deleteButton}
+          onClick={onCancel}
+        >
+          Cancel
+        </motion.button>
+      </div>
     </div>
   );
 };
@@ -137,9 +137,9 @@ const CreateProject = ({ onCancel }) => {
   };
 
   return (
-    <div>
-      <h3 className={form.title}>Create Project</h3>
+    <div className={form.formContainer}>
       <form onSubmit={handleSubmit}>
+        <h3 className={form.title}>Create Project</h3>
         <FormField
           label="Title"
           type="text"
@@ -164,24 +164,24 @@ const CreateProject = ({ onCancel }) => {
           required
           options={undefined}
         />
-        <div className={form.buttonGroup}>
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.05 }}
-            className={common.saveButton}
-          >
-            Create Project
-          </motion.button>
-          <motion.button
-            type="button"
-            whileHover={{ scale: 1.05 }}
-            className={common.deleteButton}
-            onClick={onCancel}
-          >
-            Cancel
-          </motion.button>
-        </div>
       </form>
+      <div className={form.buttonGroup}>
+        <motion.button
+          type="submit"
+          whileHover={{ scale: 1.05 }}
+          className={common.saveButton}
+        >
+          Create Project
+        </motion.button>
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.05 }}
+          className={common.deleteButton}
+          onClick={onCancel}
+        >
+          Cancel
+        </motion.button>
+      </div>
     </div>
   );
 };
@@ -213,9 +213,10 @@ const CreateFeature = ({ parentId, onCancel }) => {
   };
 
   return (
-    <div>
-      <h3 className={form.title}>Create Feature</h3>
+    <div className={form.formContainer}>
       <form onSubmit={handleSubmit}>
+        {" "}
+        <h3 className={form.title}>Create Feature</h3>
         <FormField
           label="Title"
           type="text"
@@ -232,24 +233,24 @@ const CreateFeature = ({ parentId, onCancel }) => {
           required
           options={undefined}
         />
-        <div className={form.buttonGroup}>
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.05 }}
-            className={common.saveButton}
-          >
-            Create Feature
-          </motion.button>
-          <motion.button
-            type="button"
-            whileHover={{ scale: 1.05 }}
-            className={common.deleteButton}
-            onClick={onCancel}
-          >
-            Cancel
-          </motion.button>
-        </div>
       </form>
+      <div className={form.buttonGroup}>
+        <motion.button
+          type="submit"
+          whileHover={{ scale: 1.05 }}
+          className={common.saveButton}
+        >
+          Create Feature
+        </motion.button>
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.05 }}
+          className={common.deleteButton}
+          onClick={onCancel}
+        >
+          Cancel
+        </motion.button>
+      </div>
     </div>
   );
 };

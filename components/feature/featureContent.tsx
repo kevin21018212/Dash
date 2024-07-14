@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import Modal from "../global/function/modal";
 import TaskContent from "../task/taskContent";
 import CreateTask from "../global/form/create";
+import { useAtom } from "jotai/react";
+import { modalAtom } from "@/app/utils/modalAtom";
 
 interface FeatureContentProps {
   feature: Feature;
@@ -15,11 +17,14 @@ interface FeatureContentProps {
 const FeatureContent: React.FC<FeatureContentProps> = ({ feature }) => {
   const [isEditing, setIsEditing] = useState(false);
   const featureRef = useRef<HTMLDivElement>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openModal, setOpenModal] = useAtom(modalAtom);
+
   const [showCreateTask, setShowCreateTask] = useState(false);
   if (isEditing) {
     return <EditFeature feature={feature} setEditing={setIsEditing} />;
   }
+
+  const isModalOpen = openModal != null;
 
   return (
     <div ref={featureRef} className={styles.card}>
@@ -34,14 +39,14 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ feature }) => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         className={styles.clickableArea}
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => setOpenModal(feature)}
       >
         <p>Click here to view tasks</p>
       </motion.div>
       <FiEdit className={styles.editIcon} onClick={() => setIsEditing(true)} />
 
       {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <Modal isOpen={isModalOpen} onClose={() => setOpenModal(null)}>
           <div className={styles.taskGrid}>
             <motion.div
               whileHover={{ scale: 1.1 }}
@@ -50,14 +55,14 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ feature }) => {
             >
               + Create Task
             </motion.div>
-            {feature.tasks.map((task, index) => (
+            {openModal.tasks.map((task, index) => (
               <TaskContent task={task} key={index} />
             ))}
           </div>
           {showCreateTask && (
             <CreateTask
-              parentId={feature.feature_id}
-              onCancel={() => setIsModalOpen(false)}
+              parentId={openModal.feature_id}
+              onCancel={() => setOpenModal(null)}
             />
           )}
         </Modal>

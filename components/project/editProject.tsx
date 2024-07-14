@@ -8,7 +8,7 @@ import { useContentHandlers } from "@/app/utils/contentHandlers";
 
 interface EditProjectProps {
   project: Project;
-
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
   backgroundImageStyle: React.CSSProperties;
 }
 

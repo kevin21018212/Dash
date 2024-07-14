@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./edit.module.scss";
 
 export const EditableDropdown = ({ value, options, onSave, optionstwo }) => {

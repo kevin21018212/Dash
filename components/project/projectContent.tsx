@@ -11,7 +11,6 @@ import { CreateFeature } from "../global/form/create";
 const ProjectContent: React.FC = () => {
   const [project, setProject] = useAtom(projectAtom);
   const [isEditing, setIsEditing] = useState(false);
-
   const projectInfoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,6 +43,7 @@ const ProjectContent: React.FC = () => {
         <EditProject
           project={project}
           backgroundImageStyle={backgroundImageStyle}
+          setIsEditing={setIsEditing}
         />
       ) : (
         <div className={common.pageContainer}>

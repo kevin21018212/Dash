@@ -1,4 +1,4 @@
-@import '/app/common.module.scss';
+@import "/app/common.module.scss";
 
 .editableDropdown {
   display: flex;
@@ -50,7 +50,7 @@
     resize: vertical;
     max-width: 85%;
     @extend .bgGlass;
-    color: $textPrimary;
+    color: $textInverse;
   }
   textarea:focus {
     box-shadow: none;
