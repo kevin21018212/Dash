@@ -116,33 +116,20 @@ export const useContentHandlers = () => {
     }));
   };
 
-  const saveTask = (
-    task: Task,
-    editedTask: Task,
-    setIsEditing: (value: boolean) => void,
-    setIsEditModalOpen: (value: boolean) => void
-  ) => {
-    handleSave(
-      `/api/task?taskId=${task.task_id}`,
-      editedTask,
-      (prev) => ({
-        ...prev,
-        features: prev.features.map((feature) =>
-          feature.feature_id === task.feature_id
-            ? {
-                ...feature,
-                tasks: feature.tasks.map((t) =>
-                  t.task_id === editedTask.task_id ? editedTask : t
-                ),
-              }
-            : feature
-        ),
-      }),
-      () => {
-        setIsEditing(false);
-        setIsEditModalOpen(false);
-      }
-    );
+  const saveTask = (task: Task, editedTask: Task) => {
+    handleSave(`/api/task?taskId=${task.task_id}`, editedTask, (prev) => ({
+      ...prev,
+      features: prev.features.map((feature) =>
+        feature.feature_id === task.feature_id
+          ? {
+              ...feature,
+              tasks: feature.tasks.map((t) =>
+                t.task_id === editedTask.task_id ? editedTask : t
+              ),
+            }
+          : feature
+      ),
+    }));
   };
 
   const deleteTask = (task: Task) => {
