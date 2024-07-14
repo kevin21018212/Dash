@@ -162,7 +162,7 @@ export const useContentHandlers = () => {
   const saveProject = (
     project: Project,
     editedProject: Project,
-    setIsEditing: (value: boolean) => void
+    setIsEditing: any
   ) => {
     handleSave(
       `/api/project?projectId=${project.project_id}`,
