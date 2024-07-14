@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "./homepage.module.scss";
 import common from "./common.module.scss";
-import CreateComponent from "../components/global/form/create";
+import CreateComponent, {
+  CreateProject,
+} from "../components/global/form/create";
 import ProjectCard from "../components/project/projectCard";
 import { Project } from "@prisma/client";
 
@@ -48,11 +50,7 @@ const Page = () => {
           </div>
           <div className={common.gridDisplayContainer}>
             <div className={styles.createCard}>
-              <CreateComponent
-                type="project"
-                parentId={null}
-                onCancel={undefined}
-              />
+              <CreateProject onCancel={undefined} />
             </div>
             {projects.map((project) => (
               <ProjectCard key={project.project_id} project={project} />

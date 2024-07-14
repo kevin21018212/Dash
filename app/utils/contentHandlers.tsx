@@ -8,9 +8,14 @@ import {
   dbFeature,
   dbProject,
 } from "@/app/types";
+import { TaskStatus } from "./enums";
 
-export const handleRequest = async (url, method, body) => {
-  const options = {
+export const handleRequest = async (
+  url: string,
+  method: string,
+  body?: any
+) => {
+  const options: RequestInit = {
     method,
     headers: {
       "Content-Type": "application/json",
@@ -20,12 +25,12 @@ export const handleRequest = async (url, method, body) => {
 
   const response = await fetch(url, options);
 
-  if (response.ok) {
-    return await response.json();
-  } else {
+  if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || "An error occurred");
   }
+
+  return response.json();
 };
 
 export const useContentHandlers = () => {
@@ -39,10 +44,8 @@ export const useContentHandlers = () => {
   ) => {
     try {
       await handleRequest(url, "PUT", data);
-      setProject((prev) => updateStateCallback(prev));
-      if (afterSaveCallback) {
-        afterSaveCallback();
-      }
+      setProject(updateStateCallback);
+      afterSaveCallback?.();
     } catch (error) {
       console.error("Error saving data:", error);
     }
@@ -54,11 +57,9 @@ export const useContentHandlers = () => {
     afterDeleteCallback?: () => void
   ) => {
     try {
-      await handleRequest(url, "DELETE", null);
-      setProject((prev) => updateStateCallback(prev));
-      if (afterDeleteCallback) {
-        afterDeleteCallback();
-      }
+      await handleRequest(url, "DELETE");
+      setProject(updateStateCallback);
+      afterDeleteCallback?.();
     } catch (error) {
       console.error("Error deleting data:", error);
     }
@@ -73,19 +74,17 @@ export const useContentHandlers = () => {
     try {
       const createdData = await handleRequest(url, "POST", data);
       setProject((prev) => updateStateCallback(prev, createdData));
-      if (afterCreateCallback) {
-        afterCreateCallback();
-      }
+      afterCreateCallback?.();
     } catch (error) {
       console.error("Error creating data:", error);
     }
   };
 
-  const handleFieldChange = (
-    field: keyof any,
+  const handleFieldChange = <T,>(
+    field: keyof T,
     value: any,
-    state: any,
-    setState: (data: any) => void
+    state: T,
+    setState: (data: T) => void
   ) => {
     setState({ ...state, [field]: value });
   };
@@ -98,23 +97,23 @@ export const useContentHandlers = () => {
     handleSave(
       `/api/feature?featureId=${feature.feature_id}`,
       editedFeature,
-      (prev) => {
-        const updatedFeatures = prev.features.map((f) =>
+      (prev) => ({
+        ...prev,
+        features: prev.features.map((f) =>
           f.feature_id === editedFeature.feature_id ? editedFeature : f
-        );
-        return { ...prev, features: updatedFeatures };
-      },
+        ),
+      }),
       () => setIsEditing(false)
     );
   };
 
   const deleteFeature = (feature: Feature) => {
-    handleDelete(`/api/feature?featureId=${feature.feature_id}`, (prev) => {
-      const updatedFeatures = prev.features.filter(
+    handleDelete(`/api/feature?featureId=${feature.feature_id}`, (prev) => ({
+      ...prev,
+      features: prev.features.filter(
         (f) => f.feature_id !== feature.feature_id
-      );
-      return { ...prev, features: updatedFeatures };
-    });
+      ),
+    }));
   };
 
   const saveTask = (
@@ -126,18 +125,19 @@ export const useContentHandlers = () => {
     handleSave(
       `/api/task?taskId=${task.task_id}`,
       editedTask,
-      (prev) => {
-        const updatedFeatures = prev.features.map((feature) => {
-          if (feature.feature_id === task.feature_id) {
-            const updatedTasks = feature.tasks.map((t) =>
-              t.task_id === editedTask.task_id ? editedTask : t
-            );
-            return { ...feature, tasks: updatedTasks };
-          }
-          return feature;
-        });
-        return { ...prev, features: updatedFeatures };
-      },
+      (prev) => ({
+        ...prev,
+        features: prev.features.map((feature) =>
+          feature.feature_id === task.feature_id
+            ? {
+                ...feature,
+                tasks: feature.tasks.map((t) =>
+                  t.task_id === editedTask.task_id ? editedTask : t
+                ),
+              }
+            : feature
+        ),
+      }),
       () => {
         setIsEditing(false);
         setIsEditModalOpen(false);
@@ -146,18 +146,17 @@ export const useContentHandlers = () => {
   };
 
   const deleteTask = (task: Task) => {
-    handleDelete(`/api/task?taskId=${task.task_id}`, (prev) => {
-      const updatedFeatures = prev.features.map((feature) => {
-        if (feature.feature_id === task.feature_id) {
-          const updatedTasks = feature.tasks.filter(
-            (t) => t.task_id !== task.task_id
-          );
-          return { ...feature, tasks: updatedTasks };
-        }
-        return feature;
-      });
-      return { ...prev, features: updatedFeatures };
-    });
+    handleDelete(`/api/task?taskId=${task.task_id}`, (prev) => ({
+      ...prev,
+      features: prev.features.map((feature) =>
+        feature.feature_id === task.feature_id
+          ? {
+              ...feature,
+              tasks: feature.tasks.filter((t) => t.task_id !== task.task_id),
+            }
+          : feature
+      ),
+    }));
   };
 
   const saveProject = (
@@ -233,7 +232,7 @@ export const useContentHandlers = () => {
     );
   };
 
-  const updateTaskStatus = (task: Task, status: string) => {
+  const updateTaskStatus = (task: Task, status: TaskStatus) => {
     const updatedTask = { ...task, status };
     saveTask(
       task,
