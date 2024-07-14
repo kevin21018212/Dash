@@ -1,71 +1,50 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {useContentHandlers} from '@/app/utils/contentHandlers';
-import styles from './projectContent.module.scss';
-import common from '@/app/common.module.scss';
-import FeatureContent from '../feature/featureContent';
-import {EditableField} from '../global/form/edit';
-import {FiEdit} from 'react-icons/fi';
-import CreateComponent from '../global/form/create';
-import {Project} from '@/app/types';
-import {useAtom} from 'jotai';
-import {projectAtom} from '@/app/utils/projectAtom';
+import React, { useState, useEffect, useRef } from "react";
+import styles from "./projectContent.module.scss";
+import common from "@/app/common.module.scss";
+import FeatureContent from "../feature/featureContent";
+import { FiEdit } from "react-icons/fi";
+import { useAtom } from "jotai";
+import { projectAtom } from "@/app/utils/projectAtom";
+import EditProject from "./editProject";
+import { CreateFeature } from "../global/form/create";
 
 const ProjectContent: React.FC = () => {
-  const {handleFieldChange, saveProject, deleteProject} = useContentHandlers();
   const [project, setProject] = useAtom(projectAtom);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedProject, setEditedProject] = useState<Project>(project);
+
   const projectInfoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (projectInfoRef.current && !projectInfoRef.current.contains(event.target as Node)) {
+      if (
+        projectInfoRef.current &&
+        !projectInfoRef.current.contains(event.target as Node)
+      ) {
         setIsEditing(false);
       }
     };
 
     if (isEditing) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isEditing]);
 
-  const backgroundImageStyle = project.image_url ? {backgroundImage: `url(${project.image_url})`, backgroundSize: 'cover'} : {};
+  const backgroundImageStyle = project.image_url
+    ? { backgroundImage: `url(${project.image_url})`, backgroundSize: "cover" }
+    : {};
 
   return (
     <>
       {isEditing ? (
-        <div className={common.pageContainer}>
-          <section ref={projectInfoRef} className={styles.projectInfo}>
-            <div className={styles.infoLeft} style={backgroundImageStyle}>
-              <EditableField value={editedProject.title} onSave={(value) => handleFieldChange('title', value, editedProject, setEditedProject)} />
-            </div>
-            <div className={styles.infoRight}>
-              {project.link && (
-                <a href={project.link} target='_blank' rel='noopener noreferrer' className={styles.link}>
-                  Project Link
-                </a>
-              )}
-              <EditableField
-                value={editedProject.description}
-                onSave={(value) => handleFieldChange('description', value, editedProject, setEditedProject)}
-                type='textArea'
-              />
-            </div>
-            <div className={common.actionButtons}>
-              <button onClick={() => saveProject(project, editedProject, setIsEditing)} className={common.saveButton}>
-                Save
-              </button>
-              <button onClick={() => deleteProject(project)} className={common.deleteButton}>
-                Delete
-              </button>
-            </div>
-          </section>
-        </div>
+        <EditProject
+          project={project}
+          backgroundImageStyle={backgroundImageStyle}
+        />
       ) : (
         <div className={common.pageContainer}>
           <section className={styles.projectInfo}>
@@ -74,12 +53,21 @@ const ProjectContent: React.FC = () => {
             </div>
             <div className={styles.infoRight}>
               {project.link && (
-                <a href={project.link} target='_blank' rel='noopener noreferrer' className={styles.link}>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.link}
+                >
                   Project Link
                 </a>
               )}
               <p className={styles.description}>{project.description}</p>
-              <FiEdit className={common.editIcon} color={'black'} onClick={() => setIsEditing(true)} />
+              <FiEdit
+                className={common.editIcon}
+                color={"black"}
+                onClick={() => setIsEditing(true)}
+              />
             </div>
           </section>
           <section className={styles.featuresSection}>
@@ -88,7 +76,7 @@ const ProjectContent: React.FC = () => {
             </div>
             <div className={styles.featuresGrid}>
               <div className={common.cardLarge}>
-                <CreateComponent type='feature' parentId={project.project_id} onCancel={null} />
+                <CreateFeature parentId={project.project_id} onCancel={null} />
               </div>
               {project.features.map((feature) => (
                 <FeatureContent key={feature.feature_id} feature={feature} />

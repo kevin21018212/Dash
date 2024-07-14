@@ -36,6 +36,10 @@
   top: 10px;
   left: 10px;
   cursor: pointer;
+  z-index: 19999;
+}
+.statusCircleDone {
+  background-color: $secondaryColor;
 }
 
 .bottomSection {

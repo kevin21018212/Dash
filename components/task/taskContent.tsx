@@ -32,7 +32,12 @@ const TaskContent: React.FC<TaskContentProps> = ({ task }) => {
   return (
     <>
       <motion.div whileHover={{ scale: 1.1 }} className={styles.taskDetail}>
-        <div className={styles.statusCircle} onClick={handleStatusClick}></div>
+        <div
+          className={`${styles.statusCircle} ${
+            task.status === TaskStatus.DONE ? styles.statusCircleDone : ""
+          }`}
+          onClick={handleStatusClick}
+        ></div>
         <div className={styles.topSection}>
           <p>{task.title}</p>
           <div className={styles.buttons}>
