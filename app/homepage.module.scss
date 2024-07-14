@@ -1,5 +1,5 @@
 /* homepage.module.scss */
-@import './common.module.scss';
+@import "./common.module.scss";
 
 /* Homepage specific styles */
 
@@ -27,7 +27,7 @@
 }
 
 .createCard {
-  @include card(250px);
+  @include card(250px, 350px);
 }
 
 .createProjectSection h2,

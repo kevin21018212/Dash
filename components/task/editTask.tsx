@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Task } from "@/app/types";
 import { EditableField, EditableDropdown } from "../global/form/edit";

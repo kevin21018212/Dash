@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { useContentHandlers } from "@/app/utils/contentHandlers";
 import styles from "./taskContent.module.scss";
 import common from "@/app/common.module.scss";
-
-import { TaskSize, TaskType, TaskStatus } from "@/app/utils/enums";
+import { TaskStatus } from "@/app/utils/enums";
 import { FiEdit } from "react-icons/fi";
 import { motion } from "framer-motion";
-
 import { Task } from "@/app/types";
 import EditTask from "./editTask";
 

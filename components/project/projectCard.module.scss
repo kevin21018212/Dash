@@ -1,7 +1,7 @@
-@import '/app/common.module.scss';
+@import "/app/common.module.scss";
 
 .projectCard {
-  @include card(250px);
+  @include card(250px, 350px);
   padding: 0 0px;
 }
 

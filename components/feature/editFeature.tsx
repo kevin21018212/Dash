@@ -1,3 +1,5 @@
+
+"use client"
 import React, { useState } from "react";
 import { Feature } from "@/app/types";
 import { EditableField } from "../global/form/edit";

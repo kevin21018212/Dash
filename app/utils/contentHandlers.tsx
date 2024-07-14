@@ -221,12 +221,7 @@ export const useContentHandlers = () => {
 
   const updateTaskStatus = (task: Task, status: TaskStatus) => {
     const updatedTask = { ...task, status };
-    saveTask(
-      task,
-      updatedTask,
-      () => {},
-      () => {}
-    );
+    saveTask(task, updatedTask);
   };
 
   return {

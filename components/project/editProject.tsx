@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Project } from "@/app/types";
 import { EditableField } from "../global/form/edit";
@@ -11,12 +12,12 @@ interface EditProjectProps {
   backgroundImageStyle: React.CSSProperties;
 }
 
-const { handleFieldChange, saveProject, deleteProject } = useContentHandlers();
-
 const EditProject: React.FC<EditProjectProps> = ({
   project,
   backgroundImageStyle,
 }) => {
+  const { handleFieldChange, saveProject, deleteProject } =
+    useContentHandlers();
   const [editedProject, setEditedProject] = useState<Project>(project);
   return (
     <div className={common.pageContainer}>
