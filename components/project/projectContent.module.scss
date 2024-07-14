@@ -1,4 +1,4 @@
-@import '/app/common.module.scss';
+@import "/app/common.module.scss";
 
 .projectInfo {
   margin-bottom: 32px;
@@ -26,6 +26,10 @@
     color: $textPrimary;
     margin: 0;
   }
+}
+
+.createCard {
+  @include card(300px, 375px);
 }
 
 .infoRight {

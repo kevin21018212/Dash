@@ -75,7 +75,7 @@ const ProjectContent: React.FC = () => {
               <h2 className={styles.featuresTitle}>Features</h2>
             </div>
             <div className={styles.featuresGrid}>
-              <div className={common.cardLarge}>
+              <div className={styles.createCard}>
                 <CreateFeature parentId={project.project_id} onCancel={null} />
               </div>
               {project.features.map((feature) => (
