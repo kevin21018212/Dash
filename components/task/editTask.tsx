@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Task } from "@/app/types";
 import { EditableField, EditableDropdown } from "../global/form/edit";
 import styles from "./taskContent.module.scss";
@@ -7,6 +6,7 @@ import common from "@/app/common.module.scss";
 import { useContentHandlers } from "@/app/utils/contentHandlers";
 import TaskModal from "../global/function/taskmodal";
 import { TaskType, TaskSize } from "@/app/utils/enums";
+import useClickOutside from "@/app/utils/contentFunctions";
 
 interface EditTaskProps {
   task: Task;
@@ -16,10 +16,13 @@ interface EditTaskProps {
 const EditTask: React.FC<EditTaskProps> = ({ task, onClose }) => {
   const { handleFieldChange, saveTask, deleteTask } = useContentHandlers();
   const [editedTask, setEditedTask] = useState<Task>(task);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useClickOutside(modalRef, onClose);
 
   return (
     <TaskModal isOpen={true} onClose={onClose}>
-      <div className={styles.taskDetailModal}>
+      <div ref={modalRef} className={styles.taskDetailModal}>
         <div className={styles.topSection}>
           <EditableField
             value={editedTask.title}
@@ -51,7 +54,6 @@ const EditTask: React.FC<EditTaskProps> = ({ task, onClose }) => {
           <button
             onClick={() => {
               saveTask(task, editedTask);
-
               onClose();
             }}
             className={common.saveButton}

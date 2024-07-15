@@ -1,10 +1,10 @@
-
-"use client"
-import React, { useState } from "react";
+"use client";
+import React, { useState, useRef, useEffect } from "react";
 import { Feature } from "@/app/types";
 import { EditableField } from "../global/form/edit";
 import styles from "./featureContent.module.scss";
 import { useContentHandlers } from "@/app/utils/contentHandlers";
+import useClickOutside from "@/app/utils/contentFunctions";
 
 interface EditFeatureProps {
   feature: Feature;
@@ -15,9 +15,11 @@ const EditFeature: React.FC<EditFeatureProps> = ({ feature, setEditing }) => {
   const { handleFieldChange, saveFeature, deleteFeature } =
     useContentHandlers();
   const [editedFeature, setEditedFeature] = useState<Feature>(feature);
+  const featureRef = useRef<HTMLDivElement>(null);
+  useClickOutside(featureRef, () => setEditing(false));
 
   return (
-    <div className={styles.card}>
+    <div ref={featureRef} className={styles.card}>
       <div className={styles.featureInfo}>
         <EditableField
           value={editedFeature.title}
@@ -42,7 +44,7 @@ const EditFeature: React.FC<EditFeatureProps> = ({ feature, setEditing }) => {
         <button
           onClick={() => {
             saveFeature(feature, editedFeature, setEditing);
-            setEditing(false); // Assuming you want to close the edit mode on save
+            setEditing(false);
           }}
           className={styles.saveButton}
         >
@@ -51,7 +53,7 @@ const EditFeature: React.FC<EditFeatureProps> = ({ feature, setEditing }) => {
         <button
           onClick={() => {
             deleteFeature(feature);
-            setEditing(false); // Assuming you want to close the edit mode on delete
+            setEditing(false);
           }}
           className={styles.deleteButton}
         >

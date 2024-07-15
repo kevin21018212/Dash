@@ -38,7 +38,7 @@ const ProjectContent: React.FC = () => {
     : {};
 
   return (
-    <>
+    <div className={common.pageContainer}>
       {isEditing ? (
         <EditProject
           project={project}
@@ -46,46 +46,44 @@ const ProjectContent: React.FC = () => {
           setIsEditing={setIsEditing}
         />
       ) : (
-        <div className={common.pageContainer}>
-          <section className={styles.projectInfo}>
-            <div className={styles.infoLeft} style={backgroundImageStyle}>
-              <h1 className={styles.title}>{project.title}</h1>
-            </div>
-            <div className={styles.infoRight}>
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.link}
-                >
-                  Project Link
-                </a>
-              )}
-              <p className={styles.description}>{project.description}</p>
-              <FiEdit
-                className={common.editIcon}
-                color={"black"}
-                onClick={() => setIsEditing(true)}
-              />
-            </div>
-          </section>
-          <section className={styles.featuresSection}>
-            <div className={common.cornerTitle}>
-              <h2 className={styles.featuresTitle}>Features</h2>
-            </div>
-            <div className={styles.featuresGrid}>
-              <div className={styles.createCard}>
-                <CreateFeature parentId={project.project_id} onCancel={null} />
-              </div>
-              {project.features.map((feature) => (
-                <FeatureContent key={feature.feature_id} feature={feature} />
-              ))}
-            </div>
-          </section>
-        </div>
+        <section className={styles.projectInfo}>
+          <div className={styles.infoLeft} style={backgroundImageStyle}>
+            <h1 className={styles.title}>{project.title}</h1>
+          </div>
+          <div className={styles.infoRight}>
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                Project Link
+              </a>
+            )}
+            <p className={styles.description}>{project.description}</p>
+            <FiEdit
+              className={common.editIcon}
+              color={"black"}
+              onClick={() => setIsEditing(true)}
+            />
+          </div>
+        </section>
       )}
-    </>
+      <section className={styles.featuresSection}>
+        <div className={common.cornerTitle}>
+          <h2 className={styles.featuresTitle}>Features</h2>
+        </div>
+        <div className={styles.featuresGrid}>
+          <div className={styles.createCard}>
+            <CreateFeature parentId={project.project_id} onCancel={null} />
+          </div>
+          {project.features.map((feature) => (
+            <FeatureContent key={feature.feature_id} feature={feature} />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 };
 
