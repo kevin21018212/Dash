@@ -11,8 +11,7 @@
 .dropdown {
   display: block;
   width: 100%;
-  padding: 8px;
-  margin-bottom: 8px;
+  padding: 5px;
   font-size: 16px;
   border: none;
   box-sizing: border-box;
@@ -24,29 +23,29 @@
   border: 1px solid rgba(255, 255, 255, 0.19);
   outline: none;
   color: $textSecondary;
+}
 
-  &.textarea {
-    resize: vertical;
+.dropdownGroup {
+  display: flex;
+
+  .formFieldSelect {
+    width: 7vw;
   }
 }
 .buttonGroup {
+  margin-right: -1vw;
+  margin-top: 1vh;
   display: flex;
   justify-content: flex-end;
 }
 
-/* Required Indicator */
-.required {
-  color: $secondaryColor;
-  margin-left: 4px;
-}
-
 /* Form Field Group */
 .formFieldGroup {
-  margin-bottom: 15px;
+  margin-bottom: 0.5vh;
 
   label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.25vh;
     font-weight: bold;
     color: $textPrimary;
   }

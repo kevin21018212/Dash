@@ -59,11 +59,14 @@ const FeatureContent: React.FC<FeatureContentProps> = ({ feature }) => {
               <TaskContent task={task} key={index} />
             ))}
           </div>
+
           {showCreateTask && (
-            <CreateTask
-              parentId={openModal.feature_id}
-              onCancel={() => setOpenModal(null)}
-            />
+            <div className={styles.createCard}>
+              <CreateTask
+                parentId={openModal.feature_id}
+                onCancel={() => setOpenModal(null)}
+              />
+            </div>
           )}
         </Modal>
       )}

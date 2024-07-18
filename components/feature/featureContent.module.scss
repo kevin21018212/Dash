@@ -1,4 +1,4 @@
-@import '/app/common.module.scss';
+@import "/app/common.module.scss";
 
 .card {
   @include card(300px, 375px);
@@ -61,7 +61,9 @@
     background-color: $primary-hover-color;
   }
 }
-
+.createCard {
+  @include card(250px, 350px);
+}
 .actionButtons {
   @extend .actionButtons;
 }

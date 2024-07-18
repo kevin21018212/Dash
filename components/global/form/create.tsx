@@ -50,7 +50,7 @@ const CreateTask = ({ parentId, onCancel }) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
+          required={false}
           options={undefined}
         />
         <FormField
@@ -58,7 +58,7 @@ const CreateTask = ({ parentId, onCancel }) => {
           type="textarea"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
+          required={false}
           options={undefined}
         />
         <FormField
@@ -67,24 +67,26 @@ const CreateTask = ({ parentId, onCancel }) => {
           value={taskType}
           onChange={(e) => setTaskType(e.target.value)}
           options={Object.values(TaskType)}
-          required
+          required={false}
         />
-        <FormField
-          label="Task Size"
-          type="select"
-          value={taskSize}
-          onChange={(e) => setTaskSize(e.target.value)}
-          options={Object.values(TaskSize)}
-          required
-        />
-        <FormField
-          label="Task Status"
-          type="select"
-          value={taskStatus}
-          onChange={(e) => setTaskStatus(e.target.value)}
-          options={Object.values(TaskStatus)}
-          required
-        />
+        <div className={form.dropdownGroup}>
+          <FormField
+            label="Task Size"
+            type="select"
+            value={taskSize}
+            onChange={(e) => setTaskSize(e.target.value)}
+            options={Object.values(TaskSize)}
+            required={false}
+          />
+          <FormField
+            label="Task Status"
+            type="select"
+            value={taskStatus}
+            onChange={(e) => setTaskStatus(e.target.value)}
+            options={Object.values(TaskStatus)}
+            required={false}
+          />
+        </div>
       </form>
       <div className={form.buttonGroup}>
         <motion.button
@@ -145,7 +147,7 @@ const CreateProject = ({ onCancel }) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
+          required={false}
           options={undefined}
         />
         <FormField
@@ -153,7 +155,7 @@ const CreateProject = ({ onCancel }) => {
           type="textarea"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
+          required={false}
           options={undefined}
         />
         <FormField
@@ -161,7 +163,7 @@ const CreateProject = ({ onCancel }) => {
           type="url"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          required
+          required={false}
           options={undefined}
         />
       </form>
@@ -222,7 +224,7 @@ const CreateFeature = ({ parentId, onCancel }) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          required
+          required={false}
           options={undefined}
         />
         <FormField
@@ -230,7 +232,7 @@ const CreateFeature = ({ parentId, onCancel }) => {
           type="textarea"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
+          required={false}
           options={undefined}
         />
       </form>
