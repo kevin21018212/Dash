@@ -1,14 +1,19 @@
 /* Variables */
+/* Variables */
 $primaryColor: #8cdc9e;
 $primary-hover-color: #72b380;
-$secondaryColor: #eeff99;
-$secondaryHoverColor: #d6e68a;
-$accentcolor: #00a9a5;
-$accentSecondaryColor: #a8cecf;
+$secondaryColor: #f7f4a9;
+$secondaryHoverColor: #e4da89;
+$accentColor: #00a9a5;
+$accentSecondaryColor: #74c4c3;
 
 $textPrimary: #f0f0f0;
-$textSecondary: #e4e4e4;
+$textSecondary: #d0d0d0;
 $textInverse: #0d0d0d;
+
+$containerBackground: #28343b;
+$boxBackground: #1b3c66;
+
 $boxShadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 $buttonShadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 $arrowShadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -76,8 +81,7 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
 }
 
 /* Containers */
-$containerBackground: #28343b;
-$boxBackground: #134074;
+
 .container {
   margin: 0 auto;
   padding: 1rem;
@@ -217,7 +221,7 @@ $boxBackground: #134074;
 }
 
 .deleteButton {
-  background-color: $accentcolor;
+  background-color: $accentColor;
   color: $textPrimary;
   box-shadow: $buttonShadow;
 }

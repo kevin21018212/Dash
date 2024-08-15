@@ -1,4 +1,4 @@
-@import '/app/common.module.scss';
+@import "/app/common.module.scss";
 
 .card {
   @include card(300px, 375px);
@@ -36,7 +36,7 @@
 
 .clickableArea {
   @include card(250px);
-  background-color: $accentcolor;
+  background-color: $accentColor;
   flex: 0 0 60%;
   user-select: none;
   cursor: pointer;
