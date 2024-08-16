@@ -5,8 +5,7 @@
   width: 275px;
   height: 250px;
   position: relative;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn(none, none);
 }
 
 .topSection {
@@ -43,7 +42,7 @@
 }
 
 .bottomSection {
-  @extend .flex-column;
+  @include flexColumn(none, none);
   flex-grow: 1;
   width: 90%;
   overflow-y: auto;
@@ -51,8 +50,7 @@
 
 .taskDetailModal {
   height: 100%;
-  @extend .flex-column;
-  align-items: center;
+  @include flexColumn(none, center);
   width: 100%;
   padding-left: 2.5%;
 }

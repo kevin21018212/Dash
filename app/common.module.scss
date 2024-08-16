@@ -80,6 +80,19 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
   box-shadow: $boxShadow;
 }
 
+@mixin flexColumn($justify: none, $align: none) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flexCenter($justify: center) {
+  display: flex;
+  align-items: center;
+  justify-content: $justify;
+}
+
 /* Containers */
 
 .container {
@@ -89,7 +102,7 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
 }
 
 .pageContainer {
-  @extend .flex-center-column;
+  @include flexColumn(center, center);
   width: 90vw;
   padding: 5vw;
   gap: 2rem;
@@ -133,28 +146,6 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
 }
 
 /* Flex Utilities */
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-horizontal {
-  display: flex;
-  align-items: center;
-}
-
-.flex-center-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 /* Grid Utilities */
 .gridContainer {
@@ -238,7 +229,7 @@ $topShadow: rgba(0, 0, 0, 0.25) 0px 3px 3px 0px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  @extend .flex-center;
+  @include flexCenter(center);
   &:hover {
     background-color: $primary-hover-color;
   }

@@ -26,7 +26,7 @@
 }
 
 .description {
-  flex: 1 0 40%;
+  flex: 1 0 30%;
   margin: 0px 10px;
   justify-content: flex-start;
   overflow: hidden;
@@ -37,7 +37,8 @@
 .clickableArea {
   @include card(250px);
   background-color: $accentColor;
-  flex: 0 0 60%;
+  flex: 0 0 55%;
+  margin-bottom: 10%;
   user-select: none;
   cursor: pointer;
   overflow: hidden;
