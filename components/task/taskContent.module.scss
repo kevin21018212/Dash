@@ -5,8 +5,7 @@
   width: 275px;
   height: 250px;
   position: relative;
-  display: flex;
-  flex-direction: column;
+  @include flexColumn(none, none);
 }
 
 .topSection {
@@ -36,6 +35,10 @@
   top: 10px;
   left: 10px;
   cursor: pointer;
+  z-index: 19999;
+}
+.statusCircleDone {
+  background-color: $secondaryColor;
 }
 
 .bottomSection {

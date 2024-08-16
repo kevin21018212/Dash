@@ -1,8 +1,27 @@
 /* homepage.module.scss */
 @import "./common.module.scss";
 
+.landing {
+  @include flexColumn(center, center);
+  padding: 2rem;
+  background-color: $boxBackground;
+  border-radius: 8px;
+  @extend .bg-shadow;
+  text-align: center;
+  h2 {
+    color: $textPrimary;
+  }
+  p {
+    color: $textSecondary;
+  }
+}
+
+.createCard {
+  @include card(250px, 350px);
+}
+
 .heroSection {
-  @extend .flex-center;
+  @include flexCenter(center);
   height: 100vh;
   background: linear-gradient(135deg, $primaryColor 0%, $accentColor 100%);
   color: $textInverse;
@@ -46,14 +65,14 @@
   }
 
   .featureItem {
-    @extend .flex-center-column;
+    @include flexColumn(center, center);
     font-size: 1rem;
     color: $textPrimary;
     text-align: center;
 
     .featureIcon {
-      width: 70px; /* Increased size */
-      height: 70px; /* Increased size */
+      width: 70px;
+      height: 70px;
       margin-bottom: 1rem;
     }
 

@@ -2,16 +2,14 @@
 
 .card {
   @include card(300px, 375px);
-  display: flex;
-  flex-direction: column;
+  @include flexColumn(none, none);
   position: relative;
   overflow: hidden;
   padding-bottom: 1.5%;
 }
 
 .featureInfo {
-  display: flex;
-  flex-direction: column;
+  @include flexColumn(none, none);
   min-height: 35%;
   padding-bottom: 5%;
   overflow: hidden;
@@ -36,7 +34,7 @@
 
 .clickableArea {
   @include card(250px);
-  background-color: $accentColor;
+  background-color: $accentcolor;
   flex: 0 0 60%;
   user-select: none;
   cursor: pointer;
@@ -61,7 +59,9 @@
     background-color: $primary-hover-color;
   }
 }
-
+.createCard {
+  @include card(250px, 350px);
+}
 .actionButtons {
   @extend .actionButtons;
 }
