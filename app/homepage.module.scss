@@ -1,24 +1,62 @@
 /* homepage.module.scss */
 @import "./common.module.scss";
+@import "./common.module.scss";
 
-/* Homepage specific styles */
-
-.landing {
-  @extend .flex-center-column;
+.heroSection {
+  @extend .flex-center;
+  height: 100vh;
+  background: linear-gradient(135deg, $primaryColor 0%, $accentColor 100%);
+  color: $textInverse;
   padding: 2rem;
-  background-color: $boxBackground;
-  border-radius: 8px;
-  @extend .bg-shadow;
-  p {
-    color: $textSecondary;
-  }
-}
-
-.favoritesSection,
-.loginSection {
-  @extend .flex-center-column;
+  border-radius: 12px;
   text-align: center;
-}
+
+  .heroContent {
+    @extend .bgShadowWhite;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    background-color: $containerBackground;
+    border-radius: 12px;
+    box-shadow: $boxShadow;
+  }
+
+  .heroTitle {
+    @extend .title;
+    font-size: 3rem;
+    color: $primaryColor;
+    margin-bottom: 1rem;
+  }
+
+  .heroSubtitle {
+    @extend .subtitle;
+    font-size: 1.5rem;
+    color: $accentColor;
+    margin-bottom: 2rem;
+  }
+
+  .featuresContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .featureItem {
+    @extend .flex-center-column;
+    font-size: 1rem;
+    color: $textPrimary;
+    text-align: center;
+
+    .featureIcon {
+      width: 70px; /* Increased size */
+      height: 70px; /* Increased size */
+      margin-bottom: 1rem;
+    }
 
 .favoritesSection h2,
 .loginSection h2 {
@@ -42,7 +80,9 @@
   border: 1px solid #333;
   border-radius: 0.25rem;
 
-  &:hover {
-    background-color: #634e3e;
+    &:hover {
+      background-color: darken($accentColor, 10%);
+      transform: translateY(-3px);
+    }
   }
 }
