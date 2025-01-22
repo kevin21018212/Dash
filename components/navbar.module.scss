@@ -13,7 +13,7 @@
 
 .mainLinksContainer {
   height: 100%;
-  @include flexCenter();
+  @include flexCenter(flex-start);
   width: 30%;
 }
 

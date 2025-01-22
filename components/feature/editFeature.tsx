@@ -12,8 +12,7 @@ interface EditFeatureProps {
 }
 
 const EditFeature: React.FC<EditFeatureProps> = ({ feature, setEditing }) => {
-  const { handleFieldChange, saveFeature, deleteFeature } =
-    useContentHandlers();
+  const { handleFieldChange, saveFeature, deleteFeature } = useContentHandlers();
   const [editedFeature, setEditedFeature] = useState<Feature>(feature);
   const featureRef = useRef<HTMLDivElement>(null);
   useClickOutside(featureRef, () => setEditing(false));
@@ -23,20 +22,11 @@ const EditFeature: React.FC<EditFeatureProps> = ({ feature, setEditing }) => {
       <div className={styles.featureInfo}>
         <EditableField
           value={editedFeature.title}
-          onSave={(value) =>
-            handleFieldChange("title", value, editedFeature, setEditedFeature)
-          }
+          onSave={(value) => handleFieldChange("title", value, editedFeature, setEditedFeature)}
         />
         <EditableField
           value={editedFeature.description}
-          onSave={(value) =>
-            handleFieldChange(
-              "description",
-              value,
-              editedFeature,
-              setEditedFeature
-            )
-          }
+          onSave={(value) => handleFieldChange("description", value, editedFeature, setEditedFeature)}
           type="textArea"
         />
       </div>

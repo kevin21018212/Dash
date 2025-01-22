@@ -32,13 +32,13 @@
   border-radius: 50%;
   background-color: $textPrimary;
   position: absolute;
-  top: 10px;
+  top: 17.5px;
   left: 10px;
   cursor: pointer;
   z-index: 19999;
 }
 .statusCircleDone {
-  background-color: $secondaryColor;
+  background-color: $primaryColor;
 }
 
 .bottomSection {
