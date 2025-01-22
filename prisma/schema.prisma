@@ -15,77 +15,119 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-// Define the user model
-model User {
-  user_id      Int      @id @default(autoincrement())
-  username     String   @unique
-  google_id    String   @unique
-  projects     Project[]
-  features     Feature[]
-  tasks        Task[]
+enum State {
+  BACKLOG
+  IN_PROGRESS
+  COMPLETED
 }
 
-model Project {
-  project_id   Int       @id @default(autoincrement())
-  title        String    // Title of the project
-  link         String?
-  description  String?
-  image_url    String?
-  features     Feature[]
-  user         User      @relation(fields: [user_id], references: [user_id]) // Links project to user
-  user_id      Int
+// ----------------------
+// GAMES
+// ----------------------
+model Game {
+  id                  String   @id @default(uuid())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Shared fields
+  title               String
+  genre               String?
+  tags                String[] @db.VarChar(250) // Postgres array example
+  state               State
+  image               String?
+  completionPercentage Int?    // if state == IN_PROGRESS
+  reviewScore         Int?     // if state == COMPLETED
+  timesCompleted      Int?     // if state == COMPLETED
+
+  // Games-specific
+  isOneHundredPct     Boolean?
+  isCasual            Boolean?
+  platform            String?
 }
 
+// ----------------------
+// MOVIES
+// ----------------------
+model Movie {
+  id                  String   @id @default(uuid())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-// Define the feature model
-model Feature {
-  feature_id  Int      @id @default(autoincrement())
-  title        String?
-  description  String?
-  tasks        Task[]
-  project      Project  @relation(fields: [project_id], references: [project_id]) // Links feature to project
-  project_id   Int
-  user        User      @relation(fields: [user_id], references: [user_id]) // Links feature to user
-  user_id      Int
-  
+  // Shared fields
+  title               String
+  genre               String?
+  tags                String[] @db.VarChar(250)
+  state               State
+  image               String?
+  completionPercentage Int?
+  reviewScore         Int?
+  timesCompleted      Int?
+
+  // Movies-specific
+  watchOn             String?
+  runtimeMinutes      Int?
 }
 
-// Define the task model
-model Task {
-  task_id    Int      @id @default(autoincrement())
-  title        String?
-  description  String?
-  type         TaskType
-  size         TaskSize
-  user        User      @relation(fields: [user_id], references: [user_id]) // Links task to user
-  user_id      Int
-  feature     Feature?  @relation(fields: [feature_id], references: [feature_id]) // Links task to feature (optional)
-  feature_id  Int?
-  status       TaskStatus @default(TODO)
+// ----------------------
+// TV
+// ----------------------
+model TV {
+  id                  String   @id @default(uuid())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Shared fields
+  title               String
+  genre               String?
+  tags                String[] @db.VarChar(250)
+  state               State
+  image               String?
+  completionPercentage Int?
+  reviewScore         Int?
+  timesCompleted      Int?
+
+  // TV-specific
+  watchOn             String?
+  seasons             Int?
 }
 
-// Define enum types for task size and type
-enum TaskSize {
-  Easy
-  Medium
-  Hard
+// ----------------------
+// BOOK
+// ----------------------
+model Book {
+  id                  String   @id @default(uuid())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Shared fields
+  title               String
+  genre               String?
+  tags                String[] @db.VarChar(250)
+  state               State
+  image               String?
+  completionPercentage Int?
+  reviewScore         Int?
+  timesCompleted      Int?
+
+
 }
 
-enum TaskStatus {
-  TODO
-  DOING
-  DONE
-}
+// ----------------------
+// MUSIC
+// ----------------------
+model Music {
+  id                  String   @id @default(uuid())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-enum TaskType {
-  UIDesign
-  CodeRefactor
-  Animation
-  PageLayout
-  Styling
-  Component
-  APIRoute
-  Database
-  Testing
-  Deployment
+  // Shared fields
+  title               String
+  genre               String?
+  tags                String[] @db.VarChar(250)
+  state               State
+  image               String?
+  completionPercentage Int?
+  reviewScore         Int?
+  timesCompleted      Int?
+
 }
