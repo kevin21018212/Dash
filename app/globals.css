@@ -57,7 +57,7 @@ h2 {
 
 h3 {
   font-family: "Neue Montreal Bold", sans-serif;
-  color: var(--text-primary);
+  color: var(--text-inverse);
   margin: 2.5% 0;
   letter-spacing: 1.5px;
   font-size: 3rem;
@@ -65,7 +65,7 @@ h3 {
 
 h4 {
   font-family: "Monument Grotesk Medium", sans-serif;
-  color: var(--text-primary);
+  color: var(--text-inverse);
   font-size: 2rem; /* Changed from vw to rem */
   margin: 1% 0% 0% 5%;
   letter-spacing: 0.025em;
@@ -76,7 +76,7 @@ h5 {
   margin: 2.5% 0% 0% 0%;
   letter-spacing: 3px;
   font-size: 1.75rem; /* Changed from vw to rem */
-  color: var(--text-primary);
+  color: var(--text-inverse);
 }
 
 h6 {
@@ -85,7 +85,7 @@ h6 {
   margin: 0;
   margin-top: 2.5%;
   letter-spacing: 1px;
-  color: var(--text-primary);
+  color: var(--text-inverse);
 }
 
 .pageContainer {

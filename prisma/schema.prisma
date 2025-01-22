@@ -109,7 +109,6 @@ model Book {
   reviewScore         Int?
   timesCompleted      Int?
 
-
 }
 
 // ----------------------
