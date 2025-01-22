@@ -1,28 +1,27 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import React, {useEffect, useState} from 'react';
-import {useSession} from 'next-auth/react';
-import styles from './navbar.module.scss';
-import {Project} from '@prisma/client';
-import Loading from './global/function/Loading';
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import styles from "./navbar.module.scss";
+import { Project } from "@prisma/client";
 
 const Navbar = () => {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   const [projects, setProjects] = useState<Project[]>([]);
 
   const fetchProjects = async () => {
     if (session) {
       try {
-        const response = await fetch('/api/project');
+        const response = await fetch("/api/project");
         const data = await response.json();
         if (response.ok) {
           setProjects(data.projects);
         } else {
-          console.error('Error fetching projects:', data.error);
+          console.error("Error fetching projects:", data.error);
         }
       } catch (error) {
-        console.error('Fetch projects failed:', error);
+        console.error("Fetch projects failed:", error);
       }
     }
   };
@@ -38,10 +37,10 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.mainLinksContainer}>
-        <Link href='/' className={styles.navLink}>
+        <Link href="/" className={styles.navLink}>
           <h6>Home</h6>
         </Link>
-        <Link href='/Dashboard' className={styles.navLink}>
+        <Link href="/Dashboard" className={styles.navLink}>
           <h6>Dashboard</h6>
         </Link>
       </div>
